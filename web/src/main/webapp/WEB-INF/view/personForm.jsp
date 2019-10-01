@@ -44,26 +44,26 @@
                     <input type="hidden" name="id" value="<c:out value='${person.id}' />" />
                 </c:if>
                 <tr>
-                    <th>Title: </th>
+                    <th>Имя: </th>
                     <td>
                         <input type="text" name="title" size="45"
-                               value="<c:out value='${person.title}' />"
+                               value="<c:out value='${person.firstName}' />"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <th>Author: </th>
+                    <th>Фамилия: </th>
                     <td>
                         <input type="text" name="author" size="45"
-                               value="<c:out value='${book.author}' />"
+                               value="<c:out value='${person.lastName}' />"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <th>Price: </th>
+                    <th>Срок аренды: </th>
                     <td>
                         <input type="text" name="price" size="5"
-                               value="<c:out value='${person.price}' />"
+                               value="<c:out value='${person.rentDay}' />"
                         />
                     </td>
                 </tr>
