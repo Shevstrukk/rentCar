@@ -19,7 +19,7 @@ public class ControllerServlet extends HttpServlet {
     public void init() {
        // ResourceBundle resource = ResourceBundle.getBundle("db");
         //String jdbcURL = resource.getString("url");
-        String jdbcURL = "jdbc:mysql://localhost:3306/people?logger=com.mysql.cj.log.StandardLogger&profileSQL=true";
+        String jdbcURL = "jdbc:mysql://localhost:3306/people";
        // String jdbcUsername = resource.getString("user");
         String jdbcUsername = "root";
        // String jdbcPassword = resource.getString("password");
