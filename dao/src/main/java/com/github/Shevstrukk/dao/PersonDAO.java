@@ -5,6 +5,7 @@ import com.github.Shevstrukk.model.Person;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class PersonDAO {
     private String jdbcURL;
@@ -16,16 +17,28 @@ public class PersonDAO {
         this.jdbcURL = jdbcURL;
         this.jdbcUsername = jdbcUsername;
         this.jdbcPassword = jdbcPassword;
+      //  String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName + "?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        //Class.forName("com.mysql.cj.jdbc.Driver");
+
     }
     protected void connect() throws SQLException {
         if (jdbcConnection == null || jdbcConnection.isClosed()) {
+
+            jdbcConnection = DriverManager.getConnection(
+                    jdbcURL, jdbcUsername, jdbcPassword);
+         /*   ResourceBundle resource = ResourceBundle.getBundle("db");
+            String url = resource.getString("url");
+            String user = resource.getString("user");
+            String pass = resource.getString("password");
+
             try {
-                Class.forName("com.mysql.jdbc.Driver");
+               Class.forName("com.mysql.cj.jdbc.Driver");
+
             } catch (ClassNotFoundException e) {
                 throw new SQLException(e);
             }
             jdbcConnection = DriverManager.getConnection(
-                    jdbcURL, jdbcUsername, jdbcPassword);
+                    jdbcURL, jdbcUsername, jdbcPassword);*/
         }
     }
     protected void disconnect() throws SQLException {

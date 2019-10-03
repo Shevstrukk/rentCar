@@ -17,9 +17,16 @@ public class ControllerServlet extends HttpServlet {
     private PersonDAO personDAO;
 
     public void init() {
-        String jdbcURL = getServletContext().getInitParameter("jdbcURL");
+       // ResourceBundle resource = ResourceBundle.getBundle("db");
+        //String jdbcURL = resource.getString("url");
+        String jdbcURL = "jdbc:mysql://localhost:3306/people?logger=com.mysql.cj.log.StandardLogger&profileSQL=true";
+       // String jdbcUsername = resource.getString("user");
+        String jdbcUsername = "root";
+       // String jdbcPassword = resource.getString("password");
+        String jdbcPassword = "vitalij84";
+       /* String jdbcURL = getServletContext().getInitParameter("jdbcURL");
         String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
-        String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
+        String jdbcPassword = getServletContext().getInitParameter("jdbcPassword"); */
         personDAO = new PersonDAO(jdbcURL,jdbcUsername, jdbcPassword);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
