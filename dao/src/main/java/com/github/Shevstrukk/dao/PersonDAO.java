@@ -74,6 +74,19 @@ public class PersonDAO {
 
         return listPerson;
     }
+    public boolean deletePerson(Person person) throws SQLException {
+        String sql = "DELETE FROM people where person_id = ?";
+
+        connect();
+
+        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+        statement.setInt(1, person.getId());
+
+        boolean rowDeleted = statement.executeUpdate() > 0;
+        statement.close();
+        disconnect();
+        return rowDeleted;
+    }
     public boolean updatePerson(Person person) throws SQLException {
         String sql = "UPDATE person SET first_name = ?, last_name = ?, rent_day = ?";
         sql += " WHERE person_id = ?";
