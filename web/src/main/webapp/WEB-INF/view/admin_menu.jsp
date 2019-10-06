@@ -25,8 +25,8 @@
     <br><br>
     <input type="submit" value="сделать заявку">
 
-<a href="<c:url value='/addPerson' />">getForm</a>
- <a href="/WEB-INF/view/form.html">получить список</a>
+
+
 <a href="<c:url value='/logout' />">Logout</a>
 
 </body>
