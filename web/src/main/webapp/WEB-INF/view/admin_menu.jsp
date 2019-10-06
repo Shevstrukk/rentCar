@@ -15,7 +15,19 @@
 <body>
 
 <h1>Hello ADMIN!</h1>
-<a href="<c:url value='/form' />">getForm</a>
+<form action="/addPerson" method="post">
+
+    Имя: <input type="text" name="firstName">
+    <br>
+    Фамилия: <input type="text" name="lastName">
+    <br>
+    Срок аренды: <input type="number" name="rentDay">дней
+    <br><br>
+    <input type="submit" value="сделать заявку">
+
+<a href="<c:url value='/addPerson' />">getForm</a>
+ <a href="/WEB-INF/view/form.html">получить список</a>
 <a href="<c:url value='/logout' />">Logout</a>
+
 </body>
 </html>
