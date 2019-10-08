@@ -24,7 +24,7 @@ public class AddPersonServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       PersonService defaultPersonService= DefaultPersonService.getInstance();
-      List<Person> personList;
+      List<Person> personList = null;
         try {
              personList= defaultPersonService.listAllPerson();
         } catch (SQLException e) {

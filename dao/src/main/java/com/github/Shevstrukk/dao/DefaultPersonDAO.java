@@ -11,16 +11,17 @@ import java.util.ResourceBundle;
 
 public class DefaultPersonDAO implements PersonDAO{
     private static final Logger log = LoggerFactory.getLogger(DefaultPersonDAO.class);
+
     String jdbcURL;
     String jdbcUsername;
     String jdbcPassword;
 
-    private DefaultPersonDAO(){
+    public DefaultPersonDAO(){
 
-        ResourceBundle resource = ResourceBundle.getBundle("db");
-        String jdbcURL = resource.getString("url");
-        String jdbcUsername = resource.getString("user");
-        String jdbcPassword = resource.getString("password");
+        ResourceBundle resources = ResourceBundle.getBundle("db");
+         jdbcURL = resources.getString("url");
+         jdbcUsername = resources.getString("user");
+         jdbcPassword = resources.getString("password");
 
     }
     private static class SingletonHolder {
@@ -35,17 +36,12 @@ public class DefaultPersonDAO implements PersonDAO{
 
     protected void connect() throws SQLException {
 
-     /*   ResourceBundle resource = ResourceBundle.getBundle("db");
-        String jdbcURL = resource.getString("url");
-        String jdbcUsername = resource.getString("user");
-        String jdbcPassword = resource.getString("password");*/
-
         if (jdbcConnection == null || jdbcConnection.isClosed()) {
 
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+               throw new RuntimeException(e);
             }
             jdbcConnection = DriverManager.getConnection( jdbcURL, jdbcUsername, jdbcPassword);
         }
@@ -58,8 +54,9 @@ public class DefaultPersonDAO implements PersonDAO{
     }
 
     public boolean insertPerson(Person person) throws SQLException {
-        String sql = "INSERT INTO person (person_id, first_name, last_name) VALUES (?, ?, ?)";
-        connect();
+        String sql = "INSERT INTO person ( first_name, last_name, rent_day) VALUES (?, ?, ?)";
+            connect();
+
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setString(1, person.getFirstName());
@@ -76,8 +73,7 @@ public class DefaultPersonDAO implements PersonDAO{
 
         String sql = "SELECT * FROM person";
 
-        connect();
-
+            connect();
         Statement statement = jdbcConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
 
@@ -101,7 +97,8 @@ public class DefaultPersonDAO implements PersonDAO{
     public boolean deletePerson(Person person) throws SQLException {
         String sql = "DELETE FROM people where person_id = ?";
 
-        connect();
+            connect();
+
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setInt(1, person.getId());
@@ -114,7 +111,7 @@ public class DefaultPersonDAO implements PersonDAO{
     public boolean updatePerson(Person person) throws SQLException {
         String sql = "UPDATE person SET first_name = ?, last_name = ?, rent_day = ?";
         sql += " WHERE person_id = ?";
-        connect();
+            connect();
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setString(1, person.getFirstName());
@@ -131,7 +128,7 @@ public class DefaultPersonDAO implements PersonDAO{
         Person person = null;
         String sql = "SELECT * FROM person WHERE person_id = ?";
 
-        connect();
+            connect();
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setInt(1, id);
