@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
     <filter>
         <filter-name>AuthFilter</filter-name>
         <filter-class>com.github.Shevstrukk.web.filter.AuthFilter</filter-class>
@@ -13,7 +14,6 @@
         <url-pattern>/</url-pattern>
     </filter-mapping>
 
-    <!--Logout web-->
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>com.github.Shevstrukk.web.servlets.LogoutServlet</servlet-class>
@@ -23,30 +23,7 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
-    <context-param>
-        <param-name>jdbcURL</param-name>
-        <param-value>jdbc:mysql://localhost:3306/people</param-value>
-    </context-param>
 
-    <context-param>
-        <param-name>jdbcUsername</param-name>
-        <param-value>root</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>jdbcPassword</param-name>
-        <param-value>vitalij84</param-value>
-    </context-param>
-
-    <servlet>
-        <servlet-name>ControllerServlet</servlet-name>
-        <servlet-class>com.github.Shevstrukk.service.ControllerServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>ControllerServlet</servlet-name>
-        <url-pattern>/form</url-pattern>
-    </servlet-mapping>
 
 
 

@@ -94,10 +94,16 @@ public class DefaultPersonDAO implements PersonDAO{
 
         return listPerson;
     }
-    public boolean deletePerson(Person person) throws SQLException {
-        String sql = "DELETE FROM people where person_id = ?";
+    public boolean deletePerson(Person person) throws SQLException
+    {
+        String sql = "DELETE FROM person where person_id = ?";
 
+
+        try {
             connect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);

@@ -34,13 +34,21 @@
                 <td><c:out value="${person.lastName}" /></td>
                 <td><c:out value="${person.rentDay}" /></td>
                 <td>
-                    <a href="/edit?id=<c:out value='${person.id}' />">Edit</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="/delete?id=<c:out value='${person.id}' />">Delete</a>
+                    <form method="post" action="/delete">
+                        <input type="number" hidden name="id" value="${person.id}" />
+                        <input type="submit" name="delete" value="Удалить"/>
+                    </form>
+                    <form method="get" action="/update">
+                    <input type="number" hidden name="id" value="${person.id}" />
+                    <input type="submit" value="Редактированть"/>
+                    </form>
+
                 </td>
             </tr>
         </c:forEach>
     </table>
 </div>
+<a href="<c:url value='/newPerson' />">Сделать заявку</a>
+<a href="<c:url value='/logout' />">Выйти</a>
 </body>
 </html>
