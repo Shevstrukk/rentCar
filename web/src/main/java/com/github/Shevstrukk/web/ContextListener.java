@@ -24,8 +24,8 @@ public class ContextListener implements ServletContextListener {
 
         dao = new AtomicReference<>(new UserDAO());
 
-        dao.get().add(new User(1, "Pavel", "1", ADMIN));
-        dao.get().add(new User(2, "Egor", "1", USER));
+        dao.get().add(new User(1, "Vitalij", "1", ADMIN));
+        dao.get().add(new User(2, "Vova", "1", USER));
 
         final ServletContext servletContext =
                 servletContextEvent.getServletContext();

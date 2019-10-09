@@ -15,12 +15,7 @@
 <body>
 <center>
     <h1>Person Management</h1>
-    <h2>
-        <a href="/new">Add New Book</a>
-        &nbsp;&nbsp;&nbsp;
-        <a href="/list">List All Books</a>
 
-    </h2>
 </center>
 <div align="center">
     <table border="1" cellpadding="5">
@@ -32,20 +27,28 @@
             <th>Аренда(дн)</th>
             <th>Actions</th>
         </tr>
-        <c:forEach var="person" items="${listPerson}">
+        <c:forEach var="person" items="${personList}">
             <tr>
                 <td><c:out value="${person.id}" /></td>
                 <td><c:out value="${person.firstName}" /></td>
                 <td><c:out value="${person.lastName}" /></td>
                 <td><c:out value="${person.rentDay}" /></td>
                 <td>
-                    <a href="/edit?id=<c:out value='${person.id}' />">Edit</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="/delete?id=<c:out value='${person.id}' />">Delete</a>
+                    <form method="post" action="/delete">
+                        <input type="number" hidden name="id" value="${person.id}" />
+                        <input type="submit" name="delete" value="Удалить"/>
+                    </form>
+                    <form method="get" action="/update">
+                    <input type="number" hidden name="id" value="${person.id}" />
+                    <input type="submit" value="Редактированть"/>
+                    </form>
+
                 </td>
             </tr>
         </c:forEach>
     </table>
 </div>
+<a href="<c:url value='/newPerson' />">Сделать заявку</a>
+<a href="<c:url value='/logout' />">Выйти</a>
 </body>
 </html>
