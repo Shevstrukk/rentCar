@@ -47,7 +47,7 @@
 </form>
 <a href="<c:url value='/getPerson' />">Получить список</a>
 
-<a href="<c:url value='/logout' />">Logout</a>
+<a href="<c:url value='/logout' />">Выйти</a>
 
 </body>
 </html>
