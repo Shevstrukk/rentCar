@@ -14,17 +14,36 @@
 </head>
 <body>
 
-<h1>Hello ADMIN!</h1>
-<form action="/addPerson" method="post">
+<h2>Hello Vitalij!</h2>
 
-    Имя: <input type="text" name="firstName">
-    <br>
-    Фамилия: <input type="text" name="lastName">
-    <br>
-    Срок аренды: <input type="number" name="rentDay">дней
-    <br><br>
-    <input type="submit" value="сделать заявку">
+<form method="post" action="/addPerson" >
 
+    <table border="1" cellpadding="5">
+
+        <tr>
+            <th>Имя: </th>
+            <td>
+                <input type="text" name="firstName" size="45" />
+            </td>
+        </tr>
+        <tr>
+            <th>Фамилия: </th>
+            <td>
+                <input type="text" name="lastName" size="45" />
+            </td>
+        </tr>
+        <tr>
+            <th>Срок аренды(дней): </th>
+            <td>
+                <input type="number" name="rentDay" size="5"  />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input type="submit" value="Сделать заявку" />
+            </td>
+        </tr>
+    </table>
 </form>
 <a href="<c:url value='/getPerson' />">Получить список</a>
 

@@ -21,7 +21,7 @@
             </td>
         </tr>
         <tr>
-            <th>Срок аренды: </th>
+            <th>Срок аренды(дней): </th>
             <td>
                 <input type="number" name="rentDay" size="5"   />
             </td>
@@ -34,5 +34,7 @@
     </table>
 </form>
 <a href="<c:url value='/getPerson' />">Получить список</a>
+<br>
+<a href="<c:url value='/logout' />">Logout</a>
 </body>
 </html>

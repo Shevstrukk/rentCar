@@ -25,7 +25,8 @@
             <th>Имя</th>
             <th>Фамилия</th>
             <th>Аренда(дн)</th>
-            <th>Actions</th>
+            <th>Удалить</th>
+            <th>Редактировать</th>
         </tr>
         <c:forEach var="person" items="${personList}">
             <tr>
@@ -38,6 +39,8 @@
                         <input type="number" hidden name="id" value="${person.id}" />
                         <input type="submit" name="delete" value="Удалить"/>
                     </form>
+                </td>
+                <td>
                     <form method="get" action="/update">
                     <input type="number" hidden name="id" value="${person.id}" />
                     <input type="submit" value="Редактированть"/>
@@ -48,7 +51,9 @@
         </c:forEach>
     </table>
 </div>
+<br>
 <a href="<c:url value='/newPerson' />">Сделать заявку</a>
+<br>
 <a href="<c:url value='/logout' />">Выйти</a>
 </body>
 </html>
