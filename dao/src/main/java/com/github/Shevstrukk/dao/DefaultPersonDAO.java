@@ -53,20 +53,31 @@ public class DefaultPersonDAO implements PersonDAO{
         }
     }
 
-    public boolean insertPerson(Person person) throws SQLException {
+    public Person insertPerson(Person person)  {
         String sql = "INSERT INTO person ( first_name, last_name, rent_day) VALUES (?, ?, ?)";
+        try {
             connect();
-
 
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setString(1, person.getFirstName());
         statement.setString(2, person.getLastName());
         statement.setFloat(3, person.getRentDay());
 
-        boolean rowInserted = statement.executeUpdate() > 0;
+        //boolean rowInserted =
+                statement.executeUpdate();
         statement.close();
         disconnect();
-        return rowInserted;
+      //  return rowInserted;
+            final ResultSet generatedKeys = statement.getGeneratedKeys();
+            generatedKeys.next();
+            final long id = generatedKeys.getLong(1);
+            final Person personInsert = new Person((int)id, person.getFirstName(), person.getLastName(), person.getRentDay());
+            log.info("salary saved: {}", personInsert);
+            return person;
+        }  catch (SQLException e){
+            log.error("fail to insert person salary:{}", person, e);
+            throw new RuntimeException(e);
+        }
     }
     public List<Person> listAllPerson() throws SQLException {
         List<Person> listPerson = new ArrayList<>();
