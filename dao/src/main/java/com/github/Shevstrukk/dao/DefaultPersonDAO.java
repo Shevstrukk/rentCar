@@ -9,21 +9,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class DefaultPersonDAO implements PersonDAO{
+public class DefaultPersonDAO implements PersonDAO {
     private static final Logger log = LoggerFactory.getLogger(DefaultPersonDAO.class);
 
     String jdbcURL;
     String jdbcUsername;
     String jdbcPassword;
 
-    public DefaultPersonDAO(){
+    public DefaultPersonDAO() {
 
         ResourceBundle resources = ResourceBundle.getBundle("db");
-         jdbcURL = resources.getString("url");
-         jdbcUsername = resources.getString("user");
-         jdbcPassword = resources.getString("password");
+        jdbcURL = resources.getString("url");
+        jdbcUsername = resources.getString("user");
+        jdbcPassword = resources.getString("password");
 
     }
+
     private static class SingletonHolder {
         static final PersonDAO HOLDER_INSTANCE = new DefaultPersonDAO();
     }
@@ -41,9 +42,9 @@ public class DefaultPersonDAO implements PersonDAO{
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
             } catch (ClassNotFoundException e) {
-               throw new RuntimeException(e);
+                throw new RuntimeException(e);
             }
-            jdbcConnection = DriverManager.getConnection( jdbcURL, jdbcUsername, jdbcPassword);
+            jdbcConnection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
         }
     }
 
@@ -53,100 +54,108 @@ public class DefaultPersonDAO implements PersonDAO{
         }
     }
 
-    public Person insertPerson(Person person)  {
+    public Person insertPerson(Person person) {
         String sql = "INSERT INTO person ( first_name, last_name, rent_day) VALUES (?, ?, ?)";
         try {
             connect();
-
-        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        statement.setString(1, person.getFirstName());
-        statement.setString(2, person.getLastName());
-        statement.setFloat(3, person.getRentDay());
-
-        //boolean rowInserted =
-                statement.executeUpdate();
-        statement.close();
-        disconnect();
-      //  return rowInserted;
+            PreparedStatement statement = jdbcConnection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, person.getFirstName());
+            statement.setString(2, person.getLastName());
+            statement.setFloat(3, person.getRentDay());
+            //boolean rowInserted =
+            statement.executeUpdate();
+            //  return rowInserted;
             final ResultSet generatedKeys = statement.getGeneratedKeys();
             generatedKeys.next();
-            final long id = generatedKeys.getLong(1);
-            final Person personInsert = new Person((int)id, person.getFirstName(), person.getLastName(), person.getRentDay());
+            final int id = generatedKeys.getInt(1);
+            final Person personInsert = new Person(id, person.getFirstName(), person.getLastName(), person.getRentDay());
             log.info("salary saved: {}", personInsert);
+            statement.close();
+            disconnect();
             return person;
-        }  catch (SQLException e){
+        } catch (SQLException e) {
             log.error("fail to insert person salary:{}", person, e);
             throw new RuntimeException(e);
         }
     }
-    public List<Person> listAllPerson() throws SQLException {
+
+    public List<Person> listAllPerson() {
         List<Person> listPerson = new ArrayList<>();
-
         String sql = "SELECT * FROM person";
-
-            connect();
-        Statement statement = jdbcConnection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
-
-        while (resultSet.next()) {
-            int id = resultSet.getInt("person_id");
-            String firstName = resultSet.getString("first_name");
-            String lastName = resultSet.getString("last_name");
-            int rentDay = resultSet.getInt("rent_day");
-
-            Person person = new Person(id, firstName, lastName, rentDay);
-            listPerson.add(person);
-        }
-
-        resultSet.close();
-        statement.close();
-
-        disconnect();
-
-        return listPerson;
-    }
-    public boolean deletePerson(Person person) throws SQLException
-    {
-        String sql = "DELETE FROM person where person_id = ?";
-
-
         try {
             connect();
+            Statement statement = jdbcConnection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("person_id");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                int rentDay = resultSet.getInt("rent_day");
+
+                Person person = new Person(id, firstName, lastName, rentDay);
+                listPerson.add(person);
+                log.info("person saved: {}", person);
+            }
+            resultSet.close();
+            statement.close();
+
+            disconnect();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("fail return Listperson:{}", listPerson, e);
+            throw new RuntimeException();
         }
+        return listPerson;
+    }
 
-
+    public boolean deletePerson(Person person)  {
+        String sql = "DELETE FROM person where person_id = ?";
+        boolean rowDeleted=false;
+        try {
+            connect();
+        //} catch (SQLException e) {
+           //  e.printStackTrace();
+     //   }
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setInt(1, person.getId());
-
-        boolean rowDeleted = statement.executeUpdate() > 0;
+        rowDeleted = statement.executeUpdate() > 0;
         statement.close();
         disconnect();
+
+      } catch (SQLException e) {
+            log.error("fail delete person:{}", rowDeleted, e);
+            throw new RuntimeException(e);
+      }
         return rowDeleted;
     }
-    public boolean updatePerson(Person person) throws SQLException {
+
+    public boolean updatePerson(Person person)  {
         String sql = "UPDATE person SET first_name = ?, last_name = ?, rent_day = ?";
         sql += " WHERE person_id = ?";
-            connect();
-
+        boolean rowUpdated=false;
+        try {
+        connect();
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setString(1, person.getFirstName());
         statement.setString(2, person.getLastName());
         statement.setInt(3, person.getRentDay());
         statement.setInt(4, person.getId());
-
-        boolean rowUpdated = statement.executeUpdate() > 0;
+        rowUpdated = statement.executeUpdate() > 0;
         statement.close();
         disconnect();
-        return rowUpdated;
+            return rowUpdated;
+        }catch (SQLException e){
+            log.error("fail update person:{}", rowUpdated, e);
+            throw new RuntimeException(e);
+        }
+
     }
-    public Person getPerson(int id) throws SQLException {
+
+    public Person getPerson(int id)  {
         Person person = null;
         String sql = "SELECT * FROM person WHERE person_id = ?";
-
-            connect();
-
+        try {
+        connect();
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setInt(1, id);
 
@@ -155,14 +164,15 @@ public class DefaultPersonDAO implements PersonDAO{
         if (resultSet.next()) {
             String firstName = resultSet.getString("first_name");
             String lastName = resultSet.getString("last_name");
-            int rentDay  = resultSet.getInt("rent_day");
-
-            person = new Person(id,firstName, lastName, rentDay );
+            int rentDay = resultSet.getInt("rent_day");
+            person = new Person(id, firstName, lastName, rentDay);
         }
-
         resultSet.close();
-        statement.close();
-
+        statement.close();}
+        catch (SQLException e){
+            log.error("fail update person:{}", person, e);
+            throw new RuntimeException(e);
+        }
         return person;
     }
 }
