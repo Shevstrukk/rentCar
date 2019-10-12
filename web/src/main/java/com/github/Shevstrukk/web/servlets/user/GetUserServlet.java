@@ -18,12 +18,8 @@ import java.util.List;
 public class GetUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PersonService defaultPersonService= DefaultPersonService.getInstance();
-        List<Person> personList = null;
-        try {
-            personList= defaultPersonService.listAllPerson();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        List<Person> personList= defaultPersonService.listAllPerson();
+
         req.setAttribute("personList", personList);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/user/userList.jsp");
         requestDispatcher.forward(req, resp);
