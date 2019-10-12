@@ -22,21 +22,13 @@ public class AddUserServlet extends HttpServlet {
         final String lastName = req.getParameter("lastName");
         final int rentDay = Integer.valueOf(req.getParameter("rentDay"));
         Person person = new Person(firstName,lastName,rentDay);
-        try {
             DefaultPersonService.getInstance().insertPerson(person);
-        }catch (SQLException e){
-            e.printStackTrace();
-        }doGet(req,resp);
+        doGet(req,resp);
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PersonService defaultPersonService= DefaultPersonService.getInstance();
-        List<Person> personList = null;
-        try {
-            personList= defaultPersonService.listAllPerson();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        List<Person> personList = defaultPersonService.listAllPerson();
         req.setAttribute("personList", personList);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/user/userList.jsp");
         requestDispatcher.forward(req, resp);
