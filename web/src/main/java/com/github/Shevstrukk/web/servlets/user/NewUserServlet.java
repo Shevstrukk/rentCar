@@ -27,7 +27,7 @@ public class NewUserServlet extends HttpServlet {
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");
         final int rentDay = Integer.valueOf(req.getParameter("rentDay"));
-        Person person = new Person(firstName,lastName,rentDay);
+        Person person = new Person(null,firstName,lastName,rentDay);
         DefaultPersonService.getInstance().insertPerson(person);
         PersonService defaultPersonService= DefaultPersonService.getInstance();
         List<Person> personList = defaultPersonService.listAllPerson();

@@ -28,9 +28,9 @@ public class DeletePersonServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-Integer id = Integer.parseInt(req.getParameter("id"));
-        Person person = new Person(id);
-            DefaultPersonService.getInstance().deletePerson(person);
+  int id = Integer.parseInt(req.getParameter("id"));
+      //  Person person = new Person(id);
+            DefaultPersonService.getInstance().deletePerson(id);
 doGet(req,resp);
     }
 }

@@ -1,15 +1,8 @@
 package com.github.Shevstrukk.service;
 
 import com.github.Shevstrukk.dao.DefaultPersonDAO;
-import com.github.Shevstrukk.dao.PersonDAO;
 import com.github.Shevstrukk.model.Person;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 public class DefaultPersonService implements PersonService {
@@ -36,7 +29,7 @@ public class DefaultPersonService implements PersonService {
         DefaultPersonDAO.getInstance().updatePerson(person);
 
     }
-    public void deletePerson(Person person){
+    public void deletePerson(int person){
              DefaultPersonDAO.getInstance().deletePerson(person);
     }
     public Person getPerson(int id) {

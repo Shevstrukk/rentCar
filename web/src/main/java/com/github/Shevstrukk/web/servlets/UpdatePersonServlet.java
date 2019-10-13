@@ -27,7 +27,7 @@ public class UpdatePersonServlet extends HttpServlet {
 
          @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-               final int id =Integer.valueOf(req.getParameter("id"));
+               final long id =Integer.valueOf(req.getParameter("id"));
            //  System.out.println(id);
               final String firstName = req.getParameter("firstName");
               final  String lastName = req.getParameter("lastName");
