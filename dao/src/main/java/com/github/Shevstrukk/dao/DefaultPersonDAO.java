@@ -67,12 +67,12 @@ public class DefaultPersonDAO implements PersonDAO {
             //  return rowInserted;
             final ResultSet generatedKeys = statement.getGeneratedKeys();
             generatedKeys.next();
-            final int id = generatedKeys.getInt(1);
+            final long id = generatedKeys.getInt(1);
             final Person personInsert = new Person(id, person.getFirstName(), person.getLastName(), person.getRentDay());
-            log.info("salary saved: {}", personInsert);
+            log.info("person saved: {}", personInsert);
             statement.close();
             disconnect();
-            return person;
+            return personInsert;
         } catch (SQLException e) {
             log.error("fail to insert person salary:{}", person, e);
             throw new RuntimeException(e);
@@ -88,7 +88,7 @@ public class DefaultPersonDAO implements PersonDAO {
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("person_id");
+                long id = resultSet.getInt("person_id");
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
                 int rentDay = resultSet.getInt("rent_day");
@@ -108,16 +108,17 @@ public class DefaultPersonDAO implements PersonDAO {
         return listPerson;
     }
 
-    public boolean deletePerson(Person person)  {
+    public boolean deletePerson(long person)  {
+
+
         String sql = "DELETE FROM person where person_id = ?";
         boolean rowDeleted=false;
         try {
             connect();
-        //} catch (SQLException e) {
-           //  e.printStackTrace();
-     //   }
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        statement.setInt(1, person.getId());
+       // statement.setInt(1, person.getId());
+            statement.setLong(1, person);
+
         rowDeleted = statement.executeUpdate() > 0;
         statement.close();
         disconnect();
@@ -139,7 +140,7 @@ public class DefaultPersonDAO implements PersonDAO {
         statement.setString(1, person.getFirstName());
         statement.setString(2, person.getLastName());
         statement.setInt(3, person.getRentDay());
-        statement.setInt(4, person.getId());
+        statement.setLong(4, person.getId());
         rowUpdated = statement.executeUpdate() > 0;
         statement.close();
         disconnect();
@@ -151,21 +152,22 @@ public class DefaultPersonDAO implements PersonDAO {
 
     }
 
-    public Person getPerson(int id)  {
+    public Person getPerson(long id)  {
         Person person = null;
         String sql = "SELECT * FROM person WHERE person_id = ?";
         try {
         connect();
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        statement.setInt(1, id);
+        statement.setLong(1, id);
 
         ResultSet resultSet = statement.executeQuery();
 
         if (resultSet.next()) {
+            final long resultId = resultSet.getInt("person_id");
             String firstName = resultSet.getString("first_name");
             String lastName = resultSet.getString("last_name");
             int rentDay = resultSet.getInt("rent_day");
-            person = new Person(id, firstName, lastName, rentDay);
+            person = new Person(resultId, firstName, lastName, rentDay);
         }
         resultSet.close();
         statement.close();}

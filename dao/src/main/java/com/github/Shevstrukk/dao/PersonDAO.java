@@ -8,7 +8,7 @@ import java.util.List;
 public interface PersonDAO {
     public Person insertPerson(Person person);
     public List<Person> listAllPerson();
-    public boolean deletePerson(Person person) ;
+    public boolean deletePerson(long person) ;
     public boolean updatePerson(Person person) ;
-    public Person getPerson(int id) ;
+    public Person getPerson(long id) ;
 }
