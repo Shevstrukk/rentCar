@@ -25,21 +25,21 @@ public class DefaultPersonService implements PersonService {
         return SingletonHolder.HOLDER_INSTANCE;
     }
 
-    public List<Person> listAllPerson () throws SQLException {
+    public List<Person> listAllPerson () {
         return DefaultPersonDAO.getInstance().listAllPerson();
     }
 
-    public void insertPerson(Person person) throws SQLException {
+    public void insertPerson(Person person)  {
            DefaultPersonDAO.getInstance().insertPerson(person);
     }
-    public void updatePerson(Person person)throws SQLException{
+    public void updatePerson(Person person){
         DefaultPersonDAO.getInstance().updatePerson(person);
 
     }
-    public void deletePerson(Person person)throws SQLException{
+    public void deletePerson(Person person){
              DefaultPersonDAO.getInstance().deletePerson(person);
     }
-    public Person getPerson(int id) throws SQLException{
+    public Person getPerson(int id) {
         return DefaultPersonDAO.getInstance().getPerson(id);
     }
 }
