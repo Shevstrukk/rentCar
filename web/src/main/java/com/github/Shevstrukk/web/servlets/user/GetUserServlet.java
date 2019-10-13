@@ -1,4 +1,4 @@
-package com.github.Shevstrukk.web.servlets;
+package com.github.Shevstrukk.web.servlets.user;
 
 import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.service.DefaultPersonService;
@@ -14,30 +14,19 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/newPerson")
-public class NewPersonServlet extends HttpServlet {
-    @Override
+@WebServlet("/getUsers")
+public class GetUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/newPerson.jsp");
-        requestDispatcher.forward(req, resp);
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String firstName = req.getParameter("firstName");
-        final String lastName = req.getParameter("lastName");
-        final int rentDay = Integer.valueOf(req.getParameter("rentDay"));
-        Person person = new Person(null,firstName,lastName,rentDay);
-
-            DefaultPersonService.getInstance().insertPerson(person);
-
         PersonService defaultPersonService= DefaultPersonService.getInstance();
         List<Person> personList= defaultPersonService.listAllPerson();
 
         req.setAttribute("personList", personList);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/user/userList.jsp");
         requestDispatcher.forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
 }

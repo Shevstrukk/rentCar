@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Виталий
-  Date: 02.10.2019
-  Time: 0:35
+  Date: 09.10.2019
+  Time: 22:31
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -25,7 +25,6 @@
             <th>Имя</th>
             <th>Фамилия</th>
             <th>Аренда(дн)</th>
-            <th>Удалить</th>
             <th>Редактировать</th>
         </tr>
         <c:forEach var="person" items="${personList}">
@@ -34,16 +33,11 @@
                 <td><c:out value="${person.firstName}" /></td>
                 <td><c:out value="${person.lastName}" /></td>
                 <td><c:out value="${person.rentDay}" /></td>
+
                 <td>
-                    <form method="post" action="/delete">
+                    <form method="get" action="/updateUser">
                         <input type="number" hidden name="id" value="${person.id}" />
-                        <input type="submit" name="delete" value="Удалить"/>
-                    </form>
-                </td>
-                <td>
-                    <form method="get" action="/update">
-                    <input type="number" hidden name="id" value="${person.id}" />
-                    <input type="submit" value="Редактированть"/>
+                        <input type="submit" value="Редактированть"/>
                     </form>
 
                 </td>
@@ -52,7 +46,7 @@
     </table>
 </div>
 <br>
-<a href="<c:url value='/newPerson' />">Сделать заявку</a>
+<a href="<c:url value='/newUser' />">Сделать заявку</a>
 <br>
 <a href="<c:url value='/logout' />">Выйти</a>
 </body>
