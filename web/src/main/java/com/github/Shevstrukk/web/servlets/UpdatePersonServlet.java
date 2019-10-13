@@ -19,13 +19,7 @@ public class UpdatePersonServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        Person person = null;
-
-        try {
-          person = DefaultPersonService.getInstance().getPerson(Integer.parseInt(id));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Person person = DefaultPersonService.getInstance().getPerson(Integer.parseInt(id));
         req.setAttribute("person", person);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/updatePerson.jsp");
         requestDispatcher.forward(req, resp);
@@ -33,25 +27,17 @@ public class UpdatePersonServlet extends HttpServlet {
 
          @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-               final int id =Integer.valueOf(req.getParameter("id"));
+               final long id =Integer.valueOf(req.getParameter("id"));
            //  System.out.println(id);
               final String firstName = req.getParameter("firstName");
               final  String lastName = req.getParameter("lastName");
               final  int rentDay = Integer.valueOf(req.getParameter("rentDay"));
+              Person person = new Person(id,firstName, lastName, rentDay);
+              DefaultPersonService.getInstance().updatePerson(person);
 
-                   Person person = new Person(id,firstName, lastName, rentDay);
-                try {
-                    DefaultPersonService.getInstance().updatePerson(person);
-                }catch (SQLException e) {
-                    e.printStackTrace();
-                }
              PersonService defaultPersonService= DefaultPersonService.getInstance();
-             List<Person> personList = null;
-             try {
-                 personList= defaultPersonService.listAllPerson();
-             } catch (SQLException e) {
-                 e.printStackTrace();
-             }
+             List<Person> personList = defaultPersonService.listAllPerson();
+
              req.setAttribute("personList", personList);
              RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
              requestDispatcher.forward(req, resp);

@@ -19,12 +19,7 @@ public class DeletePersonServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PersonService defaultPersonService= DefaultPersonService.getInstance();
-        List<Person> personList = null;
-        try {
-            personList= defaultPersonService.listAllPerson();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        List<Person> personList = defaultPersonService.listAllPerson();
         req.setAttribute("personList", personList);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
         requestDispatcher.forward(req, resp);
@@ -33,15 +28,9 @@ public class DeletePersonServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-Integer id = Integer.parseInt(req.getParameter("id"));
-        Person person = new Person(id);
-
-        try {
-            DefaultPersonService.getInstance().deletePerson(person);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+  int id = Integer.parseInt(req.getParameter("id"));
+      //  Person person = new Person(id);
+            DefaultPersonService.getInstance().deletePerson(id);
 doGet(req,resp);
     }
 }

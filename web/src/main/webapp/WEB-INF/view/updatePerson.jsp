@@ -16,7 +16,7 @@
 
 <table border="1" cellpadding="5">
 
-        <input type="number" name="id" value="<c:out value="${person.id}" />" />
+        <input type="hidden" name="id" value="<c:out value="${person.id}" />" />
 
     <tr>
         <th>Имя: </th>
@@ -44,5 +44,8 @@
     </tr>
 </table>
 </form>
+<a href="<c:url value='/getPerson' />">Получить список</a>
+<br>
+<a href="<c:url value='/logout' />">Выйти</a>
 </body>
 </html>
