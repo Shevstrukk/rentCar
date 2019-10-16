@@ -1,29 +1,29 @@
 package com.github.Shevstrukk.model;
 
 public class User {
-    private int id;
+    private Long id;
 
     private String login;
 
     private String password;
 
-    private ROLE role;
+    private String role;
 
     public User() {
     }
 
-    public User(int id, String login, String password, ROLE role) {
+    public User(Long id, String login, String password, String role) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -43,15 +43,13 @@ public class User {
         this.password = password;
     }
 
-    public ROLE getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(ROLE role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
-    public enum ROLE {
-        USER, ADMIN, UNKNOWN
-    }
+
 }
