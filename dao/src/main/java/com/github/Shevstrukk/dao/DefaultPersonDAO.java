@@ -135,20 +135,23 @@ public class DefaultPersonDAO implements PersonDAO {
         sql += " WHERE person_id = ?";
         boolean rowUpdated=false;
         try {
-        connect();
-        PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-        statement.setString(1, person.getFirstName());
-        statement.setString(2, person.getLastName());
-        statement.setInt(3, person.getRentDay());
-        statement.setLong(4, person.getId());
-        rowUpdated = statement.executeUpdate() > 0;
-        statement.close();
-        disconnect();
-            return rowUpdated;
-        }catch (SQLException e){
-            log.error("fail update person:{}", rowUpdated, e);
-            throw new RuntimeException(e);
-        }
+            connect();
+            PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+
+              //  connect();
+                statement.setString(1, person.getFirstName());
+                statement.setString(2, person.getLastName());
+                statement.setInt(3, person.getRentDay());
+                statement.setLong(4, person.getId());
+                rowUpdated = statement.executeUpdate() > 0;
+                statement.close();
+                disconnect();
+                return rowUpdated;
+            } catch (SQLException e) {
+                log.error("fail update person:{}", rowUpdated, e);
+                throw new RuntimeException(e);
+            }
+
 
     }
 
