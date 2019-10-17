@@ -26,10 +26,13 @@ public class LoginServlet extends HttpServlet {
 
         if (user == null) {
             req.setAttribute("error", "login or password invalid");
-            return;
+            req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
+            //return;
         } else if (user.getRole().equals("admin")){
+            req.getSession().setAttribute("admin", user);
             req.getRequestDispatcher("/WEB-INF/view/admin_menu.jsp").forward(req, resp);
         }else if(user.getRole().equals("user")){
+            req.getSession().setAttribute("user", user);
             req.getRequestDispatcher("/WEB-INF/view/user_menu.jsp").forward(req, resp);
         }
        // log.info("user {} logged", user.getLogin());
