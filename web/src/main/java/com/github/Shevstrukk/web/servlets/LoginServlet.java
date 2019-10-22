@@ -6,6 +6,7 @@ import com.github.Shevstrukk.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +19,22 @@ import java.util.List;
 public class LoginServlet extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(LoginServlet.class);
     @Override
+    protected void doGet(HttpServletRequest rq, HttpServletResponse rs) {
+        Object authUser = rq.getSession().getAttribute("authUser");
+        if (authUser == null) {
+            RequestDispatcher requestDispatcher = rq.getRequestDispatcher("/WEB-INF/view/login.jsp");
+            try {
+                requestDispatcher.forward(rq,rs);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
+    }
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String login = req.getParameter("login");
         final String password = req.getParameter("password");
@@ -27,13 +44,17 @@ public class LoginServlet extends HttpServlet {
         if (user == null) {
             req.setAttribute("error", "login or password invalid");
             req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
-            //return;
-        } else if (user.getRole().equals("admin")){
-            req.getSession().setAttribute("admin", user);
+            return;
+        }
+        log.info("user {} logged", user.getLogin());
+        req.getSession().setAttribute("authUser", user);
+
+         if (user.getRole().equals("admin")){
             req.getRequestDispatcher("/WEB-INF/view/admin_menu.jsp").forward(req, resp);
+            return;
         }else if(user.getRole().equals("user")){
-            req.getSession().setAttribute("user", user);
             req.getRequestDispatcher("/WEB-INF/view/user_menu.jsp").forward(req, resp);
+            return;
         }
        // log.info("user {} logged", user.getLogin());
       //  req.getSession().setAttribute("authUser", user);

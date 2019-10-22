@@ -6,7 +6,7 @@ import com.github.Shevstrukk.model.Person;
 import java.util.List;
 
 public interface PersonService {
-    public void insertPerson(Person person);
+    public Person insertPerson(Person person);
     public List<Person> listAllPerson();
     public void deletePerson(int person) ;
     public void updatePerson(Person person) ;

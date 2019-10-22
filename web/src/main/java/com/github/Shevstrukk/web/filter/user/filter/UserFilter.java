@@ -14,6 +14,15 @@ public class UserFilter  implements Filter {
 
         HttpServletRequest rq = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
+
+        Object authUser = rq.getSession().getAttribute("authUser");
+        if (authUser == null) {
+            RequestDispatcher requestDispatcher = rq.getRequestDispatcher("/WEB-INF/view/login.jsp");
+            requestDispatcher.forward(rq,resp);
+            return;
+        }
+        filterChain.doFilter(rq, resp);
+    }
      /*   Object user;
         if (null == (user = rq.getSession().getAttribute("admin") )) {
             RequestDispatcher requestDispatcher = rq.getRequestDispatcher("/WEB-INF/view/login.jsp");
@@ -23,9 +32,6 @@ public class UserFilter  implements Filter {
 
         }*/
 
-        RequestDispatcher requestDispatcher = rq.getRequestDispatcher("/WEB-INF/view/login.jsp");
-        requestDispatcher.forward(rq,resp);
-        filterChain.doFilter(rq, resp);
 
-    }
+
 }

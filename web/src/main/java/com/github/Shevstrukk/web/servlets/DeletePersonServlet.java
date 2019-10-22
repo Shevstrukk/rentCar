@@ -1,6 +1,7 @@
 package com.github.Shevstrukk.web.servlets;
 
 import com.github.Shevstrukk.model.Person;
+import com.github.Shevstrukk.model.User;
 import com.github.Shevstrukk.service.DefaultPersonService;
 import com.github.Shevstrukk.service.PersonService;
 
@@ -21,6 +22,7 @@ public class DeletePersonServlet extends HttpServlet {
         PersonService defaultPersonService= DefaultPersonService.getInstance();
         List<Person> personList = defaultPersonService.listAllPerson();
         req.setAttribute("personList", personList);
+        User user = (User) req.getSession().getAttribute("user");
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
         requestDispatcher.forward(req, resp);
     }

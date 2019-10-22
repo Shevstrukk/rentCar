@@ -19,9 +19,7 @@ public class DefaultPersonServiceTest {
     public void getPerson() {
         final Person person = new Person((long) 2, "dddd", "hhhh", 6);
         Mockito.when(dao.getPerson(123)).thenReturn(person);
-
         Person personFromService = service.getPerson(123);
-
         assertNotNull(personFromService);
     }
 
@@ -33,6 +31,20 @@ public class DefaultPersonServiceTest {
         personMock.add(person);
         personMock.add(person1);
         Mockito.when(dao.listAllPerson()).thenReturn(personMock);
+        List<Person> fromServiceList = service.listAllPerson();
+        assertNotNull(fromServiceList);
 
+    }
+
+    @Test
+    public void insertPerson() {
+        final Person personInsert = new Person((long) 2, "dddd", "hhhh", 6);
+        Mockito.when(dao.insertPerson( personInsert)).thenReturn(personInsert);
+        Person fromService = service.insertPerson(personInsert);
+        assertNotNull(fromService);
+    }
+
+    @Test
+    public void updatePerson() {
     }
 }

@@ -28,8 +28,8 @@ public class DefaultPersonService implements PersonService {
         return personDAO.listAllPerson();
     }
 
-    public void insertPerson(Person person)  {
-        personDAO.insertPerson(person);
+    public Person insertPerson(Person person)  {
+       return personDAO.insertPerson(person);
     }
     public void updatePerson(Person person){
         personDAO.updatePerson(person);
