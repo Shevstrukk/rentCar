@@ -1,6 +1,8 @@
 package com.github.Shevstrukk.dao;
 
-import com.github.Shevstrukk.model.User;
+
+
+import com.github.Shevstrukk.dao.entity.User;
 
 import java.util.List;
 

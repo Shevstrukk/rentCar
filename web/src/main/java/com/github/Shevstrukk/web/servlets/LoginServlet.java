@@ -1,6 +1,6 @@
 package com.github.Shevstrukk.web.servlets;
 
-import com.github.Shevstrukk.model.User;
+import com.github.Shevstrukk.dao.entity.User;
 import com.github.Shevstrukk.service.DefaultUserService;
 import com.github.Shevstrukk.service.UserService;
 import org.slf4j.Logger;

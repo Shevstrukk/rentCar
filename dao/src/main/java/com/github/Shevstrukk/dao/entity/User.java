@@ -1,5 +1,7 @@
 package com.github.Shevstrukk.dao.entity;
 
+import javax.persistence.*;
+
 @Entity
 @Table
 public class User {
