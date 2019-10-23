@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UsersDAO {
     public List<User> listAllUsers();
-    User getByLogin(String login);
+  //  User getByLogin(String login);
 }
