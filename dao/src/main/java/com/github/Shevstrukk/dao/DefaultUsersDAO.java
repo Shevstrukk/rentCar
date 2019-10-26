@@ -2,6 +2,7 @@ package com.github.Shevstrukk.dao;
 
 import com.github.Shevstrukk.dao.entity.AuthUser;
 import com.github.Shevstrukk.dao.util.EMUtil;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +27,14 @@ public class DefaultUsersDAO implements UsersDAO {
     public List<AuthUser> listAllUsers() {
 
         EntityManager entityManager = EMUtil.getEntityManager();
-        return  entityManager.createQuery("FROM " + AuthUser.class.getName()).getResultList(); }
-
+        return  entityManager.createQuery("FROM " + AuthUser.class.getName()).getResultList();
+    }
+    public void saveOrUpdateAuthUser(AuthUser authUser) {
+        Session session = EMUtil.getSession();
+        session.beginTransaction();
+        session.save(authUser);
+        session.getTransaction().commit();
+        session.close();
+    }
 
 }
