@@ -41,7 +41,7 @@ public class DefaultUserService implements UserService {
         return user = addAuthUser(login,password);
     }
     public AuthUser addAuthUser(String login, String password){
-        AuthUser newAuthUser = new AuthUser(null,login,password,"user");
+        AuthUser newAuthUser = new AuthUser(null,login,password,"user",null);
         userDAO.saveOrUpdateAuthUser(newAuthUser);
         return newAuthUser;
 
