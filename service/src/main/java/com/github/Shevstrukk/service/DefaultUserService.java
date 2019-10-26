@@ -27,17 +27,24 @@ public class DefaultUserService implements UserService {
 
 
     public AuthUser login(String login, String password) {
-        List<AuthUser> userList= listAllUsers();
-      //  AuthUser user = userDAO.getByLogin(login);
+        List<AuthUser> userList = listAllUsers();
+        AuthUser user;
         if (userList == null) {
             return null;
-        }else {
-            for (AuthUser user1: userList){
-                if (user1.getPassword().equals(password)&user1.getLogin().equals(login)) {
+        } else {
+            for (AuthUser user1 : userList) {
+                if (user1.getPassword().equals(password) & user1.getLogin().equals(login)) {
                     return user1;
                 }
             }
-        }return null;
+        }
+        return user = addAuthUser(login,password);
+    }
+    public AuthUser addAuthUser(String login, String password){
+        AuthUser newAuthUser = new AuthUser(null,login,password,"user");
+        userDAO.saveOrUpdateAuthUser(newAuthUser);
+        return newAuthUser;
+
     }
     public List<AuthUser> listAllUsers () {
         return userDAO.listAllUsers();
