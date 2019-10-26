@@ -3,38 +3,38 @@ package com.github.Shevstrukk.dao.entity;
 import javax.persistence.*;
 
 @Entity
-@Table
-public class User {
+@Table(name = "users")
+public class AuthUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Long id;
+    @Column(name = "id")
+    private Integer id;
 
-    @Column
+    @Column(name = "login")
     private String login;
 
-    @Column
+    @Column(name="password")
     private String password;
 
-    @Column
+    @Column(name = "role")
     private String role;
 
-    public User() {
+    public AuthUser() {
     }
 
-    public User(Long id, String login, String password, String role) {
+    public AuthUser(Integer id, String login, String password, String role) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
