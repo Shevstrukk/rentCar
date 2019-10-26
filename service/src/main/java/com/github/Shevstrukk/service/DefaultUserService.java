@@ -2,7 +2,7 @@ package com.github.Shevstrukk.service;
 
 import com.github.Shevstrukk.dao.DefaultUsersDAO;
 import com.github.Shevstrukk.dao.UsersDAO;
-import com.github.Shevstrukk.dao.entity.User;
+import com.github.Shevstrukk.dao.entity.AuthUser;
 
 
 import java.util.List;
@@ -26,20 +26,20 @@ public class DefaultUserService implements UserService {
     }
 
 
-    public User login(String login, String password) {
-        List<User> userList= listAllUsers();
-      //  User user = userDAO.getByLogin(login);
+    public AuthUser login(String login, String password) {
+        List<AuthUser> userList= listAllUsers();
+      //  AuthUser user = userDAO.getByLogin(login);
         if (userList == null) {
             return null;
         }else {
-            for (User user1: userList){
+            for (AuthUser user1: userList){
                 if (user1.getPassword().equals(password)&user1.getLogin().equals(login)) {
                     return user1;
                 }
             }
         }return null;
     }
-    public List<User> listAllUsers () {
+    public List<AuthUser> listAllUsers () {
         return userDAO.listAllUsers();
     }
 

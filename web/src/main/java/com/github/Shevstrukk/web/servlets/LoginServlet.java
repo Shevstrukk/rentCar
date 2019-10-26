@@ -1,6 +1,6 @@
 package com.github.Shevstrukk.web.servlets;
 
-import com.github.Shevstrukk.dao.entity.User;
+import com.github.Shevstrukk.dao.entity.AuthUser;
 import com.github.Shevstrukk.service.DefaultUserService;
 import com.github.Shevstrukk.service.UserService;
 import org.slf4j.Logger;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -39,7 +38,7 @@ public class LoginServlet extends HttpServlet {
         final String login = req.getParameter("login");
         final String password = req.getParameter("password");
         UserService userService= DefaultUserService.getInstance();
-        User user = userService.login(login, password);
+        AuthUser user = userService.login(login, password);
 
         if (user == null) {
             req.setAttribute("error", "login or password invalid");
