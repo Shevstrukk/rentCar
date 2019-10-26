@@ -20,16 +20,21 @@ public class AuthUser {
     @Column(name = "role")
     private String role;
 
+    @OneToOne
+    @JoinColumn(name="person_id")
+    private Person person;
+
+
     public AuthUser() {
     }
 
-    public AuthUser(Integer id, String login, String password, String role) {
+    public AuthUser(Integer id, String login, String password, String role, Person person) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
+        this.person = person;
     }
-
     public int getId() {
         return id;
     }
@@ -62,5 +67,8 @@ public class AuthUser {
         this.role = role;
     }
 
+    public Person getPerson() {        return person;    }
+
+    public void setPerson(Person person) {        this.person = person;    }
 }
 
