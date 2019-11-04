@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Update</title>
 </head>
 <body>
 <form method="post" action="/update" >
@@ -17,6 +17,11 @@
 <table border="1" cellpadding="5">
 
         <input type="hidden" name="id" value="<c:out value="${person.id}" />" />
+    <input type="hidden" name="idAuth" value="<c:out value="${person.authUser.id}" />" />
+    <input type="hidden" name="login" value="<c:out value="${person.authUser.login}" />" />
+    <input type="hidden" name="password" value="<c:out value="${person.authUser.password}" />" />
+    <input type="hidden" name="role" value="<c:out value="${person.authUser.role}" />" />
+    <input type="hidden" name="addressId" value="<c:out value="${person.address.id}" />" />
 
     <tr>
         <th>Имя: </th>
@@ -31,12 +36,34 @@
         </td>
     </tr>
     <tr>
-        <th>Срок аренды: </th>
+        <th>город: </th>
         <td>
-            <input type="number" name="rentDay" size="5"  value="<c:out value="${person.rentDay}" />"
+            <input type="text" name="city" size="45"  value="<c:out value="${person.address.city}" />"
             />
         </td>
     </tr>
+    <tr>
+        <th>улица: </th>
+        <td>
+            <input type="text" name="street" size="45"  value="<c:out value="${person.address.street}" />"
+            />
+        </td>
+    </tr>
+    <tr>
+        <th>дом: </th>
+        <td>
+            <input type="number" name="home" size="45"  value="<c:out value="${person.address.home}" />"
+            />
+        </td>
+    </tr>
+    <tr>
+        <th>номер: </th>
+        <td>
+            <input type="number" name="number" size="5"  value="<c:out value="${person.address.number}" />"
+            />
+        </td>
+    </tr>
+
     <tr>
         <td colspan="2" align="center">
             <input type="submit" value="Обновить" />
@@ -44,6 +71,7 @@
     </tr>
 </table>
 </form>
+
 <a href="<c:url value='/getPerson' />">Получить список</a>
 <br>
 <a href="<c:url value='/logout' />">Выйти</a>
