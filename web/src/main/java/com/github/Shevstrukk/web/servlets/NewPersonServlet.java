@@ -1,8 +1,12 @@
 package com.github.Shevstrukk.web.servlets;
 
-import com.github.Shevstrukk.model.Person;
+import com.github.Shevstrukk.dao.entity.Address;
+import com.github.Shevstrukk.dao.entity.AuthUser;
+import com.github.Shevstrukk.dao.entity.Person;
 import com.github.Shevstrukk.service.DefaultPersonService;
+import com.github.Shevstrukk.service.DefaultUserService;
 import com.github.Shevstrukk.service.PersonService;
+import com.github.Shevstrukk.service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,17 +31,20 @@ public class NewPersonServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");
-        final int rentDay = Integer.valueOf(req.getParameter("rentDay"));
-        Person person = new Person(null,firstName,lastName,rentDay);
+        final String state = req.getParameter("state");
+        final String city = req.getParameter("city");
+        final String street = req.getParameter("street");
+        final int home = Integer.valueOf(req.getParameter("home"));
+        final int number = Integer.valueOf(req.getParameter("number"));
+        Address address = new Address(null,state, city, street, home,number);
+        UserService userService= DefaultUserService.getInstance();
+        AuthUser user = userService.login(firstName, lastName);
+        // AuthUser authUser = (AuthUser)req.getSession().getAttribute("authUser");
+        com.github.Shevstrukk.dao.entity.Person person = new com.github.Shevstrukk.dao.entity.Person(null,firstName,lastName, user,address,null);
 
-            DefaultPersonService.getInstance().insertPerson(person);
-
-        PersonService defaultPersonService= DefaultPersonService.getInstance();
-        List<Person> personList= defaultPersonService.listAllPerson();
-
-        req.setAttribute("personList", personList);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
+        Person person1= DefaultPersonService.getInstance().insertPerson(person);
+        req.getSession().setAttribute("person1", person1);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
         requestDispatcher.forward(req, resp);
-
     }
 }
