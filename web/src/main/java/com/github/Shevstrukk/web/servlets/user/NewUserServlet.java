@@ -28,13 +28,13 @@ public class NewUserServlet extends HttpServlet {
         final String lastName = req.getParameter("lastName");
         final int rentDay = Integer.valueOf(req.getParameter("rentDay"));
         Person person = new Person(null,firstName,lastName,rentDay);
-        DefaultPersonService.getInstance().insertPerson(person);
+      /*  DefaultPersonService.getInstance().insertPerson(person);
         PersonService defaultPersonService= DefaultPersonService.getInstance();
         List<Person> personList = defaultPersonService.listAllPerson();
 
         req.setAttribute("personList", personList);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/user/userList.jsp");
-        requestDispatcher.forward(req, resp);
+        requestDispatcher.forward(req, resp);*/
 
     }
 
