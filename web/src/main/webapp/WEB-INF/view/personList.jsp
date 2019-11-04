@@ -22,21 +22,35 @@
         <caption><h2>List of Person</h2></caption>
         <tr>
             <th>ID</th>
+            <th>ROLE</th>
             <th>Имя</th>
             <th>Фамилия</th>
-            <th>Аренда(дн)</th>
+            <th>город</th>
+            <th>улица</th>
+            <th>дом</th>
+            <th>номер</th>
+            <th>телефон</th>
             <th>Удалить</th>
             <th>Редактировать</th>
         </tr>
         <c:forEach var="person" items="${personList}">
             <tr>
                 <td><c:out value="${person.id}" /></td>
+                <td><c:out value="${person.authUser.role}" /></td>
                 <td><c:out value="${person.firstName}" /></td>
                 <td><c:out value="${person.lastName}" /></td>
-                <td><c:out value="${person.rentDay}" /></td>
+                <td><c:out value="${person.address.city}" /></td>
+                <td><c:out value="${person.address.street}" /></td>
+                <td><c:out value="${person.address.home}" /></td>
+                <td><c:out value="${person.address.number}" /></td>
+
+                <c:forEach var="phone" items="${person.phones}">
+<%--                    <td><c:out value="${phone.id}" /></td>--%>
+                    <td><c:out value="${phone.line}" /></td>
+                </c:forEach>
                 <td>
                     <form method="post" action="/delete">
-                        <input type="number" hidden name="id" value="${person.id}" />
+                        <input type="number" hidden name="id" value="${person.authUser.id}" />
                         <input type="submit" name="delete" value="Удалить"/>
                     </form>
                 </td>
