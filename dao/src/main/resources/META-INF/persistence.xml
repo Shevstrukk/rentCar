@@ -6,10 +6,12 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>com.github.Shevstrukk.dao.entity.AuthUser</class>
         <class>com.github.Shevstrukk.dao.entity.Person</class>
+        <class>com.github.Shevstrukk.dao.entity.Address</class>
+        <class>com.github.Shevstrukk.dao.entity.Phone</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test1?serverTimezone=UTC"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test2?serverTimezone=UTC"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="vitalij84"/>
             <property name="hibernate.dialect.storage_engine" value="innodb"/>
