@@ -1,6 +1,8 @@
 package com.github.Shevstrukk.web.servlets;
 
-import com.github.Shevstrukk.model.Person;
+import com.github.Shevstrukk.dao.entity.AuthUser;
+
+import com.github.Shevstrukk.dao.entity.Person;
 import com.github.Shevstrukk.service.DefaultPersonService;
 import com.github.Shevstrukk.service.PersonService;
 
@@ -18,8 +20,10 @@ public class GetPersonServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PersonService defaultPersonService= DefaultPersonService.getInstance();
-        List<Person> personList= defaultPersonService.listAllPerson();
+//        List<AuthUser> authList= defaultPersonService.listAllAuthUser();
+//        req.setAttribute("authList", authList);
 
+        List<Person> personList= defaultPersonService.listAllPerson();
         req.setAttribute("personList", personList);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
         requestDispatcher.forward(req, resp);
