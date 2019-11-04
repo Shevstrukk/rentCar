@@ -51,10 +51,12 @@ public class LoginServlet extends HttpServlet {
          if (user.getRole().equals("admin")){
             req.getRequestDispatcher("/WEB-INF/view/admin_menu.jsp").forward(req, resp);
             return;
-        }else if(user.getRole().equals("user")){
+        }else if(user.getRole().equals("user")&user.getPerson()==null){
             req.getRequestDispatcher("/WEB-INF/view/user_menu.jsp").forward(req, resp);
             return;
-        }
+        }else {
+             req.getRequestDispatcher("/WEB-INF/view/order.jsp").forward(req, resp);
+         }
        // log.info("user {} logged", user.getLogin());
       //  req.getSession().setAttribute("authUser", user);
 
