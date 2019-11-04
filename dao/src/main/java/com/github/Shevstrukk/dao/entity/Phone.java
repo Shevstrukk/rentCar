@@ -12,7 +12,8 @@ public class Phone {
     @Column(name = "line")
     private String line;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //@ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
 
@@ -47,4 +48,6 @@ public class Phone {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+
 }
