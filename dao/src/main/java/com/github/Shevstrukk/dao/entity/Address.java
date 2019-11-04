@@ -26,7 +26,8 @@ public class Address {
     @Column(name="number")
     private int number;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "address", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL)
     private Person personAddress;
     public Address() {}
 
