@@ -18,11 +18,11 @@ import java.util.List;
 public class UpdateUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
+     /*   String id = req.getParameter("id");
         Person person  = DefaultPersonService.getInstance().getPerson(Integer.parseInt(id));
         req.setAttribute("person", person);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/user/updateUser.jsp");
-        requestDispatcher.forward(req, resp);
+        requestDispatcher.forward(req, resp);*/
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,7 +30,7 @@ public class UpdateUserServlet extends HttpServlet {
         //  System.out.println(id);
         final String firstName = req.getParameter("firstName");
         final  String lastName = req.getParameter("lastName");
-        final  int rentDay = Integer.valueOf(req.getParameter("rentDay"));
+    /*    final  int rentDay = Integer.valueOf(req.getParameter("rentDay"));
         Person person = new Person(id,firstName, lastName, rentDay);
         DefaultPersonService.getInstance().updatePerson(person);
 
@@ -39,6 +39,6 @@ public class UpdateUserServlet extends HttpServlet {
 
         req.setAttribute("personList", personList);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/user/userList.jsp");
-        requestDispatcher.forward(req, resp);
+        requestDispatcher.forward(req, resp);*/
     }
 }
