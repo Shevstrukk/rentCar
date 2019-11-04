@@ -2,7 +2,9 @@ package com.github.Shevstrukk.service;
 
 import com.github.Shevstrukk.dao.DefaultPersonDAO;
 import com.github.Shevstrukk.dao.PersonDAO;
-import com.github.Shevstrukk.model.Person;
+import com.github.Shevstrukk.dao.entity.AuthUser;
+import com.github.Shevstrukk.dao.entity.Person;
+
 
 import java.util.List;
 
@@ -24,7 +26,10 @@ public class DefaultPersonService implements PersonService {
         return SingletonHolder.HOLDER_INSTANCE;
     }
 
-    public List<Person> listAllPerson () {
+    public List<AuthUser> listAllAuthUser() {
+        return personDAO.listAllAuthUsers();
+    }
+    public List<Person> listAllPerson() {
         return personDAO.listAllPerson();
     }
 
@@ -35,9 +40,9 @@ public class DefaultPersonService implements PersonService {
         personDAO.updatePerson(person);
 
     }
-    public void deletePerson(int person){
+   /* public void deletePerson(int person){
              DefaultPersonDAO.getInstance().deletePerson(person);
-    }
+    }*/
     public Person getPerson(int id) {
         return personDAO.getPerson(id);
     }
