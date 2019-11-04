@@ -9,4 +9,5 @@ public interface UserService {
     public List<AuthUser> listAllUsers();
      public AuthUser login(String login, String password);
     public AuthUser addAuthUser(String login, String password);
+    public void deleteAuthUser (int id);
 }
