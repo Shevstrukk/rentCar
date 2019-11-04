@@ -25,10 +25,10 @@ public class DefaultUsersDAO implements UsersDAO {
 
     @SuppressWarnings("unchecked")
     public List<AuthUser> listAllUsers() {
-
         EntityManager entityManager = EMUtil.getEntityManager();
         return  entityManager.createQuery("FROM " + AuthUser.class.getName()).getResultList();
     }
+
     public void saveOrUpdateAuthUser(AuthUser authUser) {
         Session session = EMUtil.getSession();
         session.beginTransaction();
@@ -37,4 +37,12 @@ public class DefaultUsersDAO implements UsersDAO {
         session.close();
     }
 
+    public void deleteAuthUser (int id){
+        Session session = EMUtil.getSession();
+        session.beginTransaction();
+        AuthUser authUser= session.get(AuthUser.class, id);
+        session.delete(authUser);
+        session.getTransaction().commit();
+        session.close();
+    }
 }
