@@ -30,7 +30,11 @@ public class RegistrationServlet extends HttpServlet {
         final String password = req.getParameter("password");
         UserService userService= DefaultUserService.getInstance();
         AuthUser user = userService.login(login, password);
+        if(user.getPerson()==null){
+            req.getSession().setAttribute("authUser", user);
+            req.getRequestDispatcher("/WEB-INF/view/user_menu.jsp").forward(req, resp);
+        }else{
         req.getSession().setAttribute("authUser", user);
-        req.getRequestDispatcher("/WEB-INF/view/user_menu.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/view/order.jsp").forward(req, resp);}
     }
 }
