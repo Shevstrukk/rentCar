@@ -20,7 +20,7 @@ public class AuthUser {
     @Column(name = "role")
     private String role;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="person_id")
     private Person person;
 
