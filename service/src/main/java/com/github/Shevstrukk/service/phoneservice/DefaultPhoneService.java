@@ -4,10 +4,13 @@ import com.github.Shevstrukk.dao.entity.Person;
 import com.github.Shevstrukk.dao.entity.Phone;
 import com.github.Shevstrukk.dao.phonedao.DefaultPhoneDAO;
 import com.github.Shevstrukk.dao.phonedao.PhoneDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class DefaultPhoneService implements PhoneService {
+    private static final Logger log = LoggerFactory.getLogger(DefaultPhoneService.class);
     private PhoneDAO phoneDAO = DefaultPhoneDAO.getInstance();
 
     public DefaultPhoneService() {}
@@ -23,7 +26,11 @@ public class DefaultPhoneService implements PhoneService {
         return SingletonHolder.HOLDER_INSTANCE;
     }
 
-    public List<Phone> savePhone(Phone phone, int id){
+    public Person savePhone(Phone phone, int id){
       return   phoneDAO.savePhone(phone, id);
+    }
+
+    public Person deletePhone(int personId, int id){
+      return   phoneDAO.deletePhone( personId,  id);
     }
 }
