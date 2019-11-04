@@ -50,4 +50,9 @@ public class DefaultUserService implements UserService {
         return userDAO.listAllUsers();
     }
 
+    public void deleteAuthUser (int id){
+        userDAO.deleteAuthUser( id);
+    }
+
+
 }
