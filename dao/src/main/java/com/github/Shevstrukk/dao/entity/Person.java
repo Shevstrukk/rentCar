@@ -27,6 +27,9 @@ public class Person {
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Phone> phones = new ArrayList<>();
 
+    @OneToMany(mappedBy = "person1", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
+
     public Person() {}
 
     public Person(Integer id, String firstName, String lastName,
