@@ -1,6 +1,7 @@
 package com.github.Shevstrukk.web.servlets;
 
 import com.github.Shevstrukk.dao.entity.AuthUser;
+import com.github.Shevstrukk.dao.entity.Person;
 import com.github.Shevstrukk.service.DefaultUserService;
 import com.github.Shevstrukk.service.UserService;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/login")
@@ -55,7 +57,10 @@ public class LoginServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/view/user_menu.jsp").forward(req, resp);
             return;
         }else {
-             req.getRequestDispatcher("/WEB-INF/view/order.jsp").forward(req, resp);
+             Person person =user.getPerson();
+             HttpSession session=req.getSession();
+             session.setAttribute("person", person);
+             req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp").forward(req, resp);
          }
        // log.info("user {} logged", user.getLogin());
       //  req.getSession().setAttribute("authUser", user);
