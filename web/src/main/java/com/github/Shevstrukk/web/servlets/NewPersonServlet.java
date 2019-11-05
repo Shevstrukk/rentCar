@@ -39,7 +39,6 @@ public class NewPersonServlet extends HttpServlet {
         Address address = new Address(null,state, city, street, home,number);
         UserService userService= DefaultUserService.getInstance();
         AuthUser user = userService.login(firstName, lastName);
-        // AuthUser authUser = (AuthUser)req.getSession().getAttribute("authUser");
         com.github.Shevstrukk.dao.entity.Person person = new com.github.Shevstrukk.dao.entity.Person(null,firstName,lastName, user,address,null);
 
         Person person1= DefaultPersonService.getInstance().insertPerson(person);
