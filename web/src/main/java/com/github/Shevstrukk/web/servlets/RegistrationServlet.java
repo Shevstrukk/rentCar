@@ -35,6 +35,6 @@ public class RegistrationServlet extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/view/user_menu.jsp").forward(req, resp);
         }else{
         req.getSession().setAttribute("authUser", user);
-        req.getRequestDispatcher("/WEB-INF/view/order.jsp").forward(req, resp);}
+        req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp").forward(req, resp);}
     }
 }
