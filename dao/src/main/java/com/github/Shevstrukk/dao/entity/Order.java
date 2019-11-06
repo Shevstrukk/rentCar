@@ -1,9 +1,8 @@
 package com.github.Shevstrukk.dao.entity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -25,11 +24,10 @@ public class Order {
     @JoinTable(name = "orders_cars", joinColumns = {@JoinColumn(name = "order_id")},
             inverseJoinColumns = {@JoinColumn(name = "cars_id")}
     )
-    private Set<Car> cars= new HashSet<>();
-
+    private List<Car> cars = new ArrayList<>();
     public Order() {}
 
-    public Order(Integer id, int rentDay, int price, Person person, Set<Car> cars) {
+    public Order(Integer id, int rentDay, int price, Person person, List<Car> cars) {
         this.id = id;
         this.rentDay = rentDay;
         this.price = price;
@@ -53,9 +51,9 @@ public class Order {
 
     public void setPerson(Person person) {        this.person1 = person;    }
 
-    public Set<Car> getCars() {        return cars;    }
+    public List<Car> getCars() {        return cars;    }
 
-    public void setCars(Set<Car> cars) {        this.cars = cars;    }
+    public void setCars(List<Car> cars) {        this.cars = cars;    }
 
     public  void addCar(Car car){
         cars.add(car);
@@ -66,22 +64,7 @@ public class Order {
         car.getOrders().remove(this);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return rentDay == order.rentDay &&
-                price == order.price &&
-                id.equals(order.id) &&
-                person1.equals(order.person1) &&
-                cars.equals(order.cars);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, rentDay, price, person1, cars);
-    }
 
     @Override
     public String toString() {
