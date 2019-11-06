@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.Query;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,11 +92,19 @@ public class DefaultPersonDAO implements PersonDAO {
     public Person updatePerson(Person person, Order order){
         Session session = EMUtil.getSession();
         session.beginTransaction();
-        Person person1 = session.get(Person.class,person.getId());
-        person1.addOrder(order);
+        int id = person.getId();
+        Person person1 = session.get(Person.class, id);
+        Order order1 = session.get(Order.class, order.getId());
+        person1.getOrders().add(order1);
+        order1.setPerson(person1);
         session.saveOrUpdate(person1);
+        String str = "FROM  Person e JOIN FETCH e.orders ordered where e.id =: id";
+        Query query =  session.createQuery(str);
+        query.setParameter("id", id);
+        person1 =(Person)query.getSingleResult();
+       // session.saveOrUpdate(person1);
         session.getTransaction().commit();
         session.close();
-        return person;
+        return person1;
     }
 }
