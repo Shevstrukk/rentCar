@@ -24,7 +24,6 @@ public class DefaultPhoneDAO implements PhoneDAO {
     }
 
     public Person savePhone(Phone phone, int id){
-        List<Phone> phones;
         Session session = EMUtil.getSession();
         session.beginTransaction();
         Person person = session.get(Person.class, id);
