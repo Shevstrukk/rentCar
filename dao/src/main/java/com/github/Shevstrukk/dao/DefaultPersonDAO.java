@@ -2,6 +2,7 @@ package com.github.Shevstrukk.dao;
 
 import com.github.Shevstrukk.dao.entity.Address;
 import com.github.Shevstrukk.dao.entity.AuthUser;
+import com.github.Shevstrukk.dao.entity.Order;
 import com.github.Shevstrukk.dao.entity.Person;
 import com.github.Shevstrukk.dao.util.EMUtil;
 
@@ -86,5 +87,15 @@ public class DefaultPersonDAO implements PersonDAO {
         session.saveOrUpdate(person1);
         session.getTransaction().commit();
         session.close();
+    }
+    public Person updatePerson(Person person, Order order){
+        Session session = EMUtil.getSession();
+        session.beginTransaction();
+        Person person1 = session.get(Person.class,person.getId());
+        person1.addOrder(order);
+        session.saveOrUpdate(person1);
+        session.getTransaction().commit();
+        session.close();
+        return person;
     }
 }
