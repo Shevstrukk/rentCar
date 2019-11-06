@@ -13,10 +13,10 @@
     <title>carList</title>
 </head>
 <body>
-<form method="post" action="/getOrder">
+<%--<form method="post" action="/getOrder">--%>
 <div align="center">
     <table border="1" cellpadding="5">
-        <caption><h2>List of Person</h2></caption>
+        <caption><h2>List of Cars</h2></caption>
         <tr>
             <th>ID</th>
             <th>Марка</th>
@@ -35,15 +35,17 @@
                 <td><c:out value="${cars.carColor}" /></td>
                 <td><c:out value="${cars.priceDay}" /></td>
                 <td><c:out value="${cars.comment}" /></td>
+                <form method="post" action="/getOrder">
                 <td> <input type="number" name="rentDay" size="5"  /></td>
                 <td>
                     <input type="number" hidden name="id" value="${cars.id}" />
                     <input type="submit" value="Оформить заказ"/>
                 </td>
+                </form>
             </tr>
         </c:forEach>
     </table>
 </div>
-</form>
+<%--</form>--%>
 </body>
 </html>
