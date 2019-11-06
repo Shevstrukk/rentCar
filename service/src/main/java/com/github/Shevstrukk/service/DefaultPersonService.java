@@ -3,6 +3,7 @@ package com.github.Shevstrukk.service;
 import com.github.Shevstrukk.dao.DefaultPersonDAO;
 import com.github.Shevstrukk.dao.PersonDAO;
 import com.github.Shevstrukk.dao.entity.AuthUser;
+import com.github.Shevstrukk.dao.entity.Order;
 import com.github.Shevstrukk.dao.entity.Person;
 
 
@@ -38,7 +39,9 @@ public class DefaultPersonService implements PersonService {
     }
     public void updatePerson(Person person){
         personDAO.updatePerson(person);
-
+    }
+    public Person updatePerson(Person person, Order order){
+      return   personDAO.updatePerson(person, order);
     }
    /* public void deletePerson(int person){
              DefaultPersonDAO.getInstance().deletePerson(person);
