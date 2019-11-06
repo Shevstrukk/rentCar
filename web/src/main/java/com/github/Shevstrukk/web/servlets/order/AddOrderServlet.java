@@ -24,7 +24,7 @@ import java.util.Set;
 public class AddOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/orderUser.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp");
         requestDispatcher.forward(req, resp);
     }
 
@@ -49,8 +49,8 @@ public class AddOrderServlet extends HttpServlet {
             newOrder=DefaultOrderService.getInstance().saveOrder(orderOld, car);
             session.setAttribute("order", newOrder);
         }
-      //  Person person1 = DefaultPersonService.getInstance().updatePerson(person, newOrder);
+        Person person1 = DefaultPersonService.getInstance().updatePerson(person, newOrder);
 
-       // doGet(req,resp);
+        doGet(req,resp);
     }
 }
