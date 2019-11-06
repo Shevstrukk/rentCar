@@ -20,6 +20,7 @@ public class Person {
 
     @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     private AuthUser authUser;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="address_id")
     private Address address;
@@ -82,5 +83,19 @@ public class Person {
     public void addPhones(Phone phone){
         phone.setPerson(this);
         phones.add(phone);
+    }
+
+    public List<Order> getOrders() {        return orders;    }
+
+    public void addOrder(Order order){
+        order.setPerson(this);
+        orders.add(order);
+    }
+    public void removeOrder(Order order) {
+        getOrders().remove(order);
+        order.setPerson(null);;
+    }
+
+    public void setOrders(List<Order> orders) {        this.orders = orders;
     }
 }
