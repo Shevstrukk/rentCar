@@ -1,9 +1,8 @@
 package com.github.Shevstrukk.dao.entity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+
 @Entity
 @Table(name = "cars")
 public class Car {
@@ -22,19 +21,20 @@ public class Car {
     @Column(name = "comment")
     private String comment;
 
-    @ManyToMany(mappedBy = "cars", cascade = CascadeType.ALL)
-    private Set<Order> orders = new HashSet<>();
+    @ManyToMany(mappedBy = "cars", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Order> orders = new ArrayList<>();
 
     public Car() {    }
 
     public Car(Integer id, String carName, int carYear,
-               String carColor, int priceDay, String comment) {
+               String carColor, int priceDay, String comment, List< Order> orders) {
         this.id = id;
         this.carName = carName;
         this.carYear = carYear;
         this.carColor = carColor;
         this.priceDay = priceDay;
         this.comment = comment;
+        this.orders= orders;
     }
 
     public Integer getId() {        return id;    }
@@ -61,29 +61,12 @@ public class Car {
 
     public void setComment(String comment) {        this.comment = comment;    }
 
-    public Set<Order> getOrders() {     return orders;    }
+    public List<Order> getOrders() {     return orders;    }
 
-    public void setOrders(Set<Order> orders) {        this.orders = orders;
+    public void setOrders(List<Order> orders) {        this.orders = orders;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Car car = (Car) o;
-        return carYear == car.carYear &&
-                priceDay == car.priceDay &&
-                id.equals(car.id) &&
-                carName.equals(car.carName) &&
-                carColor.equals(car.carColor) &&
-                Objects.equals(comment, car.comment) &&
-                orders.equals(car.orders);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, carName, carYear, carColor, priceDay, comment, orders);
-    }
 
     @Override
     public String toString() {
