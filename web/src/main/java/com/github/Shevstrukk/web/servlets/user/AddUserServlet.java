@@ -29,13 +29,10 @@ public class AddUserServlet extends HttpServlet {
         Address address = new Address(null,state, city, street, home,number);
         AuthUser authUser = (AuthUser)req.getSession().getAttribute("authUser");
         Person person = new Person(null,firstName,lastName,authUser,address,null);
-       // req.setAttribute("personid", person.getId());
        Person person1= DefaultPersonService.getInstance().insertPerson(person);
         req.getSession().setAttribute("person1", person1);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhone.jsp");
         requestDispatcher.forward(req, resp);
-       // DefaultPersonService.getInstance().insertPerson(person);
-       // doGet(req,resp);
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
