@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
         }else if(user.getRole().equals("user")&user.getPerson()==null){
             req.getRequestDispatcher("/WEB-INF/view/user_menu.jsp").forward(req, resp);
             return;
-        }else {
+        }else if(user.getRole().equals("user")&user.getPerson()!=null ){
              Person person =user.getPerson();
              HttpSession session=req.getSession();
              session.setAttribute("person", person);
