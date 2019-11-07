@@ -66,18 +66,4 @@ public class Car {
     public void setOrders(List<Order> orders) {        this.orders = orders;
     }
 
-
-
-    @Override
-    public String toString() {
-        return "Car{" +
-                "id=" + id +
-                ", carName='" + carName + '\'' +
-                ", carYear=" + carYear +
-                ", carColor='" + carColor + '\'' +
-                ", priceDay=" + priceDay +
-                ", comment='" + comment + '\'' +
-                ", orders=" + orders +
-                '}';
-    }
 }
