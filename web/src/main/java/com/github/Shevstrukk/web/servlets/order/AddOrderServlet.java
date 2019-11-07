@@ -6,6 +6,8 @@ import com.github.Shevstrukk.dao.entity.Person;
 import com.github.Shevstrukk.service.DefaultPersonService;
 import com.github.Shevstrukk.service.carService.DefaultCarsService;
 import com.github.Shevstrukk.service.orderService.DefaultOrderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,44 +24,33 @@ import java.util.Set;
 
 @WebServlet("/doOrder")
 public class AddOrderServlet extends HttpServlet {
+    private static final Logger log = LoggerFactory.getLogger(AddOrderServlet.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp");
         requestDispatcher.forward(req, resp);
     }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         final int carId = Integer.parseInt(req.getParameter("carId"));
-        final  int rentDay = Integer.parseInt(req.getParameter("rentDay"));
+        final int rentDay = Integer.parseInt(req.getParameter("rentDay"));
         final int price = Integer.parseInt(req.getParameter("price"));
         Car car = DefaultCarsService.getInstance().getCar(carId);
-        Order orderOld = (Order)session.getAttribute("order");
-        Person person =(Person)session.getAttribute("person");
+        Order orderOld = (Order) session.getAttribute("order");
+        Person person = (Person) session.getAttribute("person");
         List<Car> cars = new ArrayList<>();
         Order newOrder;
-         if(orderOld==null){
-                Order order = new Order(null,rentDay,price,person,cars);
-                 newOrder= DefaultOrderService.getInstance().saveOrder(order, car);
-                session.setAttribute("order", newOrder);
-             } else {
-    //            for (Car element : orderOld.getCars()) {
-    //                if(element.equals(car)){
-    ////                    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp");
-    ////                    requestDispatcher.forward(req, resp);
-    //                return;
-    //                }
-                int newPrice = orderOld.getPrice()+ price;
-                orderOld.setPrice(newPrice);
-            }
-            //int newPrice = orderOld.getPrice()+ price;
-          //  orderOld.setPrice(newPrice);
-            newOrder=DefaultOrderService.getInstance().saveOrUpdate(orderOld, car);
-           // session.setAttribute("order", newOrder);
+        if (orderOld == null) {
+            Order order = new Order(null, rentDay, price, person, cars);
+            newOrder = DefaultOrderService.getInstance().saveOrder(order, car);
+            session.setAttribute("order", newOrder);
+        } else {
+            int newPrice = orderOld.getPrice() + price;
+            orderOld.setPrice(newPrice);
+           newOrder = DefaultOrderService.getInstance().saveOrUpdate(orderOld, car);
+        }
         Person person1 = DefaultPersonService.getInstance().updatePerson(person, newOrder);
         doGet(req,resp);
-         }
-
-
+    }
 }
