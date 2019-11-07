@@ -5,4 +5,5 @@ import com.github.Shevstrukk.dao.entity.Order;
 
 public interface OrderService {
     public Order saveOrder(Order order, Car car);
+    public Order saveOrUpdate(Order order, Car car);
 }
