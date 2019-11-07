@@ -14,6 +14,7 @@
 </head>
 <body>
 <form method="post" action="/doOrder" >
+
     <table border="1" cellpadding="5">
         <input type="hidden" name="carId" value="<c:out value="${car.id}" />" />
         <tr>
