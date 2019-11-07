@@ -24,7 +24,6 @@ public class DefaultOrderService implements OrderService {
         return SingletonHolder.HOLDER_INSTANCE;
     }
 
-    public Order saveOrder(Order order, Car car) { return orderDAO.saveOrder(order, car);
-
-    }
+    public Order saveOrder(Order order, Car car) { return orderDAO.saveOrder(order, car);    }
+    public Order saveOrUpdate(Order order, Car car) { return orderDAO.saveOrder(order, car);    }
 }
