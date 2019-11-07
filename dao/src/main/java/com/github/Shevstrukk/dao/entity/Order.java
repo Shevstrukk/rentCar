@@ -64,16 +64,4 @@ public class Order {
         car.getOrders().remove(this);
     }
 
-
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", rentDay=" + rentDay +
-                ", price=" + price +
-                ", person=" + person1 +
-                ", cars=" + cars +
-                '}';
-    }
 }
