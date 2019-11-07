@@ -39,18 +39,27 @@ public class AddOrderServlet extends HttpServlet {
         Person person =(Person)session.getAttribute("person");
         List<Car> cars = new ArrayList<>();
         Order newOrder;
-        if(orderOld==null){
-            Order order = new Order(null,rentDay,price,person,cars);
-             newOrder= DefaultOrderService.getInstance().saveOrder(order, car);
-            session.setAttribute("order", newOrder);
-        } else {
-            int newPrice = orderOld.getPrice()+ price;
-            orderOld.setPrice(newPrice);
-            newOrder=DefaultOrderService.getInstance().saveOrder(orderOld, car);
-            session.setAttribute("order", newOrder);
-        }
+         if(orderOld==null){
+                Order order = new Order(null,rentDay,price,person,cars);
+                 newOrder= DefaultOrderService.getInstance().saveOrder(order, car);
+                session.setAttribute("order", newOrder);
+             } else {
+    //            for (Car element : orderOld.getCars()) {
+    //                if(element.equals(car)){
+    ////                    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp");
+    ////                    requestDispatcher.forward(req, resp);
+    //                return;
+    //                }
+                int newPrice = orderOld.getPrice()+ price;
+                orderOld.setPrice(newPrice);
+            }
+            //int newPrice = orderOld.getPrice()+ price;
+          //  orderOld.setPrice(newPrice);
+            newOrder=DefaultOrderService.getInstance().saveOrUpdate(orderOld, car);
+           // session.setAttribute("order", newOrder);
         Person person1 = DefaultPersonService.getInstance().updatePerson(person, newOrder);
-
         doGet(req,resp);
-    }
+         }
+
+
 }
