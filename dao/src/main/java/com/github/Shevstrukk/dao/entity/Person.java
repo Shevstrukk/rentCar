@@ -1,4 +1,6 @@
 package com.github.Shevstrukk.dao.entity;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -6,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "person")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
