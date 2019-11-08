@@ -61,6 +61,11 @@
                     </form>
 
                 </td>
+                <c:forEach var="order" items="${person.orders}">
+                    <td><c:out value="${order.id}" /></td>
+                    <td><c:out value="${order.rentDay}" /></td>
+                    <td><c:out value="${order.price}" /></td>
+                </c:forEach>
             </tr>
         </c:forEach>
     </table>
