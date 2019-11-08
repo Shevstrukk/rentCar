@@ -11,6 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,16 +70,30 @@ public class DefaultPersonDAO implements PersonDAO {
         return list;
     }
     public List<Person> listAllPerson() {
-
-        List<Person> list;
         Session session = EMUtil.getSession();
-        session.beginTransaction();
-       // String str = "FROM Person  ORDER BY id ASC";
-        String str = "FROM  Person e JOIN FETCH e.phones phon";
-        list = session.createQuery(str).getResultList();
-        session.getTransaction().commit();
-        session.close();
-        return list;
+        int pageNamber = 1;
+        int pageSize = 4;
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Person> criteria = cb.createQuery(Person.class);
+        criteria.select(criteria.from(Person.class));
+        TypedQuery<Person> typedQuery = session.createQuery(criteria);
+        typedQuery.setFirstResult(pageSize*(pageNamber-1));
+        typedQuery.setMaxResults(pageSize);
+        List<Person>  personList = typedQuery.getResultList();
+//        Root<Person> rootPerson = criteria.from(Person.class);
+//        criteria.select(rootPerson);
+       // List<Person> list = session.createQuery(criteria).getResultList();
+
+/*   рабочий код
+//        List<Person> list;
+//        Session session = EMUtil.getSession();
+//        session.beginTransaction();
+//       // String str = "FROM Person  ORDER BY id ASC";
+//        String str = "FROM  Person e JOIN FETCH e.phones phon";
+//        list = session.createQuery(str).getResultList();
+//        session.getTransaction().commit();
+//        session.close();*/
+        return personList;
     }
     public void updatePerson(Person person){
         int id = person.getId();
