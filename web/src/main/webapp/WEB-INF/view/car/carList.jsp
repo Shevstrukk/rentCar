@@ -13,7 +13,7 @@
     <title>carList</title>
 </head>
 <body>
-<%--<form method="post" action="/getOrder">--%>
+
 <div align="center">
     <table border="1" cellpadding="5">
         <caption><h2>List of Cars</h2></caption>
@@ -39,13 +39,15 @@
                 <td> <input type="number" name="rentDay" size="5"  /></td>
                 <td>
                     <input type="number" hidden name="id" value="${cars.id}" />
-                    <input type="submit" value="Оформить заказ"/>
+                    <input type="submit" value="Заказать машину"/>
                 </td>
                 </form>
             </tr>
         </c:forEach>
     </table>
 </div>
-<%--</form>--%>
+<br>
+<a href="<c:url value='/logout' />">Выйти</a>
+
 </body>
 </html>
