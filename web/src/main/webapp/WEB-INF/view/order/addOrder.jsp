@@ -69,5 +69,7 @@
     </table>
 
 </form>
+<br>
+<a href="<c:url value='/logout' />">Выйти</a>
 </body>
 </html>
