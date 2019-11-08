@@ -17,6 +17,11 @@
 <form method="get" action="/getCars">
     <input type="submit" value="Получить список машин"/>
 </form>
+
+<form method="get" action="/getOrderList">
+    <input type="submit" value="Получить список заказов"/>
+</form>
+
 <a href="<c:url value='/logout' />">Выйти</a>
 </body>
 </html>
