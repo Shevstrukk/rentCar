@@ -20,25 +20,28 @@
 
 </form>
 
-    <c:forEach var="phone" items="${phoneList}">
-        <tr>
-            <td><c:out value="${phone.line}" /></td>
+<c:forEach var="phone" items="${phoneList}">
+    <tr>
+        <td><c:out value="${phone.line}" /></td>
 
-            <td>
-                <form method="post" action="/deletePhone">
-                    <input type="number" hidden name="id" value="${phone.id}" />
-                    <input type="number" hidden name="personId" value="${phone.person.id}">
-                    <input type="submit" name="delete" value="Удалить"/>
-                </form>
-            </td>
-            <td>
-                <form method="get" action="/updatePhone">
-                    <input type="number" hidden name="id" value="${phone.id}" />
-                    <input type="submit" value="Редактированть"/>
-                </form>
+        <td>
+            <form method="post" action="/deletePhone">
+                <input type="number" hidden name="id" value="${phone.id}" />
+                <input type="number" hidden name="personId" value="${phone.person.id}">
+                <input type="submit" name="delete" value="Удалить"/>
+            </form>
+        </td>
+        <td>
+            <form method="get" action="/updatePhone">
+                <input type="number" hidden name="id" value="${phone.id}" />
+                <input type="submit" value="Редактированть"/>
+            </form>
 
-            </td>
-        </tr>
-    </c:forEach>
+        </td>
+    </tr>
+</c:forEach>
+<a href="<c:url value='/getCars' />">Получить список машин</a>
+<br>
+<a href="<c:url value='/logout' />">Выйти</a>
 </body>
 </html>
