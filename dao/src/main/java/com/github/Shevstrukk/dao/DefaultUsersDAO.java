@@ -27,6 +27,14 @@ public class DefaultUsersDAO implements UsersDAO {
     public List<AuthUser> listAllUsers() {
         EntityManager entityManager = EMUtil.getEntityManager();
         return  entityManager.createQuery("FROM " + AuthUser.class.getName()).getResultList();
+//        List<AuthUser> list;
+//        Session session = EMUtil.getSession();
+//        session.beginTransaction();
+//        String str = "FROM AuthUser  ORDER BY id ASC";
+//        list = session.createQuery(str).getResultList();
+//        session.getTransaction().commit();
+//        session.close();
+//        return list;
     }
 
     public void saveOrUpdateAuthUser(AuthUser authUser) {
