@@ -5,8 +5,11 @@ import com.github.Shevstrukk.dao.entity.Order;
 import com.github.Shevstrukk.dao.entity.Person;
 import com.github.Shevstrukk.dao.util.EMUtil;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class DefaultOrderDAO implements OrderDAO {
     private static final Logger log = LoggerFactory.getLogger(DefaultOrderDAO.class);
@@ -24,19 +27,11 @@ public class DefaultOrderDAO implements OrderDAO {
     public Order saveOrder(Order order, Car car) {
         Session session = EMUtil.getSession();
         session.beginTransaction();
-       // int orderId = order.getId();
-       // Order order1 = session.get(Order.class, orderId);
         order.addCar(car);
         car.getOrders().add(order);
-       // order1.setPrice(order.getPrice());
-       // int carId = car.getId();
-       // Car car1 = session.get(Car.class, carId);
-       // car1.getOrders().add()
-        //car.getOrders().add(order);
-//        Person person = order.getPerson();
-//        person.getOrders().add(order);
         session.saveOrUpdate(order);
         session.getTransaction().commit();
+        session.clear();
         session.close();
         return order;
     }
@@ -45,11 +40,24 @@ public class DefaultOrderDAO implements OrderDAO {
         session.beginTransaction();
         int orderId = order.getId();
          Order order1 = session.get(Order.class, orderId);
+         order1.setPrice(order.getPrice());
         order1.getCars().add(car);
         car.getOrders().add(order1);
         session.saveOrUpdate(order);
         session.getTransaction().commit();
         session.close();
         return order1;
+    }
+    public Person getOrderList(int id){
+        Session session = EMUtil.getSession();
+        session.beginTransaction();
+        String str = "FROM  Person e JOIN FETCH e.orders ordered WHERE e.id=:id ";
+        Query query = session.createQuery(str);
+        query.setParameter("id", id);
+       // List<Person>list = query.list();
+        Person person = (Person) query.uniqueResult();
+        session.getTransaction().commit();
+        session.close();
+        return person;
     }
 }
