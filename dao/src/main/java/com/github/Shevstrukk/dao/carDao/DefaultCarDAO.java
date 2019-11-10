@@ -1,7 +1,10 @@
 package com.github.Shevstrukk.dao.carDao;
 
-import com.github.Shevstrukk.dao.entity.Car;
+import com.github.Shevstrukk.dao.converter.CarConverter;
+
+import com.github.Shevstrukk.dao.entity.CarEntity;
 import com.github.Shevstrukk.dao.util.EMUtil;
+import com.github.Shevstrukk.model.Car;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,22 +27,22 @@ public class DefaultCarDAO implements CarsDAO{
 
     @Override
     public List<Car> getListCar() {
-        List<Car> carList;
+        List<CarEntity> carEntityList;
         Session session = EMUtil.getSession();
         session.beginTransaction();
-        String str = "FROM Car  ORDER BY id ASC";
-        carList = session.createQuery(str).getResultList();
+        String str = "FROM CarEntity  ORDER BY id ASC";
+        carEntityList = session.createQuery(str).getResultList();
         session.getTransaction().commit();
         session.close();
-        return carList;
+        return CarConverter.fromListEntityCar(carEntityList);
     }
     public Car getCar(int id){
-        Car car;
+        CarEntity carEntity;
         Session session = EMUtil.getSession();
         session.beginTransaction();
-        car = session.get(Car.class, id);
+        carEntity = session.get(CarEntity.class, id);
         session.getTransaction().commit();
         session.close();
-        return car;
+        return CarConverter.fromEntity(carEntity);
     }
 }

@@ -1,12 +1,13 @@
 package com.github.Shevstrukk.web.servlets;
 
-import com.github.Shevstrukk.dao.entity.Address;
-import com.github.Shevstrukk.dao.entity.AuthUser;
-import com.github.Shevstrukk.dao.entity.Person;
+import com.github.Shevstrukk.dao.entity.AddressEntity;
+import com.github.Shevstrukk.dao.entity.AuthUserEntity;
+import com.github.Shevstrukk.dao.entity.PersonEntity;
+import com.github.Shevstrukk.model.Address;
+import com.github.Shevstrukk.model.AuthUser;
+import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.service.DefaultPersonService;
-import com.github.Shevstrukk.service.DefaultUserService;
 import com.github.Shevstrukk.service.PersonService;
-import com.github.Shevstrukk.service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,13 +45,13 @@ public class UpdatePersonServlet extends HttpServlet {
              final String login = req.getParameter("login");
              final String password = req.getParameter("password");
              final String role = req.getParameter("role");
-             Address address = new Address(addressId,state, city, street, home,number);
+             Address addressEntity = new Address(addressId,state, city, street, home,number,null);
              //UserService userService= DefaultUserService.getInstance();
-            // AuthUser user = userService.login(firstName, lastName);
-             // AuthUser authUser = (AuthUser)req.getSession().getAttribute("authUser");
+            // AuthUserEntity user = userService.login(firstName, lastName);
+             // AuthUserEntity authUser = (AuthUserEntity)req.getSession().getAttribute("authUser");
              AuthUser user = new AuthUser(idAuth,login,password,role,null);
-             Person person = new Person(id,firstName,lastName, user,address,null);
-             DefaultPersonService.getInstance().updatePerson(person);
+             Person person = new Person(id,firstName,lastName, user, addressEntity,null,null);
+             Person updatePerson = DefaultPersonService.getInstance().updatePerson(person);
 
             PersonService defaultPersonService= DefaultPersonService.getInstance();
              List<Person> personList = defaultPersonService.listAllPerson();

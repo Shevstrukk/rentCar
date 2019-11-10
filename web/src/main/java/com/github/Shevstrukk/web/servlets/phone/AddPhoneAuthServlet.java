@@ -1,7 +1,9 @@
 package com.github.Shevstrukk.web.servlets.phone;
 
-import com.github.Shevstrukk.dao.entity.Person;
-import com.github.Shevstrukk.dao.entity.Phone;
+import com.github.Shevstrukk.dao.entity.PersonEntity;
+import com.github.Shevstrukk.dao.entity.PhoneEntity;
+import com.github.Shevstrukk.model.Person;
+import com.github.Shevstrukk.model.Phone;
 import com.github.Shevstrukk.service.phoneservice.DefaultPhoneService;
 
 import javax.servlet.RequestDispatcher;
@@ -29,11 +31,11 @@ public class AddPhoneAuthServlet extends HttpServlet {
 
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            final String line = String.valueOf(req.getParameter("phone"));
+            final String line = String.valueOf(req.getParameter("phoneEntity"));
             Person person1 = (Person) req.getSession().getAttribute("person1");
             int id = person1.getId();
-            Phone phone = new Phone(null,line,null);
-            Person person = DefaultPhoneService.getInstance().savePhone(phone, id);
+            Phone phoneEntity = new Phone(null,line,null);
+            Person person = DefaultPhoneService.getInstance().savePhone(phoneEntity, id);
             req.getSession().setAttribute("person", person);
             doGet(req, resp);
         }

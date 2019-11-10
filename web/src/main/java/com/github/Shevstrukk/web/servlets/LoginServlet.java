@@ -1,7 +1,9 @@
 package com.github.Shevstrukk.web.servlets;
 
-import com.github.Shevstrukk.dao.entity.AuthUser;
-import com.github.Shevstrukk.dao.entity.Person;
+import com.github.Shevstrukk.dao.entity.AuthUserEntity;
+import com.github.Shevstrukk.dao.entity.PersonEntity;
+import com.github.Shevstrukk.model.AuthUser;
+import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.service.DefaultUserService;
 import com.github.Shevstrukk.service.UserService;
 import org.slf4j.Logger;

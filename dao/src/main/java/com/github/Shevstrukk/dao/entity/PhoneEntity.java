@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "phone")
-public class Phone {
+public class PhoneEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -15,11 +15,11 @@ public class Phone {
    // @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "person_id")
-    private Person person;
+    private PersonEntity person;
 
-    public Phone() {}
+    public PhoneEntity() {}
 
-    public Phone(Integer id, String line, Person person) {
+    public PhoneEntity(Integer id, String line, PersonEntity person) {
         this.id=id;
         this.line = line;
         this.person = person;
@@ -41,11 +41,11 @@ public class Phone {
         this.line = line;
     }
 
-    public Person getPerson() {
+    public PersonEntity getPerson() {
         return person;
     }
 
-    public void setPerson(Person person) {
+    public void setPerson(PersonEntity person) {
         this.person = person;
     }
 

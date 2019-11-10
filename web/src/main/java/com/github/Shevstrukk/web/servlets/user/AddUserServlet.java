@@ -1,11 +1,13 @@
 package com.github.Shevstrukk.web.servlets.user;
 
 
-import com.github.Shevstrukk.dao.entity.Address;
-import com.github.Shevstrukk.dao.entity.AuthUser;
-import com.github.Shevstrukk.dao.entity.Person;
+import com.github.Shevstrukk.dao.entity.AddressEntity;
+import com.github.Shevstrukk.dao.entity.AuthUserEntity;
+import com.github.Shevstrukk.dao.entity.PersonEntity;
+import com.github.Shevstrukk.model.Address;
+import com.github.Shevstrukk.model.AuthUser;
+import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.service.DefaultPersonService;
-import com.github.Shevstrukk.service.PersonService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,9 +28,9 @@ public class AddUserServlet extends HttpServlet {
         final String street = req.getParameter("street");
         final int home = Integer.valueOf(req.getParameter("home"));
         final int number = Integer.valueOf(req.getParameter("number"));
-        Address address = new Address(null,state, city, street, home,number);
-        AuthUser authUser = (AuthUser)req.getSession().getAttribute("authUser");
-        Person person = new Person(null,firstName,lastName,authUser,address,null);
+        Address addressEntity = new Address(null,state, city, street, home,number,null);
+        AuthUser authUserEntity = (AuthUser)req.getSession().getAttribute("authUserEntity");
+        Person person = new Person(null,firstName,lastName, authUserEntity, addressEntity,null,null);
        Person person1= DefaultPersonService.getInstance().insertPerson(person);
         req.getSession().setAttribute("person1", person1);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhone.jsp");
@@ -37,7 +39,7 @@ public class AddUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
        /* PersonService defaultPersonService= DefaultPersonService.getInstance();
-        List<Person> personList = defaultPersonService.listAllPerson();
+        List<PersonEntity> personList = defaultPersonService.listAllPerson();
         req.setAttribute("personList", personList);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/user/userList.jsp");
         requestDispatcher.forward(req, resp);*/

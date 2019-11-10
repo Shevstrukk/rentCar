@@ -1,6 +1,7 @@
 package com.github.Shevstrukk.web.servlets.phone;
 
-import com.github.Shevstrukk.dao.entity.Person;
+import com.github.Shevstrukk.dao.entity.PersonEntity;
+import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.service.phoneservice.DefaultPhoneService;
 
 import javax.servlet.ServletException;

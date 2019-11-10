@@ -10,7 +10,7 @@ import java.util.*;
 @Entity
 @Table(name = "cars")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Car {
+public class CarEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -26,20 +26,20 @@ public class Car {
     @Column(name = "comment")
     private String comment;
 
-    @ManyToMany(mappedBy = "cars", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Order> orders = new ArrayList<>();
+    @ManyToMany(mappedBy = "carEntities", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<OrderEntity> orderEntities = new ArrayList<>();
 
-    public Car() {    }
+    public CarEntity() {    }
 
-    public Car(Integer id, String carName, int carYear,
-               String carColor, int priceDay, String comment, List< Order> orders) {
+    public CarEntity(Integer id, String carName, int carYear,
+                     String carColor, int priceDay, String comment, List<OrderEntity> orderEntities) {
         this.id = id;
         this.carName = carName;
         this.carYear = carYear;
         this.carColor = carColor;
         this.priceDay = priceDay;
         this.comment = comment;
-        this.orders= orders;
+        this.orderEntities = orderEntities;
     }
 
     public Integer getId() {        return id;    }
@@ -66,9 +66,9 @@ public class Car {
 
     public void setComment(String comment) {        this.comment = comment;    }
 
-    public List<Order> getOrders() {     return orders;    }
+    public List<OrderEntity> getOrderEntities() {     return orderEntities;    }
 
-    public void setOrders(List<Order> orders) {        this.orders = orders;
+    public void setOrderEntities(List<OrderEntity> orderEntities) {        this.orderEntities = orderEntities;
     }
 
 }

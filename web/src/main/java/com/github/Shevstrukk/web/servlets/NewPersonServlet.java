@@ -1,11 +1,13 @@
 package com.github.Shevstrukk.web.servlets;
 
-import com.github.Shevstrukk.dao.entity.Address;
-import com.github.Shevstrukk.dao.entity.AuthUser;
-import com.github.Shevstrukk.dao.entity.Person;
+import com.github.Shevstrukk.dao.entity.AddressEntity;
+import com.github.Shevstrukk.dao.entity.AuthUserEntity;
+import com.github.Shevstrukk.dao.entity.PersonEntity;
+import com.github.Shevstrukk.model.Address;
+import com.github.Shevstrukk.model.AuthUser;
+import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.service.DefaultPersonService;
 import com.github.Shevstrukk.service.DefaultUserService;
-import com.github.Shevstrukk.service.PersonService;
 import com.github.Shevstrukk.service.UserService;
 
 import javax.servlet.RequestDispatcher;
@@ -15,8 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
 
 @WebServlet("/newPerson")
 public class NewPersonServlet extends HttpServlet {
@@ -36,10 +36,10 @@ public class NewPersonServlet extends HttpServlet {
         final String street = req.getParameter("street");
         final int home = Integer.valueOf(req.getParameter("home"));
         final int number = Integer.valueOf(req.getParameter("number"));
-        Address address = new Address(null,state, city, street, home,number);
+        Address addressEntity = new Address(null,state, city, street, home,number, null);
         UserService userService= DefaultUserService.getInstance();
         AuthUser user = userService.login(firstName, lastName);
-        com.github.Shevstrukk.dao.entity.Person person = new com.github.Shevstrukk.dao.entity.Person(null,firstName,lastName, user,address,null);
+        Person person = new Person(null,firstName,lastName, user, addressEntity,null,null);
 
         Person person1= DefaultPersonService.getInstance().insertPerson(person);
         req.getSession().setAttribute("person1", person1);

@@ -2,7 +2,8 @@ package com.github.Shevstrukk.service.carService;
 
 import com.github.Shevstrukk.dao.carDao.CarsDAO;
 import com.github.Shevstrukk.dao.carDao.DefaultCarDAO;
-import com.github.Shevstrukk.dao.entity.Car;
+import com.github.Shevstrukk.dao.entity.CarEntity;
+import com.github.Shevstrukk.model.Car;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

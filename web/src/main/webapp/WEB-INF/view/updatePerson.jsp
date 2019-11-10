@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Виталий
-  Date: 08.10.2019
-  Time: 23:45
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -17,11 +11,11 @@
 <table border="1" cellpadding="5">
 
         <input type="hidden" name="id" value="<c:out value="${person.id}" />" />
-    <input type="hidden" name="idAuth" value="<c:out value="${person.authUser.id}" />" />
-    <input type="hidden" name="login" value="<c:out value="${person.authUser.login}" />" />
-    <input type="hidden" name="password" value="<c:out value="${person.authUser.password}" />" />
-    <input type="hidden" name="role" value="<c:out value="${person.authUser.role}" />" />
-    <input type="hidden" name="addressId" value="<c:out value="${person.address.id}" />" />
+    <input type="hidden" name="idAuth" value="<c:out value="${person.authUserEntity.id}" />" />
+    <input type="hidden" name="login" value="<c:out value="${person.authUserEntity.login}" />" />
+    <input type="hidden" name="password" value="<c:out value="${person.authUserEntity.password}" />" />
+    <input type="hidden" name="role" value="<c:out value="${person.authUserEntity.role}" />" />
+    <input type="hidden" name="addressId" value="<c:out value="${person.addressEntity.id}" />" />
 
     <tr>
         <th>Имя: </th>
@@ -38,28 +32,28 @@
     <tr>
         <th>город: </th>
         <td>
-            <input type="text" name="city" size="45"  value="<c:out value="${person.address.city}" />"
+            <input type="text" name="city" size="45"  value="<c:out value="${person.addressEntity.city}" />"
             />
         </td>
     </tr>
     <tr>
         <th>улица: </th>
         <td>
-            <input type="text" name="street" size="45"  value="<c:out value="${person.address.street}" />"
+            <input type="text" name="street" size="45"  value="<c:out value="${person.addressEntity.street}" />"
             />
         </td>
     </tr>
     <tr>
         <th>дом: </th>
         <td>
-            <input type="number" name="home" size="45"  value="<c:out value="${person.address.home}" />"
+            <input type="number" name="home" size="45"  value="<c:out value="${person.addressEntity.home}" />"
             />
         </td>
     </tr>
     <tr>
         <th>номер: </th>
         <td>
-            <input type="number" name="number" size="5"  value="<c:out value="${person.address.number}" />"
+            <input type="number" name="number" size="5"  value="<c:out value="${person.addressEntity.number}" />"
             />
         </td>
     </tr>

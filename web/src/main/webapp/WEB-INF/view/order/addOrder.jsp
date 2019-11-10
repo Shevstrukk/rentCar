@@ -1,47 +1,41 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Виталий
-  Date: 05.11.2019
-  Time: 19:41
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>form order</title>
+    <title>form orderEntity</title>
 </head>
 <body>
 <form method="post" action="/doOrder" >
 
     <table border="1" cellpadding="5">
-        <input type="hidden" name="carId" value="<c:out value="${car.id}" />" />
+        <input type="hidden" name="carId" value="<c:out value="${carEntity.id}" />" />
         <tr>
             <th>Марка: </th>
-            <td>  <c:out value="${car.carName}" />   </td>
+            <td>  <c:out value="${carEntity.carName}" />   </td>
         </tr>
 
         <tr>
             <th>Год выпуска: </th>
-            <td> <c:out value="${car.carYear}" />   </td>
+            <td> <c:out value="${carEntity.carYear}" />   </td>
         </tr>
 
         <tr>
             <th>Цвет: </th>
             <td>
-                <c:out value="${car.carColor}" />    </td>
+                <c:out value="${carEntity.carColor}" />    </td>
         </tr>
         <tr>
             <th>Комментарий: </th>
-            <td>                <c:out value="${car.comment}" />    </td>
+            <td>                <c:out value="${carEntity.comment}" />    </td>
         </tr>
 
         <tr>
             <th>Стоимость $, день: </th>
             <td>
-                <c:out value="${car.priceDay}" />
-                <input type="hidden" name="priceDay" value="<c:out value="${car.priceDay}" />" />
+                <c:out value="${carEntity.priceDay}" />
+                <input type="hidden" name="priceDay" value="<c:out value="${carEntity.priceDay}" />" />
             </td>
         </tr>
         <tr>

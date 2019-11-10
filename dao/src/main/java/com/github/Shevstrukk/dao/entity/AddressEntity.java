@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "address")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Address {
+public class AddressEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
@@ -29,12 +29,12 @@ public class Address {
     @Column(name="number")
     private int number;
 
-    @OneToOne(mappedBy = "address", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "addressEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL)
-    private Person personAddress;
-    public Address() {}
+    private PersonEntity personAddress;
+    public AddressEntity() {}
 
-    public Address(Integer id, String state, String city, String street, int home, int number) {
+    public AddressEntity(Integer id, String state, String city, String street, int home, int number) {
         this.state = state;
         this.city = city;
         this.street = street;
@@ -42,7 +42,7 @@ public class Address {
         this.number = number;
     }
 
-    public Address(Integer id, String state, String city, String street, int home, int number, Person person) {
+    public AddressEntity(Integer id, String state, String city, String street, int home, int number, PersonEntity person) {
         this.state = state;
         this.city = city;
         this.street = street;
@@ -76,6 +76,6 @@ public class Address {
    // @OneToOne(fetch = FetchType.LAZY)
    // @JoinColumn(name = "person_id")
 
-    public Person getPerson() {        return personAddress;    }
-    public void setPerson(Person person) {        this.personAddress = person;    }
+    public PersonEntity getPerson() {        return personAddress;    }
+    public void setPerson(PersonEntity person) {        this.personAddress = person;    }
 }

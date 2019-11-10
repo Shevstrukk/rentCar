@@ -1,11 +1,15 @@
 package com.github.Shevstrukk.dao;
 
-import com.github.Shevstrukk.dao.entity.Address;
-import com.github.Shevstrukk.dao.entity.AuthUser;
-import com.github.Shevstrukk.dao.entity.Order;
-import com.github.Shevstrukk.dao.entity.Person;
+import com.github.Shevstrukk.dao.converter.AddressConverter;
+import com.github.Shevstrukk.dao.converter.PersonConverter;
+import com.github.Shevstrukk.dao.entity.AddressEntity;
+import com.github.Shevstrukk.dao.entity.AuthUserEntity;
+import com.github.Shevstrukk.dao.entity.OrderEntity;
+import com.github.Shevstrukk.dao.entity.PersonEntity;
 import com.github.Shevstrukk.dao.util.EMUtil;
 
+import com.github.Shevstrukk.model.Order;
+import com.github.Shevstrukk.model.Person;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,11 +18,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class DefaultPersonDAO implements PersonDAO {
     private static final Logger log = LoggerFactory.getLogger(DefaultPersonDAO.class);
@@ -33,96 +33,109 @@ public class DefaultPersonDAO implements PersonDAO {
         return SingletonHolder.HOLDER_INSTANCE;
     }
 
-    public Person insertPerson(Person person) {
+    public Person insertPerson(Person person1) {
+PersonEntity person = PersonConverter.toEntity(person1);
         Session session = EMUtil.getSession();
         session.beginTransaction();
-        AuthUser authUser = person.getAuthUser();
-        Address address = person.getAddress();
-        session.save(address);
-        authUser.setPerson(person);
-        person.setAddress(address);
+        AuthUserEntity authUserEntity = person.getAuthUserEntity();
+        AddressEntity addressEntity = person.getAddressEntity();
+        session.save(addressEntity);
+        authUserEntity.setPerson(person);
+        person.setAddressEntity(addressEntity);
         session.save(person);
-        session.saveOrUpdate(authUser);
+        session.saveOrUpdate(authUserEntity);
         session.getTransaction().commit();
         session.close();
-        return person;
+        return PersonConverter.fromEntity(person);
     }
     public Person getPerson(int id) {
-        Person person = null;
+        PersonEntity person = null;
         Session session = EMUtil.getSession();
         session.beginTransaction();
-        person = session.get(Person.class, id);
+        person = session.get(PersonEntity.class, id);
         session.getTransaction().commit();
         session.close();
-        return person;
+        return PersonConverter.fromEntity(person);
         //String sql = "SELECT * FROM person WHERE person_id = ?";
     }
 
     @Override
-    public List<AuthUser> listAllAuthUsers() {
-        List<AuthUser> list;
+    public List<AuthUserEntity> listAllAuthUsers() {
+        List<AuthUserEntity> list;
         Session session = EMUtil.getSession();
         session.beginTransaction();
-        String str = "FROM AuthUser  ORDER BY id ASC";
+        String str = "FROM AuthUserEntity  ORDER BY id ASC";
         list = session.createQuery(str).getResultList();
         session.getTransaction().commit();
         session.close();
         return list;
     }
+//    public List<PersonEntity> pagePerson(int page) {
+//        Session session = EMUtil.getSession();
+//        int pageNamber = 1;
+//        int pageSize = 4;
+//        CriteriaBuilder cb = session.getCriteriaBuilder();
+//        CriteriaQuery<PersonEntity> criteria = cb.createQuery(PersonEntity.class);
+//        criteria.select(criteria.from(PersonEntity.class));
+//        TypedQuery<PersonEntity> typedQuery = session.createQuery(criteria);
+//        typedQuery.setFirstResult(pageSize*(page - 1)
+//                .setMaxResults(pazeSize);
+//        List<PersonEntity> personList = typedQuery.getResultList();
+//    }
+
     public List<Person> listAllPerson() {
-        Session session = EMUtil.getSession();
+     /*   Session session = EMUtil.getSession();
         int pageNamber = 1;
         int pageSize = 4;
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Person> criteria = cb.createQuery(Person.class);
-        criteria.select(criteria.from(Person.class));
-        TypedQuery<Person> typedQuery = session.createQuery(criteria);
-        typedQuery.setFirstResult(pageSize*(pageNamber-1));
-        typedQuery.setMaxResults(pageSize);
-        List<Person>  personList = typedQuery.getResultList();
-//        Root<Person> rootPerson = criteria.from(Person.class);
+        CriteriaQuery<PersonEntity> criteria = cb.createQuery(PersonEntity.class);
+        criteria.select(criteria.from(PersonEntity.class));
+        TypedQuery<PersonEntity> typedQuery = session.createQuery(criteria);
+        List<PersonEntity>  personList = typedQuery.getResultList();*/
+//        Root<PersonEntity> rootPerson = criteria.from(PersonEntity.class);
 //        criteria.select(rootPerson);
-       // List<Person> list = session.createQuery(criteria).getResultList();
+       // List<PersonEntity> list = session.createQuery(criteria).getResultList();
 
-/*   рабочий код
-//        List<Person> list;
-//        Session session = EMUtil.getSession();
-//        session.beginTransaction();
-//       // String str = "FROM Person  ORDER BY id ASC";
-//        String str = "FROM  Person e JOIN FETCH e.phones phon";
-//        list = session.createQuery(str).getResultList();
-//        session.getTransaction().commit();
-//        session.close();*/
-        return personList;
+//   рабочий код
+        List<PersonEntity> list;
+        Session session = EMUtil.getSession();
+        session.beginTransaction();
+       // String str = "FROM PersonEntity  ORDER BY id ASC";
+        String str = "FROM  PersonEntity e JOIN FETCH e.phoneEntities phon";
+        list = session.createQuery(str).getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return PersonConverter.fromListPersonEntity(list);
     }
-    public void updatePerson(Person person){
+    public Person updatePerson(Person person){
         int id = person.getId();
         Session session = EMUtil.getSession();
         session.beginTransaction();
-        Person person1 = session.get(Person.class,id);
+        PersonEntity person1 = session.get(PersonEntity.class,id);
         person1.setFirstName(person.getFirstName());
         person1.setLastName(person.getLastName());
-        person1.setAddress(person.getAddress());
+        person1.setAddressEntity(AddressConverter.toEntity(person.getAddress()));
         session.saveOrUpdate(person1);
         session.getTransaction().commit();
         session.close();
+        return PersonConverter.fromEntity(person1);
     }
-    public Person updatePerson(Person person, Order order){
+    public Person updatePerson(Person person, Order orderEntity){
         Session session = EMUtil.getSession();
         session.beginTransaction();
         int id = person.getId();
-        Person person1 = session.get(Person.class, id);
-        Order order1 = session.get(Order.class, order.getId());
-        person1.getOrders().add(order1);
-        order1.setPerson(person1);
+        PersonEntity person1 = session.get(PersonEntity.class, id);
+        OrderEntity orderEntity1 = session.get(OrderEntity.class, orderEntity.getId());
+        person1.getOrderEntities().add(orderEntity1);
+        orderEntity1.setPerson(person1);
         session.saveOrUpdate(person1);
-        String str = "FROM  Person e JOIN FETCH e.orders ordered where e.id =: id";
+        String str = "FROM  PersonEntity e JOIN FETCH e.orderEntities ordered where e.id =: id";
         Query query =  session.createQuery(str);
         query.setParameter("id", id);
-        person1 =(Person)query.getSingleResult();
+        person1 =(PersonEntity)query.getSingleResult();
        // session.saveOrUpdate(person1);
         session.getTransaction().commit();
         session.close();
-        return person1;
+        return PersonConverter.fromEntity(person1);
     }
 }

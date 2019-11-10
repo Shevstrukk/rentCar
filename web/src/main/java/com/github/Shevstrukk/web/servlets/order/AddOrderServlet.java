@@ -1,8 +1,11 @@
 package com.github.Shevstrukk.web.servlets.order;
 
-import com.github.Shevstrukk.dao.entity.Car;
-import com.github.Shevstrukk.dao.entity.Order;
-import com.github.Shevstrukk.dao.entity.Person;
+import com.github.Shevstrukk.dao.entity.CarEntity;
+import com.github.Shevstrukk.dao.entity.OrderEntity;
+import com.github.Shevstrukk.dao.entity.PersonEntity;
+import com.github.Shevstrukk.model.Car;
+import com.github.Shevstrukk.model.Order;
+import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.service.DefaultPersonService;
 import com.github.Shevstrukk.service.carService.DefaultCarsService;
 import com.github.Shevstrukk.service.orderService.DefaultOrderService;
@@ -18,9 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @WebServlet("/doOrder")
 public class AddOrderServlet extends HttpServlet {
@@ -36,21 +37,21 @@ public class AddOrderServlet extends HttpServlet {
         final int carId = Integer.parseInt(req.getParameter("carId"));
         final int rentDay = Integer.parseInt(req.getParameter("rentDay"));
         final int price = Integer.parseInt(req.getParameter("price"));
-        Car car = DefaultCarsService.getInstance().getCar(carId);
-        Order orderOld = (Order) session.getAttribute("order");
+        Car carEntity = DefaultCarsService.getInstance().getCar(carId);
+        Order orderEntityOld = (Order) session.getAttribute("order");
         Person person = (Person) session.getAttribute("person");
-        List<Car> cars = new ArrayList<>();
-        Order newOrder;
-        if (orderOld == null) {
-            Order order = new Order(null, rentDay, price, person, cars);
-            newOrder = DefaultOrderService.getInstance().saveOrder(order, car);
-            session.setAttribute("order", newOrder);
+        List<Car> carEntities = new ArrayList<>();
+        Order newOrderEntity;
+        if (orderEntityOld == null) {
+            Order orderEntity = new Order(null, rentDay, price, person, carEntities);
+            newOrderEntity = DefaultOrderService.getInstance().saveOrder(orderEntity, carEntity);
+            session.setAttribute("order", newOrderEntity);
         } else {
-            int newPrice = orderOld.getPrice() + price;
-            orderOld.setPrice(newPrice);
-           newOrder = DefaultOrderService.getInstance().saveOrUpdate(orderOld, car);
+            int newPrice = orderEntityOld.getPrice() + price;
+            orderEntityOld.setPrice(newPrice);
+           newOrderEntity = DefaultOrderService.getInstance().saveOrUpdate(orderEntityOld, carEntity);
         }
-        Person person1 = DefaultPersonService.getInstance().updatePerson(person, newOrder);
+        Person person1 = DefaultPersonService.getInstance().updatePerson(person, newOrderEntity);
         doGet(req,resp);
     }
 }

@@ -1,16 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Виталий
-  Date: 07.11.2019
-  Time: 16:20
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>orderList</title>
+    <title>orderEntityList</title>
 </head>
 <body>
 
@@ -27,18 +21,18 @@
             <th>Комментарий</th>
         </tr>
 
-            <c:forEach var="order" items="${personList.orders}">
+            <c:forEach var="orderEntity" items="${personList.orderEntities}">
 
         <tr>
-                    <td><c:out value="${order.id}" /></td>
-                    <td><c:out value="${order.rentDay}" /></td>
-                    <td><c:out value="${order.price}" /></td>
-                        <c:forEach var="car" items="${order.cars}">
+                    <td><c:out value="${orderEntity.id}" /></td>
+                    <td><c:out value="${orderEntity.rentDay}" /></td>
+                    <td><c:out value="${orderEntity.price}" /></td>
+                        <c:forEach var="carEntity" items="${orderEntity.carEntities}">
 
-                            <td><c:out value="${car.id}" /></td>
-                            <td><c:out value="${car.carName}" /></td>
-                            <td><c:out value="${car.priceDay}" /></td>
-                            <td><c:out value="${car.comment}" /></td>
+                            <td><c:out value="${carEntity.id}" /></td>
+                            <td><c:out value="${carEntity.carName}" /></td>
+                            <td><c:out value="${carEntity.priceDay}" /></td>
+                            <td><c:out value="${carEntity.comment}" /></td>
                         </c:forEach>
 
 

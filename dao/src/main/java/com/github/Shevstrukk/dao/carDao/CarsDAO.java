@@ -1,6 +1,8 @@
 package com.github.Shevstrukk.dao.carDao;
 
-import com.github.Shevstrukk.dao.entity.Car;
+
+import com.github.Shevstrukk.dao.entity.CarEntity;
+import com.github.Shevstrukk.model.Car;
 
 import java.util.List;
 

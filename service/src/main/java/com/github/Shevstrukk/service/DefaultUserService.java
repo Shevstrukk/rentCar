@@ -1,19 +1,20 @@
 package com.github.Shevstrukk.service;
 
-import com.github.Shevstrukk.dao.DefaultUsersDAO;
-import com.github.Shevstrukk.dao.UsersDAO;
-import com.github.Shevstrukk.dao.entity.AuthUser;
+import com.github.Shevstrukk.dao.DefaultAuthUsersDAO;
+import com.github.Shevstrukk.dao.AuthUsersDAO;
+import com.github.Shevstrukk.dao.entity.AuthUserEntity;
+import com.github.Shevstrukk.model.AuthUser;
 
 
 import java.util.List;
 
 public class DefaultUserService implements UserService {
 
-    private UsersDAO userDAO = DefaultUsersDAO.getInstance();
+    private AuthUsersDAO userDAO = DefaultAuthUsersDAO.getInstance();
 
     public DefaultUserService() {}
 
-    public DefaultUserService(UsersDAO userDAO) {
+    public DefaultUserService(AuthUsersDAO userDAO) {
         this.userDAO = userDAO;
     }
 
@@ -41,9 +42,8 @@ public class DefaultUserService implements UserService {
         return user = addAuthUser(login,password);
     }
     public AuthUser addAuthUser(String login, String password){
-        AuthUser newAuthUser = new AuthUser(null,login,password,"user",null);
-        userDAO.saveOrUpdateAuthUser(newAuthUser);
-        return newAuthUser;
+        AuthUser newAuthUserEntity =   userDAO.saveOrUpdateAuthUser(new AuthUser(null,login,password,"user",null));
+        return newAuthUserEntity;
 
     }
     public List<AuthUser> listAllUsers () {

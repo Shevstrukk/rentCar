@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class AuthUser {
+public class AuthUserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,13 +22,13 @@ public class AuthUser {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="person_id")
-    private Person person;
+    private PersonEntity person;
 
 
-    public AuthUser() {
+    public AuthUserEntity() {
     }
 
-    public AuthUser(Integer id, String login, String password, String role, Person person) {
+    public AuthUserEntity(Integer id, String login, String password, String role, PersonEntity person) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -67,8 +67,8 @@ public class AuthUser {
         this.role = role;
     }
 
-    public Person getPerson() {        return person;    }
+    public PersonEntity getPerson() {        return person;    }
 
-    public void setPerson(Person person) {        this.person = person;    }
+    public void setPerson(PersonEntity person) {        this.person = person;    }
 }
 

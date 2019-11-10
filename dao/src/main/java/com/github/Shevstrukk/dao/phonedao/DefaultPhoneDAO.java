@@ -1,8 +1,12 @@
 package com.github.Shevstrukk.dao.phonedao;
 
-import com.github.Shevstrukk.dao.entity.Person;
-import com.github.Shevstrukk.dao.entity.Phone;
+import com.github.Shevstrukk.dao.converter.PersonConverter;
+import com.github.Shevstrukk.dao.converter.PhoneConverter;
+import com.github.Shevstrukk.dao.entity.PersonEntity;
+import com.github.Shevstrukk.dao.entity.PhoneEntity;
 import com.github.Shevstrukk.dao.util.EMUtil;
+import com.github.Shevstrukk.model.Person;
+import com.github.Shevstrukk.model.Phone;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,38 +28,39 @@ public class DefaultPhoneDAO implements PhoneDAO {
     }
 
     public Person savePhone(Phone phone, int id){
+        PhoneEntity phoneEntity = PhoneConverter.toEntity(phone);
         Session session = EMUtil.getSession();
         session.beginTransaction();
-        Person person = session.get(Person.class, id);
-       // person.getPhones().clear();
-        person.getPhones().add(phone);
-        phone.setPerson(person);
+        PersonEntity person = session.get(PersonEntity.class, id);
+       // person.getPhoneEntities().clear();
+        person.getPhoneEntities().add(phoneEntity);
+        phoneEntity.setPerson(person);
         session.saveOrUpdate(person);
-        String str = "FROM  Person e JOIN FETCH e.phones phon where e.id =: id";
+        String str = "FROM  PersonEntity e JOIN FETCH e.phoneEntities phon where e.id =: id";
         Query query =  session.createQuery(str);
         query.setParameter("id", id);
-        person =(Person) query.getSingleResult();
+        person =(PersonEntity) query.getSingleResult();
         session.getTransaction().commit();
         session.close();
-        return person;
+        return PersonConverter.fromEntity(person);
     }
     public Person deletePhone(int personId, int id){
         Session session = EMUtil.getSession();
         session.beginTransaction();
         //int personId = person.getId();
-        Person person1 = session.get(Person.class, personId);
-        List<Phone> phone = new CopyOnWriteArrayList<>(person1.getPhones()) ;
-        for (Phone w: phone){
+        PersonEntity person1 = session.get(PersonEntity.class, personId);
+        List<PhoneEntity> phoneEntity = new CopyOnWriteArrayList<>(person1.getPhoneEntities()) ;
+        for (PhoneEntity w: phoneEntity){
             if(w.getId().equals(id)){
-                phone.remove(w);
+                phoneEntity.remove(w);
             }
         }
-        person1.getPhones().clear();
-        person1.getPhones().addAll(phone);
+        person1.getPhoneEntities().clear();
+        person1.getPhoneEntities().addAll(phoneEntity);
         session.saveOrUpdate(person1);
-      //  session.delete(phone);
+      //  session.delete(phoneEntity);
         session.getTransaction().commit();
         session.close();
-        return person1;
+        return PersonConverter.fromEntity(person1);
     }
 }
