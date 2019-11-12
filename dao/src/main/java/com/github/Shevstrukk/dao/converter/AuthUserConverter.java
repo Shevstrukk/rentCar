@@ -19,6 +19,18 @@ public class AuthUserConverter {
         authUserEntity.setPerson(PersonConverter.toEntity(authUser.getPerson()));
         return authUserEntity;
     }
+    public static AuthUserEntity toEntityLogin(AuthUser authUser){
+        if(authUser==null){
+            return null;
+        }
+        final AuthUserEntity authUserEntity = new AuthUserEntity();
+       // authUserEntity.setId(authUser.getId());
+        authUserEntity.setLogin(authUser.getLogin());
+        authUserEntity.setPassword(authUser.getPassword());
+        authUserEntity.setRole(authUser.getRole());
+        authUserEntity.setPerson(null);
+        return authUserEntity;
+    }
 public static AuthUser fromEntity(AuthUserEntity authUserEntity){
         if (authUserEntity == null){
             return  null;
