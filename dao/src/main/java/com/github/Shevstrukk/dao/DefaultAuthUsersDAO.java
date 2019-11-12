@@ -42,7 +42,7 @@ public class DefaultAuthUsersDAO implements AuthUsersDAO {
     }
 
     public AuthUser saveOrUpdateAuthUser(AuthUser authUser) {
-       AuthUserEntity authUserEntity= AuthUserConverter.toEntity(authUser);
+        AuthUserEntity authUserEntity= AuthUserConverter.toEntity(authUser);
         Session session = EMUtil.getSession();
         session.beginTransaction();
         session.save(authUserEntity);
@@ -50,7 +50,15 @@ public class DefaultAuthUsersDAO implements AuthUsersDAO {
         session.close();
         return AuthUserConverter.fromEntity(authUserEntity);
     }
-
+    public AuthUser saveAuthUserLogin(AuthUser authUser) {
+        AuthUserEntity authUserEntity= AuthUserConverter.toEntityLogin(authUser);
+        Session session = EMUtil.getSession();
+        session.beginTransaction();
+        session.save(authUserEntity);
+        session.getTransaction().commit();
+        session.close();
+        return AuthUserConverter.fromEntity(authUserEntity);
+    }
     public void deleteAuthUser (int id){
         Session session = EMUtil.getSession();
         session.beginTransaction();
