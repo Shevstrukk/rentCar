@@ -11,7 +11,7 @@ public class AddressConverter {
             return  null;
         }
         final AddressEntity addressEntity = new AddressEntity();
-        addressEntity.setId(address.getId());
+       // addressEntity.setId(address.getId());
         addressEntity.setCity(address.getCity());
         addressEntity.setState(address.getState());
         addressEntity.setHome(address.getHome());

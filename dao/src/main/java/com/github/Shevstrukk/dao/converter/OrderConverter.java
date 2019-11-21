@@ -29,7 +29,8 @@ final OrderEntity orderEntity = new OrderEntity();
                 orderEntity.getId(),
                 orderEntity.getRentDay(),
                 orderEntity.getPrice(),
-                PersonConverter.fromEntity(orderEntity.getPerson()),
+               // PersonConverter.fromEntity(orderEntity.getPerson()),
+                null,
                 CarConverter.fromListEntityCar(orderEntity.getCarEntities())
         );
     }

@@ -14,7 +14,8 @@ public class PhoneConverter {
         return  new Phone(
                 phoneEntity.getId(),
                 phoneEntity.getLine(),
-                PersonConverter.fromEntity(phoneEntity.getPerson())
+             //   PersonConverter.fromEntity(phoneEntity.getPerson())
+                null
         );
     }
     public static PhoneEntity toEntity(Phone phone){

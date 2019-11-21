@@ -44,9 +44,9 @@ public class AddPersonServlet extends HttpServlet {
         final int number = Integer.valueOf(req.getParameter("number"));
         Address addressEntity = new Address(null,state, city, street, home,number, null);
         UserService userService= DefaultUserService.getInstance();
-        AuthUser user = userService.login(firstName, lastName);
+        AuthUser authUser = userService.login(firstName, lastName);
        // AuthUserEntity authUser = (AuthUserEntity)req.getSession().getAttribute("authUser");
-        Person person = new Person(null,firstName,lastName, user, addressEntity,null,null);
+        Person person = new Person(null,firstName,lastName, authUser, addressEntity,null,null);
 
         Person person1= DefaultPersonService.getInstance().insertPerson(person);
         req.getSession().setAttribute("person1", person1);

@@ -53,9 +53,10 @@
         </table>
 
 </form>
-<a href="<c:url value='/getPerson?PAGE=${}' />">Получить список</a>
+<%--<a href="<c:url value='/getPerson?PAGE=${}' />">Получить список</a>--%>
+<a href="<c:url value='/getPerson' />">Получить список</a>
 
-<a href="<c:url value='/getPerson?PAGE=${PAGE + 1}' />">Получить список</a>
+<%--<a href="<c:url value='/getPerson?PAGE=${PAGE + 1}' />">Получить список</a>--%>
 
 <a href="<c:url value='/logout' />">Выйти</a>
 

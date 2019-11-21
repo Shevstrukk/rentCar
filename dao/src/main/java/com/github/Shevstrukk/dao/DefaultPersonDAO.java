@@ -84,27 +84,27 @@ PersonEntity person = PersonConverter.toEntity(person1);
 //    }
 
     public List<Person> listAllPerson() {
-     /*   Session session = EMUtil.getSession();
-        int pageNamber = 1;
-        int pageSize = 4;
+       Session session = EMUtil.getSession();
+//        int pageNamber = 1;
+//        int pageSize = 4;
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<PersonEntity> criteria = cb.createQuery(PersonEntity.class);
         criteria.select(criteria.from(PersonEntity.class));
-        TypedQuery<PersonEntity> typedQuery = session.createQuery(criteria);
-        List<PersonEntity>  personList = typedQuery.getResultList();*/
+        //TypedQuery<PersonEntity> typedQuery = session.createQuery(criteria);
+       // List<PersonEntity>  personList = typedQuery.getResultList();
 //        Root<PersonEntity> rootPerson = criteria.from(PersonEntity.class);
 //        criteria.select(rootPerson);
-       // List<PersonEntity> list = session.createQuery(criteria).getResultList();
+        List<PersonEntity> list = session.createQuery(criteria).getResultList();
 
 //   рабочий код
-        List<PersonEntity> list;
+     /*   List<PersonEntity> list;
         Session session = EMUtil.getSession();
         session.beginTransaction();
        // String str = "FROM PersonEntity  ORDER BY id ASC";
         String str = "FROM  PersonEntity e JOIN FETCH e.phoneEntities phon";
         list = session.createQuery(str).getResultList();
         session.getTransaction().commit();
-        session.close();
+        session.close();*/
         return PersonConverter.fromListPersonEntity(list);
     }
     public Person updatePerson(Person person){

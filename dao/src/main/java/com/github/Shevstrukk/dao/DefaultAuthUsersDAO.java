@@ -4,6 +4,7 @@ import com.github.Shevstrukk.dao.converter.AuthUserConverter;
 import com.github.Shevstrukk.dao.entity.AuthUserEntity;
 import com.github.Shevstrukk.dao.util.EMUtil;
 import com.github.Shevstrukk.model.AuthUser;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,11 +61,27 @@ public class DefaultAuthUsersDAO implements AuthUsersDAO {
         return AuthUserConverter.fromEntity(authUserEntity);
     }
     public void deleteAuthUser (int id){
-        Session session = EMUtil.getSession();
-        session.beginTransaction();
-        AuthUserEntity authUserEntity = session.get(AuthUserEntity.class, id);
-        session.delete(authUserEntity);
-        session.getTransaction().commit();
-        session.close();
+        try(Session session = EMUtil.getSession()){
+            AuthUserEntity authUserEntity = session.get(AuthUserEntity.class, id);
+
+            if(authUserEntity != null){
+                log.info("authUserNotNull*********");
+                session.beginTransaction();
+                session.delete(authUserEntity);
+                session.getTransaction().commit();
+                session.close();
+            } else {
+                System.out.println(" no authUser--------");
+            }
+        } catch (HibernateException e){
+            log.error("Authuser not found by id{}", id);
+        }
+
+//        Session session = EMUtil.getSession();
+//        session.beginTransaction();
+//        AuthUserEntity authUserEntity = session.get(AuthUserEntity.class, id);
+//        session.delete(authUserEntity);
+//        session.getTransaction().commit();
+//        session.close();
     }
 }

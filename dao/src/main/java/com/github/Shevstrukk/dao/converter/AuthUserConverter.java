@@ -12,11 +12,13 @@ public class AuthUserConverter {
             return null;
         }
         final AuthUserEntity authUserEntity = new AuthUserEntity();
-        authUserEntity.setId(authUser.getId());
+        if (authUser.getId()!= null){
+            authUserEntity.setId(authUser.getId());
+        }
         authUserEntity.setLogin(authUser.getLogin());
         authUserEntity.setPassword(authUser.getPassword());
         authUserEntity.setRole(authUser.getRole());
-        authUserEntity.setPerson(PersonConverter.toEntity(authUser.getPerson()));
+       // authUserEntity.setPerson(PersonConverter.toEntity(authUser.getPerson()));
         return authUserEntity;
     }
     public static AuthUserEntity toEntityLogin(AuthUser authUser){
