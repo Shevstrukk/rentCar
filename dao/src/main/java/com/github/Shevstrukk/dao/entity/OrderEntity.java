@@ -16,7 +16,7 @@ public class OrderEntity {
     @Column(name = "price")
     private  int price;
 
-    @ManyToOne
+    @ManyToOne(cascade = { CascadeType.REMOVE})
     @JoinColumn(name = "person_id")
     private PersonEntity person1;
 

@@ -32,6 +32,7 @@ public class PersonEntity {
     private List<PhoneEntity> phoneEntities = new ArrayList<>();
 
     @OneToMany(mappedBy = "person1", cascade = CascadeType.ALL, orphanRemoval = true)
+  // @OneToMany(mappedBy = "person1", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<OrderEntity> orderEntities = new ArrayList<>();
 
     public PersonEntity() {}

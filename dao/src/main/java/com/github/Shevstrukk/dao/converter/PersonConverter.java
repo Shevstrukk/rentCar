@@ -12,13 +12,20 @@ public class PersonConverter {
             return  null;
         }
         final PersonEntity personEntity = new PersonEntity();
-        personEntity.setId(person.getId());
+        if(person.getId() !=null){
+            personEntity.setId(person.getId());
+        }
+      //  personEntity.setId(person.getId());
         personEntity.setAddressEntity(AddressConverter.toEntity(person.getAddress()));
         personEntity.setAuthUserEntity(AuthUserConverter.toEntity(person.getAuthUser()));
         personEntity.setFirstName(person.getFirstName());
         personEntity.setLastName(person.getLastName());
-        personEntity.setOrderEntities(OrderConverter.toListOrderEntity(person.getOrders()));
-        personEntity.setPhoneEntities(PhoneConverter.toListEntityPhone(person.getPhones()));
+        if(person.getOrders() != null){
+            personEntity.setOrderEntities(OrderConverter.toListOrderEntity(person.getOrders()));
+        }
+        if(person.getPhones() !=null){
+            personEntity.setPhoneEntities(PhoneConverter.toListEntityPhone(person.getPhones()));
+        }
         return personEntity;
     }
     public static Person fromEntity(PersonEntity personEntity){
