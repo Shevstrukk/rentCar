@@ -28,8 +28,10 @@ public class DefaultOrderService implements OrderService {
         return SingletonHolder.HOLDER_INSTANCE;
     }
 
-    public Order saveOrder(Order orderEntity, Car carEntity) { return orderDAO.saveOrder(orderEntity, carEntity);    }
-    public Order saveOrUpdate(Order orderEntity, Car carEntity) { return orderDAO.saveOrder(orderEntity, carEntity);    }
+    public Order saveOrder(Order orderEntity, int id) { return orderDAO.saveOrder(orderEntity, id);    }
+    public Order saveUpdate(Order orderEntity, int id) { return orderDAO.saveUpdate(orderEntity, id);    }
 
     public Person getOrderList(int id) { return orderDAO.getOrderList(id);}
+    public  Person deleteOrder(int id, int personId) { return orderDAO.deleteOrder(id, personId);}
 }
+

@@ -11,16 +11,18 @@ public class AddressConverter {
             return  null;
         }
         final AddressEntity addressEntity = new AddressEntity();
-       // addressEntity.setId(address.getId());
+        if(address.getId() != null){
+            addressEntity.setId(address.getId());
+        }
         addressEntity.setCity(address.getCity());
         addressEntity.setState(address.getState());
         addressEntity.setHome(address.getHome());
         addressEntity.setStreet(address.getStreet());
         addressEntity.setNumber(address.getNumber());
-       // addressEntity.setPerson(PersonConverter.toEntity(address.getPerson()));
+        // addressEntity.setPerson(PersonConverter.toEntity(address.getPerson()));
         return addressEntity;
     }
-   public static Address fromEntity(AddressEntity addressEntity){
+    public static Address fromEntity(AddressEntity addressEntity){
         if(addressEntity == null){
             return  null;
         }
@@ -31,9 +33,9 @@ public class AddressConverter {
                 addressEntity.getStreet(),
                 addressEntity.getHome(),
                 addressEntity.getNumber(),
-           // PersonConverter.fromEntity(addressEntity.getPerson())
+                // PersonConverter.fromEntity(addressEntity.getPerson())
                 null
         );
-   }
+    }
 
 }

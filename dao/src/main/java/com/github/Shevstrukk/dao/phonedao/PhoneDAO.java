@@ -7,5 +7,5 @@ import com.github.Shevstrukk.model.Phone;
 
 public interface PhoneDAO {
     public Person savePhone(Phone phoneEntity, int id);
-    public Person deletePhone(int personId, int id);
+    public Person deletePhone( int id);
 }

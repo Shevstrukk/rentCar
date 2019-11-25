@@ -2,6 +2,7 @@ package com.github.Shevstrukk.dao;
 
 import com.github.Shevstrukk.dao.converter.AuthUserConverter;
 import com.github.Shevstrukk.dao.entity.AuthUserEntity;
+import com.github.Shevstrukk.dao.entity.PersonEntity;
 import com.github.Shevstrukk.dao.util.EMUtil;
 import com.github.Shevstrukk.model.AuthUser;
 import org.hibernate.HibernateException;
@@ -26,7 +27,7 @@ public class DefaultAuthUsersDAO implements AuthUsersDAO {
         return DefaultAuthUsersDAO.SingletonHolder.HOLDER_INSTANCE;
     }
 
-   @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public List<AuthUser> listAllUsers() {
        /* EntityManager entityManager = EMUtil.getEntityManager();
         return AuthUserConverter.fromListAuthUserEntity
@@ -84,4 +85,17 @@ public class DefaultAuthUsersDAO implements AuthUsersDAO {
 //        session.getTransaction().commit();
 //        session.close();
     }
+    public AuthUser update(int id, int personId){
+        Session session = EMUtil.getSession();
+        session.beginTransaction();
+        AuthUserEntity authUserEntity = session.get(AuthUserEntity.class, id);
+        PersonEntity personEntity = session.get(PersonEntity.class, personId);
+        authUserEntity.setPerson(personEntity);
+        session.update(authUserEntity);
+        session.getTransaction().commit();
+        session.close();
+        return AuthUserConverter.fromEntityAuth(authUserEntity);
+
+    }
 }
+

@@ -32,7 +32,7 @@ public class DefaultPhoneDAO implements PhoneDAO {
         Session session = EMUtil.getSession();
         session.beginTransaction();
         PersonEntity person = session.get(PersonEntity.class, id);
-       // person.getPhoneEntities().clear();
+        // person.getPhoneEntities().clear();
         person.getPhoneEntities().add(phoneEntity);
         phoneEntity.setPerson(person);
         session.saveOrUpdate(person);
@@ -42,25 +42,27 @@ public class DefaultPhoneDAO implements PhoneDAO {
         person =(PersonEntity) query.getSingleResult();
         session.getTransaction().commit();
         session.close();
-        return PersonConverter.fromEntity(person);
+        return PersonConverter.fromEntityCreatePhone(person);
     }
-    public Person deletePhone(int personId, int id){
+    public Person deletePhone( int id){
         Session session = EMUtil.getSession();
         session.beginTransaction();
         //int personId = person.getId();
-        PersonEntity person1 = session.get(PersonEntity.class, personId);
-        List<PhoneEntity> phoneEntity = new CopyOnWriteArrayList<>(person1.getPhoneEntities()) ;
+        //     PersonEntity person1 = session.get(PersonEntity.class, personId);
+        PhoneEntity phone = session.get(PhoneEntity.class,id);
+        List<PhoneEntity> phoneEntity = new CopyOnWriteArrayList<>(phone.getPerson().getPhoneEntities()) ;
         for (PhoneEntity w: phoneEntity){
             if(w.getId().equals(id)){
                 phoneEntity.remove(w);
             }
         }
+        PersonEntity person1 = session.get(PersonEntity.class, phone.getPerson().getId());
         person1.getPhoneEntities().clear();
         person1.getPhoneEntities().addAll(phoneEntity);
         session.saveOrUpdate(person1);
-      //  session.delete(phoneEntity);
+        //  session.delete(phoneEntity);
         session.getTransaction().commit();
         session.close();
-        return PersonConverter.fromEntity(person1);
+        return PersonConverter.fromEntityCreatePhone(person1);
     }
 }

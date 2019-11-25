@@ -37,21 +37,21 @@ public class AddOrderServlet extends HttpServlet {
         final int carId = Integer.parseInt(req.getParameter("carId"));
         final int rentDay = Integer.parseInt(req.getParameter("rentDay"));
         final int price = Integer.parseInt(req.getParameter("price"));
-        Car carEntity = DefaultCarsService.getInstance().getCar(carId);
+        //  Car car = DefaultCarsService.getInstance().getCar(carId);
         Order orderEntityOld = (Order) session.getAttribute("order");
         Person person = (Person) session.getAttribute("person");
         List<Car> carEntities = new ArrayList<>();
         Order newOrderEntity;
         if (orderEntityOld == null) {
-            Order orderEntity = new Order(null, rentDay, price, person, carEntities);
-            newOrderEntity = DefaultOrderService.getInstance().saveOrder(orderEntity, carEntity);
+            Order order = new Order(null, rentDay, price, person, carEntities);
+            newOrderEntity = DefaultOrderService.getInstance().saveOrder(order, carId);
             session.setAttribute("order", newOrderEntity);
         } else {
             int newPrice = orderEntityOld.getPrice() + price;
             orderEntityOld.setPrice(newPrice);
-           newOrderEntity = DefaultOrderService.getInstance().saveOrUpdate(orderEntityOld, carEntity);
+            newOrderEntity = DefaultOrderService.getInstance().saveUpdate(orderEntityOld, carId);
         }
-        Person person1 = DefaultPersonService.getInstance().updatePerson(person, newOrderEntity);
+        // Person person1 = DefaultPersonService.getInstance().updatePerson(person, newOrderEntity);
         doGet(req,resp);
     }
 }

@@ -28,30 +28,32 @@ public class DefaultOrderDAO implements OrderDAO {
     }
 
     @Override
-    public Order saveOrder(Order order, Car car) {
-       OrderEntity orderEntity = OrderConverter.toEntity(order);
-       CarEntity carEntity = CarConverter.toEntity(car);
+    public Order saveOrder(Order order, int id) {
+        OrderEntity orderEntity = OrderConverter.toEntity(order);
+        // CarEntity carEntity = CarConverter.toEntity(car);
         Session session = EMUtil.getSession();
         session.beginTransaction();
-        orderEntity.addCar(carEntity);
-        carEntity.getOrderEntities().add(orderEntity);
+        CarEntity carEntity1  = session.get(CarEntity.class, id);
+        orderEntity.getCarEntities().add(carEntity1);
+        carEntity1.getOrderEntities().add(orderEntity);
         session.saveOrUpdate(orderEntity);
         session.getTransaction().commit();
         session.clear();
         session.close();
         return OrderConverter.fromEntity(orderEntity);
     }
-    public Order saveOrUpdate(Order order, Car car){
-        OrderEntity orderEntity = OrderConverter.toEntity(order);
-        CarEntity carEntity = CarConverter.toEntity(car);
+    public Order saveUpdate(Order order, int id){
+        //  OrderEntity orderEntity = OrderConverter.toEntity(order);
+        //  CarEntity carEntity = CarConverter.toEntity(car);
         Session session = EMUtil.getSession();
         session.beginTransaction();
-        int orderId = orderEntity.getId();
-         OrderEntity orderEntity1 = session.get(OrderEntity.class, orderId);
-         orderEntity1.setPrice(orderEntity.getPrice());
+        CarEntity carEntity = session.get(CarEntity.class, id);
+        //  int orderId = orderEntity.getId();
+        OrderEntity orderEntity1 = session.get(OrderEntity.class, order.getId());
+        orderEntity1.setPrice(order.getPrice());
         orderEntity1.getCarEntities().add(carEntity);
         carEntity.getOrderEntities().add(orderEntity1);
-        session.saveOrUpdate(orderEntity);
+        session.saveOrUpdate(orderEntity1);
         session.getTransaction().commit();
         session.close();
         return OrderConverter.fromEntity(orderEntity1);
@@ -62,10 +64,24 @@ public class DefaultOrderDAO implements OrderDAO {
         String str = "FROM  PersonEntity e JOIN FETCH e.orderEntities ordered WHERE e.id=:id ";
         Query query = session.createQuery(str);
         query.setParameter("id", id);
-       // List<PersonEntity>list = query.list();
+        // List<PersonEntity>list = query.list();
         PersonEntity person = (PersonEntity) query.uniqueResult();
         session.getTransaction().commit();
         session.close();
-        return PersonConverter.fromEntity(person);
+        return PersonConverter.fromEntityOrder(person);
+    }
+    public Person deleteOrder(int id, int personId){
+        Session session = EMUtil.getSession();
+        session.beginTransaction();
+        PersonEntity personEntity = session.get(PersonEntity.class, personId);
+        for (OrderEntity em: personEntity.getOrderEntities()){
+            if(em.getId() == id){
+                personEntity.removeOrder(em);
+            } break;
+        }
+        session.saveOrUpdate(personEntity);
+        session.getTransaction().commit();
+        session.close();
+        return PersonConverter.fromEntityOrderList(personEntity);
     }
 }

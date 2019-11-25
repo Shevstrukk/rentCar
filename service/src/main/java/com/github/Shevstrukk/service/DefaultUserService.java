@@ -37,13 +37,13 @@ public class DefaultUserService implements UserService {
                 if (user1.getPassword().equals(password) & user1.getLogin().equals(login)) {
                     return user1;
                 }
-            }
+            } return null;
         }
-        return user = addAuthUser(login,password);
+        //return user = addAuthUser(login,password);
     }
     public AuthUser addAuthUser(String login, String password){
-        AuthUser newAuthUserEntity =   userDAO.saveOrUpdateAuthUser(new AuthUser(null,login,password,"user",null));
-        return newAuthUserEntity;
+        AuthUser newAuthUser =   userDAO.saveOrUpdateAuthUser(new AuthUser(null,login,password,"user",null));
+        return newAuthUser;
 
     }
     public List<AuthUser> listAllUsers () {
@@ -53,6 +53,8 @@ public class DefaultUserService implements UserService {
     public void deleteAuthUser (int id){
         userDAO.deleteAuthUser( id);
     }
+
+    public AuthUser update(int id, int personId){ return userDAO.update(id, personId);}
 
 
 }

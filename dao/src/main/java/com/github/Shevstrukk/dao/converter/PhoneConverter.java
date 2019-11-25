@@ -14,7 +14,7 @@ public class PhoneConverter {
         return  new Phone(
                 phoneEntity.getId(),
                 phoneEntity.getLine(),
-             //   PersonConverter.fromEntity(phoneEntity.getPerson())
+                //   PersonConverter.fromEntity(phoneEntity.getPerson())
                 null
         );
     }
@@ -25,7 +25,7 @@ public class PhoneConverter {
         final PhoneEntity phoneEntity = new PhoneEntity();
         phoneEntity.setId(phone.getId());
         phoneEntity.setLine(phone.getLine());
-       // phoneEntity.setPerson(PersonConverter.toEntity(phone.getPerson()));
+        // phoneEntity.setPerson(PersonConverter.toEntity(phone.getPerson()));
         phoneEntity.setPerson(null);
         return phoneEntity;
     }
@@ -42,5 +42,22 @@ public class PhoneConverter {
             phoneList.add(PhoneConverter.fromEntity(elem));
         }
         return phoneList;
+    }
+    public static List<Phone> fromListEntityPhoneOrder(List<PhoneEntity> phones){
+        List<Phone> phoneList = new ArrayList<>();
+        for(PhoneEntity elem: phones){
+            phoneList.add(PhoneConverter.fromEntityPhoneOrder(elem));
+        }
+        return phoneList;
+    }
+    public static Phone fromEntityPhoneOrder(PhoneEntity phoneEntity){
+        if(phoneEntity == null){
+            return  null;
+        }
+        return  new Phone(
+                phoneEntity.getId(),
+                phoneEntity.getLine(),
+                null
+        );
     }
 }

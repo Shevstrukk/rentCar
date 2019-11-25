@@ -39,7 +39,7 @@
                 <td><c:out value="${person.address.number}" /></td>
 
                 <c:forEach var="phone" items="${person.phones}">
-<%--                    <td><c:out value="${phoneEntity.id}" /></td>--%>
+                    <%--                    <td><c:out value="${phoneEntity.id}" /></td>--%>
                     <td><c:out value="${phone.line}" /></td>
                 </c:forEach>
                 <td>
@@ -50,8 +50,8 @@
                 </td>
                 <td>
                     <form method="get" action="/update">
-                    <input type="number" hidden name="id" value="${person.id}" />
-                    <input type="submit" value="Редактированть"/>
+                        <input type="number" hidden name="id" value="${person.id}" />
+                        <input type="submit" value="Редактированть"/>
                     </form>
 
                 </td>

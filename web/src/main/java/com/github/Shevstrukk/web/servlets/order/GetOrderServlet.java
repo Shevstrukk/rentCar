@@ -21,11 +21,11 @@ public class GetOrderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-         final int id = Integer.parseInt(req.getParameter("id"));
-         final int rentDay = Integer.parseInt(req.getParameter("rentDay"));
+        final int id = Integer.parseInt(req.getParameter("id"));
+        final int rentDay = Integer.parseInt(req.getParameter("rentDay"));
 
         Car carEntity = DefaultCarsService.getInstance().getCar(id);
-         int price = rentDay* carEntity.getPriceDay();
+        int price = rentDay* carEntity.getPriceDay();
         req.setAttribute("carEntity", carEntity);
         req.setAttribute("price", price);
         req.setAttribute("rentDay", rentDay);

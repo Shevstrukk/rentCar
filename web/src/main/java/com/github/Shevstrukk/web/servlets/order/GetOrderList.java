@@ -20,9 +20,10 @@ public class GetOrderList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        AuthUser authUserEntity = (AuthUser) session.getAttribute("authUserEntity");
-        int id = authUserEntity.getPerson().getId();
-        System.out.println(id);
+        AuthUser authUser = (AuthUser)session.getAttribute("authUser");
+        //  int id = authUserEntity.getPerson().getId();
+        Person person = authUser.getPerson();
+        int id = person.getId();
         Person personList = DefaultOrderService.getInstance().getOrderList(id);
         req.setAttribute("personList", personList);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/orderList.jsp");

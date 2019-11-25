@@ -18,7 +18,7 @@ public class AuthUserConverter {
         authUserEntity.setLogin(authUser.getLogin());
         authUserEntity.setPassword(authUser.getPassword());
         authUserEntity.setRole(authUser.getRole());
-       // authUserEntity.setPerson(PersonConverter.toEntity(authUser.getPerson()));
+        // authUserEntity.setPerson(PersonConverter.toEntity(authUser.getPerson()));
         return authUserEntity;
     }
     public static AuthUserEntity toEntityLogin(AuthUser authUser){
@@ -26,14 +26,14 @@ public class AuthUserConverter {
             return null;
         }
         final AuthUserEntity authUserEntity = new AuthUserEntity();
-       // authUserEntity.setId(authUser.getId());
+        // authUserEntity.setId(authUser.getId());
         authUserEntity.setLogin(authUser.getLogin());
         authUserEntity.setPassword(authUser.getPassword());
         authUserEntity.setRole(authUser.getRole());
         authUserEntity.setPerson(null);
         return authUserEntity;
     }
-public static AuthUser fromEntity(AuthUserEntity authUserEntity){
+    public static AuthUser fromEntity(AuthUserEntity authUserEntity){
         if (authUserEntity == null){
             return  null;
         }
@@ -43,13 +43,38 @@ public static AuthUser fromEntity(AuthUserEntity authUserEntity){
                 authUserEntity.getPassword(),
                 authUserEntity.getRole(),
                 null//PersonConverter.fromEntity(authUserEntity.getPerson())
-                );
-}
+        );
+    }
+    public static AuthUser fromEntityList(AuthUserEntity authUserEntity){
+        if (authUserEntity == null){
+            return  null;
+        }
+        return  new AuthUser(
+                authUserEntity.getId(),
+                authUserEntity.getLogin(),
+                authUserEntity.getPassword(),
+                authUserEntity.getRole(),
+                PersonConverter.fromEntityList(authUserEntity.getPerson())
+        );
+    }
     public static List<AuthUser> fromListAuthUserEntity(List<AuthUserEntity> list){
         List<AuthUser> authUserList = new ArrayList<>();
         for(AuthUserEntity elem: list){
-            authUserList.add(AuthUserConverter.fromEntity(elem));
+            authUserList.add(AuthUserConverter.fromEntityList(elem));
         }
         return authUserList;
+    }
+
+    public static AuthUser fromEntityAuth(AuthUserEntity authUserEntity){
+        if (authUserEntity == null){
+            return  null;
+        }
+        return  new AuthUser(
+                authUserEntity.getId(),
+                authUserEntity.getLogin(),
+                authUserEntity.getPassword(),
+                authUserEntity.getRole(),
+                PersonConverter.fromEntityAuth(authUserEntity.getPerson())
+        );
     }
 }

@@ -13,9 +13,9 @@ import java.util.List;
 
 public interface PersonDAO {
     public Person insertPerson(Person person);
-   public List<AuthUserEntity> listAllAuthUsers();
+    public List<AuthUserEntity> listAllAuthUsers();
     public List<Person> listAllPerson();
-  /*  public boolean deletePerson(long person) ;*/
+    /*  public boolean deletePerson(long person) ;*/
     public Person updatePerson(Person person) ;
     public Person updatePerson(Person person, Order orderEntity) ;
     public Person getPerson(int id) ;

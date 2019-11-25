@@ -37,17 +37,17 @@ public class DefaultPersonService implements PersonService {
     }
 
     public Person insertPerson(Person person)  {
-       return personDAO.insertPerson(person);
+        return personDAO.insertPerson(person);
     }
     public Person updatePerson(Person person){
-      return   personDAO.updatePerson(person);
+        return   personDAO.updatePerson(person);
     }
     public Person updatePerson(Person person, Order orderEntity){
-      return   personDAO.updatePerson(person, orderEntity);
+        return   personDAO.updatePerson(person, orderEntity);
     }
-   /* public void deletePerson(int person){
-             DefaultPersonDAO.getInstance().deletePerson(person);
-    }*/
+    /* public void deletePerson(int person){
+              DefaultPersonDAO.getInstance().deletePerson(person);
+     }*/
     public Person getPerson(int id) {
         return personDAO.getPerson(id);
     }

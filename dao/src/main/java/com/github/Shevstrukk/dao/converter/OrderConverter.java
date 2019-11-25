@@ -13,7 +13,7 @@ public class OrderConverter {
         if(order == null){
             return null;
         }
-final OrderEntity orderEntity = new OrderEntity();
+        final OrderEntity orderEntity = new OrderEntity();
         orderEntity.setId(order.getId());
         orderEntity.setPrice(order.getPrice());
         orderEntity.setRentDay(order.getRentDay());
@@ -29,9 +29,23 @@ final OrderEntity orderEntity = new OrderEntity();
                 orderEntity.getId(),
                 orderEntity.getRentDay(),
                 orderEntity.getPrice(),
-               // PersonConverter.fromEntity(orderEntity.getPerson()),
+                // PersonConverter.fromEntity(orderEntity.getPerson()),
                 null,
                 CarConverter.fromListEntityCar(orderEntity.getCarEntities())
+        );
+    }
+    public static Order fromEntityNoCar(OrderEntity orderEntity){
+        if(orderEntity == null){
+            return  null;
+        }
+        return  new Order(
+                orderEntity.getId(),
+                orderEntity.getRentDay(),
+                orderEntity.getPrice(),
+                // PersonConverter.fromEntity(orderEntity.getPerson()),
+                null,
+                //  CarConverter.fromListEntityCar(orderEntity.getCarEntities())
+                null
         );
     }
 
@@ -46,6 +60,13 @@ final OrderEntity orderEntity = new OrderEntity();
         List<Order> orderList = new ArrayList<>();
         for(OrderEntity elem: orderEntityList){
             orderList.add(OrderConverter.fromEntity(elem));
+        }
+        return orderList;
+    }
+    public static List<Order> fromListOrderEntityNoCar(List<OrderEntity> orderEntityList){
+        List<Order> orderList = new ArrayList<>();
+        for(OrderEntity elem: orderEntityList){
+            orderList.add(OrderConverter.fromEntityNoCar(elem));
         }
         return orderList;
     }

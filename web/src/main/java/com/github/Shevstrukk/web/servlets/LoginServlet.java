@@ -50,22 +50,22 @@ public class LoginServlet extends HttpServlet {
             return;
         }
         log.info("user {} logged", user.getLogin());
-        req.getSession().setAttribute("authUser", user);
+        // req.getSession().setAttribute("authUser", user);
 
-         if (user.getRole().equals("admin")){
+        if (user.getRole().equals("admin")){
+            req.getSession().setAttribute("authUser", user);
             req.getRequestDispatcher("/WEB-INF/view/admin_menu.jsp").forward(req, resp);
             return;
-        }else if(user.getRole().equals("user")&user.getPerson()==null){
+        }else if(user.getRole().equals("user")
+                & user.getPerson() == null){
+            req.getSession().setAttribute("authUser", user);
             req.getRequestDispatcher("/WEB-INF/view/user_menu.jsp").forward(req, resp);
             return;
-        }else if(user.getRole().equals("user")&user.getPerson()!=null ){
-             Person person =user.getPerson();
-             HttpSession session=req.getSession();
-             session.setAttribute("person", person);
-             req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp").forward(req, resp);
-         }
-       // log.info("user {} logged", user.getLogin());
-      //  req.getSession().setAttribute("authUser", user);
-
+        }else if(user.getRole().equals("user") & user.getPerson()!=null ){
+            Person person =user.getPerson();
+            HttpSession session=req.getSession();
+            session.setAttribute("authUser", user);
+            req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp").forward(req, resp);
+        }
     }
 }

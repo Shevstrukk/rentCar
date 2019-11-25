@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/getCarEntities")
+@WebServlet("/getCars")
 public class GetCarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Car> carList = DefaultCarsService.getInstance().getCars();
         req.setAttribute("carEntityList", carList);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/car/carEntityList.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/car/carList.jsp");
         requestDispatcher.forward(req, resp);
     }
 

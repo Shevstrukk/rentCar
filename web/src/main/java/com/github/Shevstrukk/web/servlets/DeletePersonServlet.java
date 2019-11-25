@@ -23,7 +23,7 @@ public class DeletePersonServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //UserService defaultUserService = DefaultUserService.getInstance();
-       // List<AuthUserEntity> authUserList = defaultUserService.listAllUsers();
+        // List<AuthUserEntity> authUserList = defaultUserService.listAllUsers();
         PersonService defaultPersonService = DefaultPersonService.getInstance();
         List<Person> personList = defaultPersonService.listAllPerson();
         req.setAttribute("personList", personList);
@@ -34,9 +34,9 @@ public class DeletePersonServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-            Integer id = Integer.parseInt(req.getParameter("id"));
-      //  PersonEntity person = new PersonEntity(id);
-            DefaultUserService.getInstance().deleteAuthUser(id);
-            doGet(req,resp);
+        Integer id = Integer.parseInt(req.getParameter("id"));
+        //  PersonEntity person = new PersonEntity(id);
+        DefaultUserService.getInstance().deleteAuthUser(id);
+        doGet(req,resp);
     }
-    }
+}

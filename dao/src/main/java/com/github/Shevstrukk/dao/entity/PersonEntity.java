@@ -32,13 +32,13 @@ public class PersonEntity {
     private List<PhoneEntity> phoneEntities = new ArrayList<>();
 
     @OneToMany(mappedBy = "person1", cascade = CascadeType.ALL, orphanRemoval = true)
-  // @OneToMany(mappedBy = "person1", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    //@OneToMany(mappedBy = "person1", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<OrderEntity> orderEntities = new ArrayList<>();
 
     public PersonEntity() {}
 
     public PersonEntity(Integer id, String firstName, String lastName, AuthUserEntity authUserEntity, AddressEntity addressEntity, List<PhoneEntity> phoneEntities, List<OrderEntity> orderEntities) {
-       this.id = id;
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.authUserEntity = authUserEntity;
@@ -70,7 +70,7 @@ public class PersonEntity {
     }
 
 
-       public AuthUserEntity getAuthUserEntity() {
+    public AuthUserEntity getAuthUserEntity() {
         return authUserEntity;
     }
     public void setAuthUserEntity(AuthUserEntity authUserEntity) {
@@ -96,8 +96,8 @@ public class PersonEntity {
         orderEntities.add(orderEntity);
     }
     public void removeOrder(OrderEntity orderEntity) {
-        getOrderEntities().remove(orderEntity);
-        orderEntity.setPerson(null);;
+        orderEntity.setPerson(null);
+        orderEntities.remove(orderEntity);
     }
 
     public void setOrderEntities(List<OrderEntity> orderEntities) {        this.orderEntities = orderEntities;    }

@@ -16,13 +16,14 @@ public class OrderEntity {
     @Column(name = "price")
     private  int price;
 
-    @ManyToOne(cascade = { CascadeType.REMOVE})
+    // @ManyToOne(cascade = { CascadeType.REMOVE})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id")
     private PersonEntity person1;
 
     @ManyToMany(//cascade = CascadeType.ALL, изчезла ошибка different object with the same identifier value was already associated with the session
             fetch  = FetchType.EAGER) // опыт
-             //fetch = FetchType.LAZY)
+    //fetch = FetchType.LAZY)
     @JoinTable(name = "orders_cars", joinColumns = {@JoinColumn(name = "order_id")},
             inverseJoinColumns = {@JoinColumn(name = "cars_id")}
     )

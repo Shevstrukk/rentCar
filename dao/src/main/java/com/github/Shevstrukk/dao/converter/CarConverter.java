@@ -18,7 +18,7 @@ public class CarConverter {
         carEntity.setCarYear(car.getCarYear());
         carEntity.setComment(car.getComment());
         carEntity.setPriceDay(car.getPriceDay());
-        carEntity.setOrderEntities(OrderConverter.toListOrderEntity(car.getOrders()));
+        // carEntity.setOrderEntities(OrderConverter.toListOrderEntity(car.getOrders()));
         return carEntity;
 
     }
@@ -33,7 +33,7 @@ public class CarConverter {
                 carEntity.getCarColor(),
                 carEntity.getPriceDay(),
                 carEntity.getComment(),
-               // OrderConverter.fromListOrderEntity(carEntity.getOrderEntities())
+                // OrderConverter.fromListOrderEntity(carEntity.getOrderEntities())
                 null
         );
     }

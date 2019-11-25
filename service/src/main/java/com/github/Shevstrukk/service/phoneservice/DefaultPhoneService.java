@@ -27,10 +27,10 @@ public class DefaultPhoneService implements PhoneService {
     }
 
     public Person savePhone(Phone phoneEntity, int id){
-      return   phoneDAO.savePhone(phoneEntity, id);
+        return   phoneDAO.savePhone(phoneEntity, id);
     }
 
-    public Person deletePhone(int personId, int id){
-      return   phoneDAO.deletePhone( personId,  id);
+    public Person deletePhone( int id){
+        return   phoneDAO.deletePhone(id);
     }
 }

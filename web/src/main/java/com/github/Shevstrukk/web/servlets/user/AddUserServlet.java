@@ -8,6 +8,8 @@ import com.github.Shevstrukk.model.Address;
 import com.github.Shevstrukk.model.AuthUser;
 import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.service.DefaultPersonService;
+import com.github.Shevstrukk.service.DefaultUserService;
+import com.github.Shevstrukk.service.address.DefaultAddressService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,11 +30,13 @@ public class AddUserServlet extends HttpServlet {
         final String street = req.getParameter("street");
         final int home = Integer.valueOf(req.getParameter("home"));
         final int number = Integer.valueOf(req.getParameter("number"));
-        Address addressEntity = new Address(null,state, city, street, home,number,null);
-        AuthUser authUserEntity = (AuthUser)req.getSession().getAttribute("authUserEntity");
-        Person person = new Person(null,firstName,lastName, authUserEntity, addressEntity,null,null);
-       Person person1= DefaultPersonService.getInstance().insertPerson(person);
+
+        Address address = DefaultAddressService.getInstance().saveAddress(new Address(null,state, city, street, home,number,null));
+        AuthUser authUser = (AuthUser)req.getSession().getAttribute("authUser");
+        Person person = new Person(null,firstName,lastName, authUser, address,null,null);
+        Person person1= DefaultPersonService.getInstance().insertPerson(person);
         req.getSession().setAttribute("person1", person1);
+        AuthUser authUserUpdate = DefaultUserService.getInstance().update(authUser.getId(), person1.getId());
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhone.jsp");
         requestDispatcher.forward(req, resp);
     }

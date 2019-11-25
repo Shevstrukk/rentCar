@@ -18,25 +18,25 @@ import java.util.List;
 @WebServlet("/addPhoneAuth")
 public class AddPhoneAuthServlet extends HttpServlet {
 
-        @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-           Person person = (Person) req.getSession().getAttribute("person");
-            List<Phone> listPhone = person.getPhones();
-            req.getSession().setAttribute("phoneList", listPhone);
-            req.getSession().setAttribute("person", person);
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
-            requestDispatcher.forward(req, resp);
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Person person = (Person) req.getSession().getAttribute("person");
+        List<Phone> listPhone = person.getPhones();
+        req.setAttribute("phoneList", listPhone);
+        req.getSession().setAttribute("person", person);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
+        requestDispatcher.forward(req, resp);
 
-        }
+    }
 
-        @Override
-        protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            final String line = String.valueOf(req.getParameter("phoneEntity"));
-            Person person1 = (Person) req.getSession().getAttribute("person1");
-            int id = person1.getId();
-            Phone phoneEntity = new Phone(null,line,null);
-            Person person = DefaultPhoneService.getInstance().savePhone(phoneEntity, id);
-            req.getSession().setAttribute("person", person);
-            doGet(req, resp);
-        }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final String line = String.valueOf(req.getParameter("phoneEntity"));
+        Person person1 = (Person) req.getSession().getAttribute("person1");
+        int id = person1.getId();
+        Phone phoneEntity = new Phone(null,line,null);
+        Person person = DefaultPhoneService.getInstance().savePhone(phoneEntity, id);
+        req.getSession().setAttribute("person", person);
+        doGet(req, resp);
+    }
 }

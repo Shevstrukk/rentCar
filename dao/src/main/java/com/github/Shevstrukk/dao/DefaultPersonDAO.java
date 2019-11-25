@@ -34,16 +34,16 @@ public class DefaultPersonDAO implements PersonDAO {
     }
 
     public Person insertPerson(Person person1) {
-PersonEntity person = PersonConverter.toEntity(person1);
+        PersonEntity person = PersonConverter.toEntity(person1);
         Session session = EMUtil.getSession();
         session.beginTransaction();
-        AuthUserEntity authUserEntity = person.getAuthUserEntity();
-        AddressEntity addressEntity = person.getAddressEntity();
-        session.save(addressEntity);
-        authUserEntity.setPerson(person);
-        person.setAddressEntity(addressEntity);
+        //  AuthUserEntity authUserEntity = person.getAuthUserEntity();
+        //  AddressEntity addressEntity = person.getAddressEntity();
+        //  session.save(addressEntity);
+        // authUserEntity.setPerson(person);
+        //  person.setAddressEntity(addressEntity);
         session.save(person);
-        session.saveOrUpdate(authUserEntity);
+        // session.saveOrUpdate(authUserEntity);
         session.getTransaction().commit();
         session.close();
         return PersonConverter.fromEntity(person);
@@ -84,14 +84,14 @@ PersonEntity person = PersonConverter.toEntity(person1);
 //    }
 
     public List<Person> listAllPerson() {
-       Session session = EMUtil.getSession();
+        Session session = EMUtil.getSession();
 //        int pageNamber = 1;
 //        int pageSize = 4;
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<PersonEntity> criteria = cb.createQuery(PersonEntity.class);
         criteria.select(criteria.from(PersonEntity.class));
         //TypedQuery<PersonEntity> typedQuery = session.createQuery(criteria);
-       // List<PersonEntity>  personList = typedQuery.getResultList();
+        // List<PersonEntity>  personList = typedQuery.getResultList();
 //        Root<PersonEntity> rootPerson = criteria.from(PersonEntity.class);
 //        criteria.select(rootPerson);
         List<PersonEntity> list = session.createQuery(criteria).getResultList();
@@ -121,6 +121,7 @@ PersonEntity person = PersonConverter.toEntity(person1);
         return PersonConverter.fromEntity(person1);
     }
     public Person updatePerson(Person person, Order orderEntity){
+        Person person2;
         Session session = EMUtil.getSession();
         session.beginTransaction();
         int id = person.getId();
@@ -133,9 +134,10 @@ PersonEntity person = PersonConverter.toEntity(person1);
         Query query =  session.createQuery(str);
         query.setParameter("id", id);
         person1 =(PersonEntity)query.getSingleResult();
-       // session.saveOrUpdate(person1);
+        // session.saveOrUpdate(person1);
         session.getTransaction().commit();
         session.close();
-        return PersonConverter.fromEntity(person1);
+        person2=PersonConverter.fromEntityOrder(person1);
+        return person2;
     }
 }
