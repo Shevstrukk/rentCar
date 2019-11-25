@@ -1,0 +1,8 @@
+com\github\Shevstrukk\dao\UsersDAO.class
+com\github\Shevstrukk\dao\DefaultPersonDAO$SingletonHolder.class
+com\github\Shevstrukk\dao\DefaultPersonDAO.class
+com\github\Shevstrukk\dao\entity\User.class
+com\github\Shevstrukk\dao\DefaultUsersDAO$SingletonHolder.class
+com\github\Shevstrukk\dao\util\EMUtil.class
+com\github\Shevstrukk\dao\PersonDAO.class
+com\github\Shevstrukk\dao\DefaultUsersDAO.class

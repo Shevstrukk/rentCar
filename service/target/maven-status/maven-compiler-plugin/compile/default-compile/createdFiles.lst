@@ -1,0 +1,6 @@
+com\github\Shevstrukk\service\DefaultPersonService$SingletonHolder.class
+com\github\Shevstrukk\service\DefaultUserService.class
+com\github\Shevstrukk\service\PersonService.class
+com\github\Shevstrukk\service\DefaultPersonService.class
+com\github\Shevstrukk\service\DefaultUserService$SingletonHolder.class
+com\github\Shevstrukk\service\UserService.class
