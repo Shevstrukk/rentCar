@@ -26,7 +26,8 @@ public class CarEntity {
     @Column(name = "comment")
     private String comment;
 
-    @ManyToMany(mappedBy = "carEntities", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "carEntities")
+    //, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderEntity> orderEntities = new ArrayList<>();
 
     public CarEntity() {    }

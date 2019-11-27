@@ -32,7 +32,6 @@ public class DefaultPhoneDAO implements PhoneDAO {
         Session session = EMUtil.getSession();
         session.beginTransaction();
         PersonEntity person = session.get(PersonEntity.class, id);
-        // person.getPhoneEntities().clear();
         person.getPhoneEntities().add(phoneEntity);
         phoneEntity.setPerson(person);
         session.saveOrUpdate(person);
@@ -47,8 +46,6 @@ public class DefaultPhoneDAO implements PhoneDAO {
     public Person deletePhone( int id){
         Session session = EMUtil.getSession();
         session.beginTransaction();
-        //int personId = person.getId();
-        //     PersonEntity person1 = session.get(PersonEntity.class, personId);
         PhoneEntity phone = session.get(PhoneEntity.class,id);
         List<PhoneEntity> phoneEntity = new CopyOnWriteArrayList<>(phone.getPerson().getPhoneEntities()) ;
         for (PhoneEntity w: phoneEntity){
@@ -60,7 +57,6 @@ public class DefaultPhoneDAO implements PhoneDAO {
         person1.getPhoneEntities().clear();
         person1.getPhoneEntities().addAll(phoneEntity);
         session.saveOrUpdate(person1);
-        //  session.delete(phoneEntity);
         session.getTransaction().commit();
         session.close();
         return PersonConverter.fromEntityCreatePhone(person1);

@@ -30,7 +30,6 @@ public class DefaultOrderDAO implements OrderDAO {
     @Override
     public Order saveOrder(Order order, int id) {
         OrderEntity orderEntity = OrderConverter.toEntity(order);
-        // CarEntity carEntity = CarConverter.toEntity(car);
         Session session = EMUtil.getSession();
         session.beginTransaction();
         CarEntity carEntity1  = session.get(CarEntity.class, id);
@@ -43,12 +42,9 @@ public class DefaultOrderDAO implements OrderDAO {
         return OrderConverter.fromEntity(orderEntity);
     }
     public Order saveUpdate(Order order, int id){
-        //  OrderEntity orderEntity = OrderConverter.toEntity(order);
-        //  CarEntity carEntity = CarConverter.toEntity(car);
         Session session = EMUtil.getSession();
         session.beginTransaction();
         CarEntity carEntity = session.get(CarEntity.class, id);
-        //  int orderId = orderEntity.getId();
         OrderEntity orderEntity1 = session.get(OrderEntity.class, order.getId());
         orderEntity1.setPrice(order.getPrice());
         orderEntity1.getCarEntities().add(carEntity);
@@ -64,24 +60,26 @@ public class DefaultOrderDAO implements OrderDAO {
         String str = "FROM  PersonEntity e JOIN FETCH e.orderEntities ordered WHERE e.id=:id ";
         Query query = session.createQuery(str);
         query.setParameter("id", id);
-        // List<PersonEntity>list = query.list();
         PersonEntity person = (PersonEntity) query.uniqueResult();
         session.getTransaction().commit();
         session.close();
         return PersonConverter.fromEntityOrder(person);
     }
-    public Person deleteOrder(int id, int personId){
+    public void deleteOrder(int id, int personId){
         Session session = EMUtil.getSession();
         session.beginTransaction();
-        PersonEntity personEntity = session.get(PersonEntity.class, personId);
-        for (OrderEntity em: personEntity.getOrderEntities()){
-            if(em.getId() == id){
-                personEntity.removeOrder(em);
-            } break;
-        }
-        session.saveOrUpdate(personEntity);
-        session.getTransaction().commit();
+//        PersonEntity personEntity = session.get(PersonEntity.class, personId);
+//        for (OrderEntity em: personEntity.getOrderEntities()){
+//            if(em.getId() == id){
+//                personEntity.removeOrder(em);
+//            } break;
+//        }
+//        session.saveOrUpdate(personEntity);
+        OrderEntity orderEntity = session.get(OrderEntity.class, id);
+        session.remove(orderEntity);
+      //  PersonEntity personEntity = session.get(PersonEntity.class, personId);
+       session.getTransaction().commit();
         session.close();
-        return PersonConverter.fromEntityOrderList(personEntity);
+       // return PersonConverter.fromEntityOrderList(personEntity);
     }
 }

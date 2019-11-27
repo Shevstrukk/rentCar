@@ -32,6 +32,6 @@ public class DefaultOrderService implements OrderService {
     public Order saveUpdate(Order orderEntity, int id) { return orderDAO.saveUpdate(orderEntity, id);    }
 
     public Person getOrderList(int id) { return orderDAO.getOrderList(id);}
-    public  Person deleteOrder(int id, int personId) { return orderDAO.deleteOrder(id, personId);}
+    public  void deleteOrder(int id, int personId) {  orderDAO.deleteOrder(id, personId);}
 }
 

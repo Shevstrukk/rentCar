@@ -13,5 +13,5 @@ public interface AuthUsersDAO {
     public AuthUser saveOrUpdateAuthUser(AuthUser authUserEntity);
     public void deleteAuthUser (int id);
     public AuthUser update(int id, int personId);
-    //  AuthUserEntity getByLogin(String login);
+
 }

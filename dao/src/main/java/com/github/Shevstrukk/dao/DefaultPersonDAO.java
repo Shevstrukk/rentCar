@@ -134,7 +134,6 @@ public class DefaultPersonDAO implements PersonDAO {
         Query query =  session.createQuery(str);
         query.setParameter("id", id);
         person1 =(PersonEntity)query.getSingleResult();
-        // session.saveOrUpdate(person1);
         session.getTransaction().commit();
         session.close();
         person2=PersonConverter.fromEntityOrder(person1);

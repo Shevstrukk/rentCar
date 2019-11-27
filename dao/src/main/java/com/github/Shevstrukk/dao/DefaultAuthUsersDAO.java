@@ -29,14 +29,10 @@ public class DefaultAuthUsersDAO implements AuthUsersDAO {
 
     @SuppressWarnings("unchecked")
     public List<AuthUser> listAllUsers() {
-       /* EntityManager entityManager = EMUtil.getEntityManager();
-        return AuthUserConverter.fromListAuthUserEntity
-                (entityManager.createQuery("FROM " + AuthUserEntity.class.getName()).getResultList());*/
         List<AuthUserEntity> list;
         String str = "FROM AuthUserEntity  ORDER BY id ASC";
         Session session = EMUtil.getSession();
         session.beginTransaction();
-
         list = session.createQuery(str).getResultList();
         session.getTransaction().commit();
         session.close();

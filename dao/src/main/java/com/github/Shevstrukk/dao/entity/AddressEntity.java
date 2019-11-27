@@ -30,7 +30,6 @@ public class AddressEntity {
     private int number;
 
     @OneToOne(mappedBy = "addressEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL)
     private PersonEntity personAddress;
     public AddressEntity() {}
 
@@ -72,9 +71,6 @@ public class AddressEntity {
 
     public int getNumber() {        return number;    }
     public void setNumber(int number) {        this.number = number;    }
-
-   // @OneToOne(fetch = FetchType.LAZY)
-   // @JoinColumn(name = "person_id")
 
     public PersonEntity getPerson() {        return personAddress;    }
     public void setPerson(PersonEntity person) {        this.personAddress = person;    }

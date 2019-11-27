@@ -20,24 +20,24 @@
 
 </form>
 
-<c:forEach var="phoneEntity" items="${phoneList}">
+<c:forEach var="phone" items="${phoneList}">
     <tr>
-        <td><c:out value="${phoneEntity.line}" /></td>
+        <td><c:out value="${phone.line}" /></td>
+        <td><c:out value="${phone.person.id}" /></td>
 
         <td>
             <form method="post" action="/deletePhone">
-                <input type="number" hidden name="id" value="${phoneEntity.id}" />
-                <input type="number" hidden name="personId" value="${phoneEntity.person.id}">
+                <input type="number" hidden name="id" value="${phone.id}" />
+                    <%--                <input type="number" hidden name="personId" value="${phone.person.id}">--%>
                 <input type="submit" name="delete" value="Удалить"/>
             </form>
         </td>
-        <td>
-            <form method="get" action="/updatePhone">
-                <input type="number" hidden name="id" value="${phoneEntity.id}" />
-                <input type="submit" value="Редактированть"/>
-            </form>
-
-        </td>
+            <%--        <td>--%>
+            <%--            <form method="get" action="/updatePhone">--%>
+            <%--                <input type="number" hidden name="id" value="${phone.id}" />--%>
+            <%--                <input type="submit" value="Редактированть"/>--%>
+            <%--            </form>--%>
+            <%--        </td>--%>
     </tr>
 </c:forEach>
 <a href="<c:url value='/getCars' />">Получить список машин</a>

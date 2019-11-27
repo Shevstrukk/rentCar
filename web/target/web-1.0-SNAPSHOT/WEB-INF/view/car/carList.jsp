@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -30,11 +29,11 @@
                 <td><c:out value="${carEntities.priceDay}" /></td>
                 <td><c:out value="${carEntities.comment}" /></td>
                 <form method="post" action="/getOrder">
-                <td> <input type="number" name="rentDay" size="5"  /></td>
-                <td>
-                    <input type="number" hidden name="id" value="${carEntities.id}" />
-                    <input type="submit" value="Заказать машину"/>
-                </td>
+                    <td> <input type="number" name="rentDay" size="5"  /></td>
+                    <td>
+                        <input type="number" hidden name="id" value="${carEntities.id}" />
+                        <input type="submit" value="Заказать машину"/>
+                    </td>
                 </form>
             </tr>
         </c:forEach>

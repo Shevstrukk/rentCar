@@ -17,17 +17,20 @@ public class OrderEntity {
     private  int price;
 
     // @ManyToOne(cascade = { CascadeType.REMOVE})
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "person_id")
     private PersonEntity person1;
 
-    @ManyToMany(//cascade = CascadeType.ALL, изчезла ошибка different object with the same identifier value was already associated with the session
-            fetch  = FetchType.EAGER) // опыт
-    //fetch = FetchType.LAZY)
+    @ManyToMany////cascade = CascadeType.ALL, изчезла ошибка different object with the same identifier value was already associated with the session
+            (cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            }  ,   fetch  = FetchType.EAGER) // опыт
     @JoinTable(name = "orders_cars", joinColumns = {@JoinColumn(name = "order_id")},
             inverseJoinColumns = {@JoinColumn(name = "cars_id")}
     )
     private List<CarEntity> carEntities = new ArrayList<>();
+
     public OrderEntity() {}
 
     public OrderEntity(Integer id, int rentDay, int price, PersonEntity person, List<CarEntity> carEntities) {

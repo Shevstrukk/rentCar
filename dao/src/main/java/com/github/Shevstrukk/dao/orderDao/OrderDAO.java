@@ -11,5 +11,5 @@ public interface OrderDAO {
     public Order saveOrder(Order orderEntity, int id);
     public Order saveUpdate(Order orderEntity, int id);
     public Person getOrderList(int id);
-    public Person deleteOrder(int id, int personId);
+    public void deleteOrder(int id, int personId);
 }

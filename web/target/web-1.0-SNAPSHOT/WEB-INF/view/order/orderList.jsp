@@ -21,27 +21,28 @@
             <th>Комментарий</th>
         </tr>
 
-            <c:forEach var="orderEntity" items="${personList.orderEntities}">
+        <c:forEach var="order" items="${personList.orders}">
 
         <tr>
-                    <td><c:out value="${orderEntity.id}" /></td>
-                    <td><c:out value="${orderEntity.rentDay}" /></td>
-                    <td><c:out value="${orderEntity.price}" /></td>
-                        <c:forEach var="carEntity" items="${orderEntity.carEntities}">
+            <td><c:out value="${order.id}" /></td>
+            <td><c:out value="${order.rentDay}" /></td>
+            <td><c:out value="${order.price}" /></td>
+            <c:forEach var="car" items="${order.cars}">
 
-                            <td><c:out value="${carEntity.id}" /></td>
-                            <td><c:out value="${carEntity.carName}" /></td>
-                            <td><c:out value="${carEntity.priceDay}" /></td>
-                            <td><c:out value="${carEntity.comment}" /></td>
-                        </c:forEach>
+                <td><c:out value="${car.id}" /></td>
+                <td><c:out value="${car.carName}" /></td>
+                <td><c:out value="${car.priceDay}" /></td>
+                <td><c:out value="${car.comment}" /></td>
+            </c:forEach>
 
 
-                <td>
-                    <form method="post" action="/deleteOrder">
-                    <input type="number" hidden name="id" value="${person.id}" />
+            <td>
+                <form method="post" action="/deleteOrder">
+                    <input type="number" hidden name="id" value="${order.id}" />
+                    <input type="number" hidden name="personId" value="${personList.id}" />
                     <input type="submit" value="удалить заказ"/>
-                    </form>
-                </td>
+                </form>
+            </td>
             </c:forEach>
         </tr>
     </table>

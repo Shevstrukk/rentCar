@@ -12,7 +12,6 @@ public class PhoneEntity {
     @Column(name = "line")
     private String line;
 
-    // @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "person_id")
     private PersonEntity person;

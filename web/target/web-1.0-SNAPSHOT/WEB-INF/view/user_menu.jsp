@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -26,17 +25,17 @@
         </tr><tr>
         <th>город: </th>
         <td>   <input type="text" name="city" size="45" />     </td>
-       </tr>
+    </tr>
         <tr>
-        <th>улица: </th>
-        <td>   <input type="text" name="street" size="45" />     </td>
+            <th>улица: </th>
+            <td>   <input type="text" name="street" size="45" />     </td>
         </tr>
         <tr>
-           <th>дом: </th>
-           <td>   <input type="number" name="home" size="5" />     </td>
+            <th>дом: </th>
+            <td>   <input type="number" name="home" size="5" />     </td>
         </tr>
 
-         <tr>
+        <tr>
             <th>номер: </th>
             <td>         <input type="number" name="number" size="5"  />   </td>
         </tr>
@@ -49,6 +48,8 @@
 
     </table>
 </form>
+<br>
+<%--<a href="<c:url value='/getOrderList' />">Получить список машин</a>--%>
 
 <br>
 <a href="<c:url value="/logout"/>">Выйти</a>
