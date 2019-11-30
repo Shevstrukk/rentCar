@@ -14,24 +14,16 @@ import org.slf4j.LoggerFactory;
 public class DefaultOrderService implements OrderService {
     private static final Logger log = LoggerFactory.getLogger(DefaultOrderService.class);
 
-    private OrderDAO orderDAO = DefaultOrderDAO.getInstance();
+DefaultOrderDAO defaultOrderDAO;
 
-    private OrderService orderService = DefaultOrderService.getInstance();
-
-    public DefaultOrderService() {}
-
-    private static class SingletonHolder {
-        static final OrderService HOLDER_INSTANCE = new DefaultOrderService();
+    public DefaultOrderService(DefaultOrderDAO defaultOrderDAO) {
+        this.defaultOrderDAO = defaultOrderDAO;
     }
 
-    public static OrderService getInstance() {
-        return SingletonHolder.HOLDER_INSTANCE;
-    }
+    public Order saveOrder(Order orderEntity, int id) { return defaultOrderDAO.saveOrder(orderEntity, id);    }
+    public Order saveUpdate(Order orderEntity, int id) { return defaultOrderDAO.saveUpdate(orderEntity, id);    }
 
-    public Order saveOrder(Order orderEntity, int id) { return orderDAO.saveOrder(orderEntity, id);    }
-    public Order saveUpdate(Order orderEntity, int id) { return orderDAO.saveUpdate(orderEntity, id);    }
-
-    public Person getOrderList(int id) { return orderDAO.getOrderList(id);}
-    public  void deleteOrder(int id, int personId) {  orderDAO.deleteOrder(id, personId);}
+    public Person getOrderList(int id) { return defaultOrderDAO.getOrderList(id);}
+    public  void deleteOrder(int id, int personId) {  defaultOrderDAO.deleteOrder(id, personId);}
 }
 

@@ -9,27 +9,15 @@ import com.github.Shevstrukk.model.AuthUser;
 import java.util.List;
 
 public class DefaultUserService implements UserService {
+    DefaultAuthUsersDAO defaultAuthUsersDAO;
 
-    private AuthUsersDAO userDAO = DefaultAuthUsersDAO.getInstance();
-
-    public DefaultUserService() {}
-
-    public DefaultUserService(AuthUsersDAO userDAO) {
-        this.userDAO = userDAO;
+    public DefaultUserService(DefaultAuthUsersDAO defaultAuthUsersDAO) {
+        this.defaultAuthUsersDAO = defaultAuthUsersDAO;
     }
-
-    private static class SingletonHolder {
-        static final UserService HOLDER_INSTANCE = new DefaultUserService();
-    }
-
-    public static UserService getInstance() {
-        return SingletonHolder.HOLDER_INSTANCE;
-    }
-
 
     public AuthUser login(String login, String password) {
         List<AuthUser> userList = listAllUsers();
-        AuthUser user;
+       // AuthUser user;
         if (userList == null) {
             return null;
         } else {
@@ -42,19 +30,19 @@ public class DefaultUserService implements UserService {
         //return user = addAuthUser(login,password);
     }
     public AuthUser addAuthUser(String login, String password){
-        AuthUser newAuthUser =   userDAO.saveOrUpdateAuthUser(new AuthUser(null,login,password,"user",null));
+        AuthUser newAuthUser =   defaultAuthUsersDAO.saveOrUpdateAuthUser(new AuthUser(null,login,password,"user",null));
         return newAuthUser;
 
     }
     public List<AuthUser> listAllUsers () {
-        return userDAO.listAllUsers();
+        return defaultAuthUsersDAO.listAllUsers();
     }
 
     public void deleteAuthUser (int id){
-        userDAO.deleteAuthUser( id);
+        defaultAuthUsersDAO.deleteAuthUser( id);
     }
 
-    public AuthUser update(int id, int personId){ return userDAO.update(id, personId);}
+    public AuthUser update(int id, int personId){ return defaultAuthUsersDAO.update(id, personId);}
 
 
 }

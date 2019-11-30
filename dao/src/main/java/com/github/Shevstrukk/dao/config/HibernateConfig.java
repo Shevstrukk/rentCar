@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 @Configuration
 @Import(SettingsConfig.class)
 public class HibernateConfig {
+
     private final SettingsConfig settingsConfig;
 
     public HibernateConfig(SettingsConfig settingsConfig) {
@@ -37,7 +38,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactoryBean() {
         final LocalSessionFactoryBean sf = new LocalSessionFactoryBean();
         sf.setDataSource(dataSource());
-        sf.setPackagesToScan("by.academy.it.rest.entity");
+        sf.setPackagesToScan("com.github.Shevstrukk.dao.entity");
         sf.setHibernateProperties(settingsConfig.hibernateProperties());
 
         return sf;

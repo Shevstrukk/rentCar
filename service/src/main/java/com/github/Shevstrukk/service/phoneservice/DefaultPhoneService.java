@@ -11,26 +11,17 @@ import org.slf4j.LoggerFactory;
 
 public class DefaultPhoneService implements PhoneService {
     private static final Logger log = LoggerFactory.getLogger(DefaultPhoneService.class);
-    private PhoneDAO phoneDAO = DefaultPhoneDAO.getInstance();
+    DefaultPhoneDAO defaultPhoneDAO;
 
-    public DefaultPhoneService() {}
-
-    public DefaultPhoneService(PhoneDAO phoneDAO) {
-        this.phoneDAO = phoneDAO;
-    }
-
-    private static class SingletonHolder {
-        static final PhoneService HOLDER_INSTANCE = new DefaultPhoneService();
-    }
-    public static PhoneService getInstance() {
-        return SingletonHolder.HOLDER_INSTANCE;
+    public DefaultPhoneService(DefaultPhoneDAO defaultPhoneDAO) {
+        this.defaultPhoneDAO = defaultPhoneDAO;
     }
 
     public Person savePhone(Phone phoneEntity, int id){
-        return   phoneDAO.savePhone(phoneEntity, id);
+        return  defaultPhoneDAO.savePhone(phoneEntity, id);
     }
 
     public Person deletePhone( int id){
-        return   phoneDAO.deletePhone(id);
+        return   defaultPhoneDAO.deletePhone(id);
     }
 }

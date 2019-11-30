@@ -72,6 +72,7 @@ public class AddressEntity {
     public int getNumber() {        return number;    }
     public void setNumber(int number) {        this.number = number;    }
 
+
     public PersonEntity getPerson() {        return personAddress;    }
     public void setPerson(PersonEntity person) {        this.personAddress = person;    }
 }

@@ -13,24 +13,17 @@ import com.github.Shevstrukk.model.Person;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
-
+@Repository
 public class DefaultPersonDAO implements PersonDAO {
     private static final Logger log = LoggerFactory.getLogger(DefaultPersonDAO.class);
     public DefaultPersonDAO() {
-    }
-
-    private static class SingletonHolder {
-        static final PersonDAO HOLDER_INSTANCE = new DefaultPersonDAO();
-    }
-
-    public static PersonDAO getInstance() {
-        return SingletonHolder.HOLDER_INSTANCE;
     }
 
     public Person insertPerson(Person person1) {

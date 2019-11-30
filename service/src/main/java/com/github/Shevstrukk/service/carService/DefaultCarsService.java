@@ -1,28 +1,23 @@
 package com.github.Shevstrukk.service.carService;
 
-import com.github.Shevstrukk.dao.carDao.CarsDAO;
 import com.github.Shevstrukk.dao.carDao.DefaultCarDAO;
-import com.github.Shevstrukk.dao.entity.CarEntity;
 import com.github.Shevstrukk.model.Car;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class DefaultCarsService implements CarsService {
     private static final Logger log = LoggerFactory.getLogger(DefaultCarsService.class);
 
-    private CarsDAO carsDAO = DefaultCarDAO.getInstance();
-    public DefaultCarsService() {}
+    DefaultCarDAO defaultCarDAO;
+    @Autowired
+    public DefaultCarsService(DefaultCarDAO carsDAO) {   this.defaultCarDAO = carsDAO;    }
 
-    public DefaultCarsService(CarsDAO carsDAO) {   this.carsDAO = carsDAO;    }
 
-    private static class SingletonHolder {
-        static final CarsService HOLDER_INSTANCE = new DefaultCarsService();    }
+    public List<Car> getCars() {return defaultCarDAO.getListCar();   }
 
-    public static CarsService getInstance() {   return SingletonHolder.HOLDER_INSTANCE;    }
-
-    public List<Car> getCars() {return carsDAO.getListCar();   }
-
-    public Car getCar(int id){return carsDAO.getCar(id);}
+    public Car getCar(int id){return defaultCarDAO.getCar(id);}
 }

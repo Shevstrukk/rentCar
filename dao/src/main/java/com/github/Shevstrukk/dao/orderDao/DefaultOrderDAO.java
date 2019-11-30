@@ -14,18 +14,12 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class DefaultOrderDAO implements OrderDAO {
     private static final Logger log = LoggerFactory.getLogger(DefaultOrderDAO.class);
     public DefaultOrderDAO() {    }
-
-    private static class SingletonHolder {
-        static final OrderDAO HOLDER_INSTANCE = new DefaultOrderDAO();
-    }
-
-    public static OrderDAO getInstance() {
-        return SingletonHolder.HOLDER_INSTANCE;
-    }
 
     @Override
     public Order saveOrder(Order order, int id) {

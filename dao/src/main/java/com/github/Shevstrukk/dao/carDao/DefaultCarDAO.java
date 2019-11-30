@@ -8,21 +8,15 @@ import com.github.Shevstrukk.model.Car;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public class DefaultCarDAO implements CarsDAO{
 
     private static final Logger log = LoggerFactory.getLogger(DefaultCarDAO.class);
 
     public DefaultCarDAO() {
-    }
-    private static class SingletonHolder {
-        static final CarsDAO HOLDER_INSTANCE = new DefaultCarDAO();
-    }
-
-    public static CarsDAO getInstance() {
-        return DefaultCarDAO.SingletonHolder.HOLDER_INSTANCE;
     }
 
     @Override

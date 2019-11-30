@@ -7,48 +7,39 @@ import com.github.Shevstrukk.dao.entity.OrderEntity;
 import com.github.Shevstrukk.dao.entity.PersonEntity;
 import com.github.Shevstrukk.model.Order;
 import com.github.Shevstrukk.model.Person;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 import java.util.List;
-
+@Component
 public class DefaultPersonService implements PersonService {
-
-    private PersonDAO personDAO = DefaultPersonDAO.getInstance();
-
-    public DefaultPersonService() {}
-
-    public DefaultPersonService(PersonDAO personDAO) {
-        this.personDAO = personDAO;
-    }
-
-    private static class SingletonHolder {
-        static final PersonService HOLDER_INSTANCE = new DefaultPersonService();
-    }
-
-    public static PersonService getInstance() {
-        return SingletonHolder.HOLDER_INSTANCE;
+    DefaultPersonDAO defaultPersonDAO;
+@Autowired
+    public DefaultPersonService(DefaultPersonDAO defaultPersonDAO) {
+        this.defaultPersonDAO = defaultPersonDAO;
     }
 
     public List<AuthUserEntity> listAllAuthUser() {
-        return personDAO.listAllAuthUsers();
+        return defaultPersonDAO.listAllAuthUsers();
     }
     public List<Person> listAllPerson() {
-        return personDAO.listAllPerson();
+        return defaultPersonDAO.listAllPerson();
     }
 
     public Person insertPerson(Person person)  {
-        return personDAO.insertPerson(person);
+        return defaultPersonDAO.insertPerson(person);
     }
     public Person updatePerson(Person person){
-        return   personDAO.updatePerson(person);
+        return   defaultPersonDAO.updatePerson(person);
     }
     public Person updatePerson(Person person, Order orderEntity){
-        return   personDAO.updatePerson(person, orderEntity);
+        return   defaultPersonDAO.updatePerson(person, orderEntity);
     }
     /* public void deletePerson(int person){
               DefaultPersonDAO.getInstance().deletePerson(person);
      }*/
     public Person getPerson(int id) {
-        return personDAO.getPerson(id);
+        return defaultPersonDAO.getPerson(id);
     }
 }
