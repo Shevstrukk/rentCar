@@ -9,6 +9,11 @@ import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.service.DefaultPersonService;
 import com.github.Shevstrukk.service.DefaultUserService;
 import com.github.Shevstrukk.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,16 +23,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/newPerson")
-public class NewPersonServlet extends HttpServlet {
-    @Override
+// @WebServlet("/newPerson")
+@Controller
+@RequestMapping
+public class NewPersonServlet  {
+    @Autowired
+    DefaultUserService defaultUserService;
+    @Autowired
+    DefaultPersonService defaultPersonService;
+    @GetMapping("/newPerson")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/newPerson.jsp");
         requestDispatcher.forward(req, resp);
-
     }
-
-    @Override
+    @PostMapping("/newPerson")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");
@@ -37,11 +46,9 @@ public class NewPersonServlet extends HttpServlet {
         final int home = Integer.valueOf(req.getParameter("home"));
         final int number = Integer.valueOf(req.getParameter("number"));
         Address addressEntity = new Address(null,state, city, street, home,number, null);
-        UserService userService= DefaultUserService.getInstance();
-        AuthUser user = userService.login(firstName, lastName);
+        AuthUser user = defaultUserService.login(firstName, lastName);
         Person person = new Person(null,firstName,lastName, user, addressEntity,null,null);
-
-        Person person1= DefaultPersonService.getInstance().insertPerson(person);
+        Person person1= defaultPersonService.insertPerson(person);
         req.getSession().setAttribute("person1", person1);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
         requestDispatcher.forward(req, resp);

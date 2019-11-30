@@ -7,6 +7,11 @@ import com.github.Shevstrukk.service.DefaultPersonService;
 import com.github.Shevstrukk.service.DefaultUserService;
 
 import com.github.Shevstrukk.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,24 +24,26 @@ import java.util.List;
 
 
 @WebServlet("/delete")
+@Controller
+@RequestMapping
 public class DeletePersonServlet extends HttpServlet {
-    @Override
+    @Autowired
+    DefaultPersonService defaultPersonService;
+    @Autowired
+    DefaultUserService defaultUserService;
+    @GetMapping("/delete")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //UserService defaultUserService = DefaultUserService.getInstance();
-        // List<AuthUserEntity> authUserList = defaultUserService.listAllUsers();
-        PersonService defaultPersonService = DefaultPersonService.getInstance();
         List<Person> personList = defaultPersonService.listAllPerson();
         req.setAttribute("personList", personList);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
         requestDispatcher.forward(req, resp);
     }
 
-    @Override
+    @PostMapping("/delete")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Integer id = Integer.parseInt(req.getParameter("id"));
-        //  PersonEntity person = new PersonEntity(id);
-        DefaultUserService.getInstance().deleteAuthUser(id);
+        defaultUserService.deleteAuthUser(id);
         doGet(req,resp);
     }
 }

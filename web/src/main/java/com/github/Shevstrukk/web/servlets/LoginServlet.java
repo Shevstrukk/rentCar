@@ -8,6 +8,10 @@ import com.github.Shevstrukk.service.DefaultUserService;
 import com.github.Shevstrukk.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,9 +23,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/login")
+@Controller
+@RequestMapping
 public class LoginServlet extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(LoginServlet.class);
-    @Override
+    @Autowired
+    DefaultUserService defaultUserService;
+    @GetMapping("/login")
     protected void doGet(HttpServletRequest rq, HttpServletResponse rs) {
         Object authUser = rq.getSession().getAttribute("authUser");
         if (authUser == null) {
@@ -41,8 +49,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String login = req.getParameter("login");
         final String password = req.getParameter("password");
-        UserService userService= DefaultUserService.getInstance();
-        AuthUser user = userService.login(login, password);
+        AuthUser user = defaultUserService.login(login, password);
 
         if (user == null) {
             req.setAttribute("error", "login or password invalid");

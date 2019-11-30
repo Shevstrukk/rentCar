@@ -8,6 +8,11 @@ import com.github.Shevstrukk.model.AuthUser;
 import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.service.DefaultPersonService;
 import com.github.Shevstrukk.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,18 +24,22 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet("/update")
-public class UpdatePersonServlet extends HttpServlet {
-    @Override
+// @WebServlet("/update")
+@Controller
+@RequestMapping
+public class UpdatePersonServlet  {
+    @Autowired
+    DefaultPersonService defaultPersonService;
+    @GetMapping("/update")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        Person person = (Person) DefaultPersonService.getInstance().getPerson(Integer.parseInt(id));
+        Person person = (Person) defaultPersonService.getPerson(Integer.parseInt(id));
         req.setAttribute("person", person);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/updatePerson.jsp");
         requestDispatcher.forward(req, resp);
     }
 
-    @Override
+    @PostMapping("/update")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final  int idAuth = Integer.valueOf(req.getParameter("idAuth"));
         final  int addressId = Integer.valueOf(req.getParameter("addressId"));
@@ -46,14 +55,9 @@ public class UpdatePersonServlet extends HttpServlet {
         final String password = req.getParameter("password");
         final String role = req.getParameter("role");
         Address addressEntity = new Address(addressId,state, city, street, home,number,null);
-        //UserService userService= DefaultUserService.getInstance();
-        // AuthUserEntity user = userService.login(firstName, lastName);
-        // AuthUserEntity authUser = (AuthUserEntity)req.getSession().getAttribute("authUser");
         AuthUser user = new AuthUser(idAuth,login,password,role,null);
         Person person = new Person(id,firstName,lastName, user, addressEntity,null,null);
-        Person updatePerson = DefaultPersonService.getInstance().updatePerson(person);
-
-        PersonService defaultPersonService= DefaultPersonService.getInstance();
+        Person updatePerson = defaultPersonService.updatePerson(person);
         List<Person> personList = defaultPersonService.listAllPerson();
 
         req.setAttribute("personList", personList);

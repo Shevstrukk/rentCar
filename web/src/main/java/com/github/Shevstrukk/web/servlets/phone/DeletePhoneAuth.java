@@ -4,6 +4,11 @@ import com.github.Shevstrukk.dao.entity.PersonEntity;
 import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.model.Phone;
 import com.github.Shevstrukk.service.phoneservice.DefaultPhoneService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,9 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/deletePhone")
-public class DeletePhoneAuth extends HttpServlet {
-    @Override
+//@WebServlet("/deletePhone")
+@Controller
+@RequestMapping
+public class DeletePhoneAuth  {
+    @Autowired
+    DefaultPhoneService defaultPhoneService;
+    @GetMapping("/deletePhone")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getAttribute("person");
         List<Phone> listPhone = person.getPhones();
@@ -25,10 +34,10 @@ public class DeletePhoneAuth extends HttpServlet {
         requestDispatcher.forward(req, resp);
     }
 
-    @Override
+    @PostMapping("/deletePhone")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-        Person person =  DefaultPhoneService.getInstance().deletePhone(id);
+        Person person =  defaultPhoneService.deletePhone(id);
         req.setAttribute("person", person);
         doGet(req,resp);
     }

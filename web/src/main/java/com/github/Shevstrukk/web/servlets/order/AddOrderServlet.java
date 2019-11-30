@@ -11,6 +11,11 @@ import com.github.Shevstrukk.service.carService.DefaultCarsService;
 import com.github.Shevstrukk.service.orderService.DefaultOrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,15 +28,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/doOrder")
-public class AddOrderServlet extends HttpServlet {
+// @WebServlet("/doOrder")
+@Controller
+@RequestMapping
+public class AddOrderServlet  {
     private static final Logger log = LoggerFactory.getLogger(AddOrderServlet.class);
-    @Override
+    @Autowired
+    DefaultOrderService defaultOrderService;
+    @GetMapping("/doOrder")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp");
         requestDispatcher.forward(req, resp);
     }
-    @Override
+    @PostMapping("/doOrder")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         final int carId = Integer.parseInt(req.getParameter("carId"));
@@ -44,12 +53,12 @@ public class AddOrderServlet extends HttpServlet {
         Order newOrderEntity;
         if (orderEntityOld == null) {
             Order order = new Order(null, rentDay, price, person, carEntities);
-            newOrderEntity = DefaultOrderService.getInstance().saveOrder(order, carId);
+            newOrderEntity = defaultOrderService.saveOrder(order, carId);
             session.setAttribute("order", newOrderEntity);
         } else {
             int newPrice = orderEntityOld.getPrice() + price;
             orderEntityOld.setPrice(newPrice);
-            newOrderEntity = DefaultOrderService.getInstance().saveUpdate(orderEntityOld, carId);
+            newOrderEntity = defaultOrderService.saveUpdate(orderEntityOld, carId);
         }
         // Person person1 = DefaultPersonService.getInstance().updatePerson(person, newOrderEntity);
         doGet(req,resp);

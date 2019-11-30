@@ -9,10 +9,10 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class DefaultPersonEntityDAOTest {
-    PersonDAO personDAO = DefaultPersonDAO.getInstance();
-
-    @Test
-    public void insertPerson(){
+//    PersonDAO personDAO = DefaultPersonDAO.getInstance();
+//
+//    @Test
+//    public void insertPerson(){
 //        AuthUserEntity authUserEntity = new AuthUserEntity(null, "vitalij", "1", "admin", null);
 //        AddressEntity addressEntity = new AddressEntity(null, "California", "TTT", "54Sreet", 5, 6);
 //        List<PhoneEntity> phoneEntityList = new ArrayList<>();
@@ -29,9 +29,9 @@ public class DefaultPersonEntityDAOTest {
 //        assertEquals(person.getAuthUserEntity().getPassword(), insertPerson.getAuthUserEntity().getPassword());
 //        assertEquals(person.getAddressEntity().getPerson(), insertPerson.getAddressEntity().getPerson());
 //        assertNotNull(insertPerson.getId());
-    }
-    @Test
-    public void getPerson(){
+//    }
+//    @Test
+//    public void getPerson(){
 //        AuthUserEntity authUserEntity = new AuthUserEntity(null, "vitalij", "1", "admin", null);
 //        AddressEntity addressEntity = new AddressEntity(null, "California", "TTT", "54Sreet", 5, 6);
 //        List<PhoneEntity> phoneEntityList = new ArrayList<>();
@@ -74,4 +74,4 @@ public class DefaultPersonEntityDAOTest {
 //
 //
 //    }
-}
+//}

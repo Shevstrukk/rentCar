@@ -5,6 +5,11 @@ import com.github.Shevstrukk.dao.entity.PhoneEntity;
 import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.model.Phone;
 import com.github.Shevstrukk.service.phoneservice.DefaultPhoneService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,9 +21,13 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/addPhoneAuth")
-public class AddPhoneAuthServlet extends HttpServlet {
+@Controller
+@RequestMapping
+public class AddPhoneAuthServlet  {
+    @Autowired
+    DefaultPhoneService defaultPhoneService;
 
-    @Override
+    @GetMapping("/addPhoneAuth")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getSession().getAttribute("person");
         List<Phone> listPhone = person.getPhones();
@@ -29,13 +38,13 @@ public class AddPhoneAuthServlet extends HttpServlet {
 
     }
 
-    @Override
+    @PostMapping("/addPhoneAuth")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String line = String.valueOf(req.getParameter("phoneEntity"));
         Person person1 = (Person) req.getSession().getAttribute("person1");
         int id = person1.getId();
         Phone phoneEntity = new Phone(null,line,null);
-        Person person = DefaultPhoneService.getInstance().savePhone(phoneEntity, id);
+        Person person = defaultPhoneService.savePhone(phoneEntity, id);
         req.getSession().setAttribute("person", person);
         doGet(req, resp);
     }
