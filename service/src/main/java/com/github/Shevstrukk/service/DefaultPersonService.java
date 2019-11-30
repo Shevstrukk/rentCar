@@ -9,16 +9,14 @@ import com.github.Shevstrukk.model.Order;
 import com.github.Shevstrukk.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-@Component
+@Service
 public class DefaultPersonService implements PersonService {
+    @Autowired
     DefaultPersonDAO defaultPersonDAO;
-@Autowired
-    public DefaultPersonService(DefaultPersonDAO defaultPersonDAO) {
-        this.defaultPersonDAO = defaultPersonDAO;
-    }
 
     public List<AuthUserEntity> listAllAuthUser() {
         return defaultPersonDAO.listAllAuthUsers();

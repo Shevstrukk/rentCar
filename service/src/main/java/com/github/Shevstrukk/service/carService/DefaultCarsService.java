@@ -6,16 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Component
+@Service
 public class DefaultCarsService implements CarsService {
     private static final Logger log = LoggerFactory.getLogger(DefaultCarsService.class);
-
-    DefaultCarDAO defaultCarDAO;
     @Autowired
-    public DefaultCarsService(DefaultCarDAO carsDAO) {   this.defaultCarDAO = carsDAO;    }
-
+    DefaultCarDAO defaultCarDAO;
 
     public List<Car> getCars() {return defaultCarDAO.getListCar();   }
 

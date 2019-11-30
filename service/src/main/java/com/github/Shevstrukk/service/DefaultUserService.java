@@ -4,16 +4,15 @@ import com.github.Shevstrukk.dao.DefaultAuthUsersDAO;
 import com.github.Shevstrukk.dao.AuthUsersDAO;
 import com.github.Shevstrukk.dao.entity.AuthUserEntity;
 import com.github.Shevstrukk.model.AuthUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-
+@Service
 public class DefaultUserService implements UserService {
+    @Autowired
     DefaultAuthUsersDAO defaultAuthUsersDAO;
-
-    public DefaultUserService(DefaultAuthUsersDAO defaultAuthUsersDAO) {
-        this.defaultAuthUsersDAO = defaultAuthUsersDAO;
-    }
 
     public AuthUser login(String login, String password) {
         List<AuthUser> userList = listAllUsers();

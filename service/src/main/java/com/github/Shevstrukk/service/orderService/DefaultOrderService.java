@@ -10,15 +10,14 @@ import com.github.Shevstrukk.model.Order;
 import com.github.Shevstrukk.model.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultOrderService implements OrderService {
     private static final Logger log = LoggerFactory.getLogger(DefaultOrderService.class);
-
+@Autowired
 DefaultOrderDAO defaultOrderDAO;
-
-    public DefaultOrderService(DefaultOrderDAO defaultOrderDAO) {
-        this.defaultOrderDAO = defaultOrderDAO;
-    }
 
     public Order saveOrder(Order orderEntity, int id) { return defaultOrderDAO.saveOrder(orderEntity, id);    }
     public Order saveUpdate(Order orderEntity, int id) { return defaultOrderDAO.saveUpdate(orderEntity, id);    }
