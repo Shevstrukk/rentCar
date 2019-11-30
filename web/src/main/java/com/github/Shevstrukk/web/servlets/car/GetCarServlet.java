@@ -25,11 +25,12 @@ public class GetCarServlet  {
     @Autowired
     DefaultCarsService defaultCarsService;
 @GetMapping("/getCars")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doGet(HttpServletRequest req) throws ServletException, IOException {
         List<Car> carList = defaultCarsService.getCars();
         req.setAttribute("carEntityList", carList);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/car/carList.jsp");
-        requestDispatcher.forward(req, resp);
+        return "car/carList";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/car/carList.jsp");
+//        requestDispatcher.forward(req, resp);
     }
 
 }

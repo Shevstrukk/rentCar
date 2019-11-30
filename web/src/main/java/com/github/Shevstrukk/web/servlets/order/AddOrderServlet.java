@@ -36,12 +36,13 @@ public class AddOrderServlet  {
     @Autowired
     DefaultOrderService defaultOrderService;
     @GetMapping("/doOrder")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp");
-        requestDispatcher.forward(req, resp);
+    protected String doGet(HttpServletRequest req) {
+        return "/order/orderUser";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp");
+//        requestDispatcher.forward(req, resp);
     }
     @PostMapping("/doOrder")
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         final int carId = Integer.parseInt(req.getParameter("carId"));
         final int rentDay = Integer.parseInt(req.getParameter("rentDay"));
@@ -61,6 +62,7 @@ public class AddOrderServlet  {
             newOrderEntity = defaultOrderService.saveUpdate(orderEntityOld, carId);
         }
         // Person person1 = DefaultPersonService.getInstance().updatePerson(person, newOrderEntity);
-        doGet(req,resp);
+//        doGet(req,resp);
+        return "redirect:/doOrder";
     }
 }

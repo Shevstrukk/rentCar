@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 @Configuration
-@PropertySource("classpath:datasourse.properties")
+@PropertySource(value = {"classpath:datasourse.properties"})
 public class SettingsConfig {
 
     @Bean

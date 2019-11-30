@@ -26,7 +26,7 @@ import java.io.IOException;
 // @WebServlet("/newPerson")
 @Controller
 @RequestMapping
-public class NewPersonServlet  {
+public class NewPersonServlet   {
     @Autowired
     DefaultUserService defaultUserService;
     @Autowired
