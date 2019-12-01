@@ -18,13 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// @WebServlet("/regisration")
-@Controller
-@RequestMapping
+@WebServlet("/regisration")
+//@Controller
+//@RequestMapping
 public class RegistrationServlet  {
     @Autowired
     DefaultUserService defaultUserService;
-    @GetMapping("/registration")
+   // @GetMapping("/registration")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Object authUser = req.getSession().getAttribute("authUser");
         if (authUser == null) {
@@ -33,7 +33,7 @@ public class RegistrationServlet  {
         }
     }
 
-    @PostMapping("/registration")
+   //@PostMapping("/registration")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String login = req.getParameter("login");
         final String password = req.getParameter("password");

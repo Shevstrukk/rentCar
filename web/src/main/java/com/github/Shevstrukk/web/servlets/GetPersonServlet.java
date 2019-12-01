@@ -18,12 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 @WebServlet("/getPerson")
-@Controller
-@RequestMapping
+//@Controller
+//@RequestMapping
 public class GetPersonServlet extends HttpServlet {
     @Autowired
     DefaultPersonService defaultPersonService;
-    @GetMapping("/getPerson")
+  //  @GetMapping("/getPerson")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         List<Person> personList= defaultPersonService.listAllPerson();

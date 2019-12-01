@@ -16,14 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// @WebServlet("/getOrder")
-@Controller
-@RequestMapping
-public class GetOrderServlet  {
+ @WebServlet("/getOrder")
+//@Controller
+//@RequestMapping
+public class GetOrderServlet extends HttpServlet  {
     @Autowired
     DefaultCarsService defaultCarsService;
 
-    @PostMapping("/getOrder")
+   // @PostMapping("/getOrder")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final int id = Integer.parseInt(req.getParameter("id"));
         final int rentDay = Integer.parseInt(req.getParameter("rentDay"));

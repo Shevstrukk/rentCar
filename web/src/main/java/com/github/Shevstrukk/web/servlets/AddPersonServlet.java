@@ -22,13 +22,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/addPerson")
-public class AddPersonServlet  {
+public class AddPersonServlet extends HttpServlet  {
 @Autowired
 DefaultUserService defaultUserService;
 @Autowired
 DefaultPersonService defaultPersonService;
 
-    @PostMapping("/addPerson")
+    //@PostMapping("/addPerson")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");

@@ -20,13 +20,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/deleteOrder")
-@Controller
-@RequestMapping
-public class DeleteOrder  {
+//@Controller
+//@RequestMapping
+public class DeleteOrder extends HttpServlet  {
 
     @Autowired
     DefaultOrderService defaultOrderService;
-    @PostMapping("/deleteOrder")
+   // @PostMapping("/deleteOrder")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final int id = Integer.parseInt(req.getParameter("id"));
         final int personId = Integer.parseInt(req.getParameter("personId"));
@@ -34,7 +34,7 @@ public class DeleteOrder  {
         doGet(req, resp);
     }
 
-    @GetMapping("/deleteOrder")
+    //@GetMapping("/deleteOrder")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession();

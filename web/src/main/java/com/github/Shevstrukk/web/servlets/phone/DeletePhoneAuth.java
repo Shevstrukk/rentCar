@@ -19,13 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-//@WebServlet("/deletePhone")
-@Controller
-@RequestMapping
-public class DeletePhoneAuth  {
+@WebServlet("/deletePhone")
+//@Controller
+//@RequestMapping
+public class DeletePhoneAuth extends HttpServlet {
     @Autowired
     DefaultPhoneService defaultPhoneService;
-    @GetMapping("/deletePhone")
+  //  @GetMapping("/deletePhone")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getAttribute("person");
         List<Phone> listPhone = person.getPhones();
@@ -34,7 +34,7 @@ public class DeletePhoneAuth  {
         requestDispatcher.forward(req, resp);
     }
 
-    @PostMapping("/deletePhone")
+    //@PostMapping("/deletePhone")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         Person person =  defaultPhoneService.deletePhone(id);

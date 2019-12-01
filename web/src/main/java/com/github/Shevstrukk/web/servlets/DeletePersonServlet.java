@@ -24,14 +24,14 @@ import java.util.List;
 
 
 @WebServlet("/delete")
-@Controller
-@RequestMapping
+//@Controller
+//@RequestMapping
 public class DeletePersonServlet extends HttpServlet {
     @Autowired
     DefaultPersonService defaultPersonService;
     @Autowired
     DefaultUserService defaultUserService;
-    @GetMapping("/delete")
+   // @GetMapping("/delete")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Person> personList = defaultPersonService.listAllPerson();
         req.setAttribute("personList", personList);
@@ -39,7 +39,7 @@ public class DeletePersonServlet extends HttpServlet {
         requestDispatcher.forward(req, resp);
     }
 
-    @PostMapping("/delete")
+   // @PostMapping("/delete")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Integer id = Integer.parseInt(req.getParameter("id"));

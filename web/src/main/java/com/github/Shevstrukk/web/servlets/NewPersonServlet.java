@@ -23,20 +23,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// @WebServlet("/newPerson")
-@Controller
-@RequestMapping
+@WebServlet("/newPerson")
+//@Controller
+//@RequestMapping
 public class NewPersonServlet  {
     @Autowired
     DefaultUserService defaultUserService;
     @Autowired
     DefaultPersonService defaultPersonService;
-    @GetMapping("/newPerson")
+    //@GetMapping("/newPerson")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/newPerson.jsp");
         requestDispatcher.forward(req, resp);
     }
-    @PostMapping("/newPerson")
+   // @PostMapping("/newPerson")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");

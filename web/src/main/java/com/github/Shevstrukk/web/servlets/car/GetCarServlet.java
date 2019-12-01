@@ -17,14 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-// @WebServlet("/getCars")
-@Controller
-@RequestMapping
+ @WebServlet("/getCars")
+//@Controller
+//@RequestMapping
 public class GetCarServlet  {
 
     @Autowired
     DefaultCarsService defaultCarsService;
-@GetMapping("/getCars")
+//@GetMapping("/getCars")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Car> carList = defaultCarsService.getCars();
         req.setAttribute("carEntityList", carList);

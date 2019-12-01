@@ -20,13 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-//@WebServlet("/addPhone")
-@Controller
-@RequestMapping
+@WebServlet("/addPhone")
+//@Controller
+//@RequestMapping
 public class AddPhoneServlet  {
     @Autowired
     DefaultPhoneService defaultPhoneService;
-    @GetMapping("/addPhone")
+   // @GetMapping("/addPhone")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getSession().getAttribute("person");
         List<Phone> listPhoneEntity = person.getPhones();
@@ -37,7 +37,7 @@ public class AddPhoneServlet  {
 
     }
 
-    @PostMapping("/addPhone")
+   // @PostMapping("/addPhone")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String line = String.valueOf(req.getParameter("phoneEntity"));
         Person person1 = (Person) req.getSession().getAttribute("person1");

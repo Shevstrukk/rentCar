@@ -19,13 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-// @WebServlet("/getOrderList")
-@Controller
-@RequestMapping
-public class GetOrderList  {
+ @WebServlet("/getOrderList")
+//@Controller
+//@RequestMapping
+public class GetOrderList extends HttpServlet  {
     @Autowired
     DefaultOrderService defaultOrderService;
-    @GetMapping("/getOrderList")
+   // @GetMapping("/getOrderList")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         AuthUser authUser = (AuthUser)session.getAttribute("authUser");

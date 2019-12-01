@@ -28,19 +28,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-// @WebServlet("/doOrder")
-@Controller
-@RequestMapping
-public class AddOrderServlet  {
+ @WebServlet("/doOrder")
+//@Controller
+//@RequestMapping
+public class AddOrderServlet extends HttpServlet  {
     private static final Logger log = LoggerFactory.getLogger(AddOrderServlet.class);
     @Autowired
     DefaultOrderService defaultOrderService;
-    @GetMapping("/doOrder")
+    //@GetMapping("/doOrder")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp");
         requestDispatcher.forward(req, resp);
     }
-    @PostMapping("/doOrder")
+   // @PostMapping("/doOrder")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         final int carId = Integer.parseInt(req.getParameter("carId"));

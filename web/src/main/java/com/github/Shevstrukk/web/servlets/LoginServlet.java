@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,13 +24,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/login")
-@Controller
-@RequestMapping
+//Controller
+//@RequestMapping
 public class LoginServlet extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(LoginServlet.class);
     @Autowired
     DefaultUserService defaultUserService;
-    @GetMapping("/login")
+   // @GetMapping("/login")
     protected void doGet(HttpServletRequest rq, HttpServletResponse rs) {
         Object authUser = rq.getSession().getAttribute("authUser");
         if (authUser == null) {

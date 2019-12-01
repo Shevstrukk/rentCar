@@ -24,13 +24,13 @@ import java.io.IOException;
 import java.util.List;
 
 
-// @WebServlet("/update")
-@Controller
-@RequestMapping
+ @WebServlet("/update")
+//@Controller
+//@RequestMapping
 public class UpdatePersonServlet  {
     @Autowired
     DefaultPersonService defaultPersonService;
-    @GetMapping("/update")
+ //   @GetMapping("/update")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
         Person person = (Person) defaultPersonService.getPerson(Integer.parseInt(id));
@@ -39,7 +39,7 @@ public class UpdatePersonServlet  {
         requestDispatcher.forward(req, resp);
     }
 
-    @PostMapping("/update")
+   // @PostMapping("/update")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final  int idAuth = Integer.valueOf(req.getParameter("idAuth"));
         final  int addressId = Integer.valueOf(req.getParameter("addressId"));

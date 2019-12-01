@@ -23,17 +23,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// @WebServlet("/addUser")
-@Controller
-@RequestMapping
-public class AddUserServlet  {
+@WebServlet("/addUser")
+//@Controller
+//@RequestMapping
+public class AddUserServlet extends HttpServlet  {
     @Autowired
     DefaultAddressService defaultAddressService;
     @Autowired
     DefaultPersonService defaultPersonService;
     @Autowired
     DefaultUserService defaultUserService;
-    @PostMapping("/addUser")
+   // @PostMapping("/addUser")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");

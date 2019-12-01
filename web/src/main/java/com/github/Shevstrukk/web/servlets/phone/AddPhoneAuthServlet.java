@@ -21,13 +21,13 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/addPhoneAuth")
-@Controller
-@RequestMapping
-public class AddPhoneAuthServlet  {
+//@Controller
+//@RequestMapping
+public class AddPhoneAuthServlet extends HttpServlet {
     @Autowired
     DefaultPhoneService defaultPhoneService;
 
-    @GetMapping("/addPhoneAuth")
+   // @GetMapping("/addPhoneAuth")
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getSession().getAttribute("person");
         List<Phone> listPhone = person.getPhones();
@@ -38,7 +38,7 @@ public class AddPhoneAuthServlet  {
 
     }
 
-    @PostMapping("/addPhoneAuth")
+   // @PostMapping("/addPhoneAuth")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String line = String.valueOf(req.getParameter("phoneEntity"));
         Person person1 = (Person) req.getSession().getAttribute("person1");
