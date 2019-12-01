@@ -32,13 +32,13 @@ public class NewPersonServlet   {
     @Autowired
     DefaultPersonService defaultPersonService;
     @GetMapping("/newPerson")
-    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         return "newPerson";
 //        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/newPerson.jsp");
 //        requestDispatcher.forward(req, resp);
     }
     @PostMapping("/newPerson")
-    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");
         final String state = req.getParameter("state");

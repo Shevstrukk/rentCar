@@ -26,7 +26,7 @@ public class GetOrderList  {
     @Autowired
     DefaultOrderService defaultOrderService;
     @GetMapping("/getOrderList")
-    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         AuthUser authUser = (AuthUser)session.getAttribute("authUser");
         Person person = authUser.getPerson();

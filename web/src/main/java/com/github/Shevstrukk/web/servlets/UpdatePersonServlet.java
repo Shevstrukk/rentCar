@@ -31,7 +31,7 @@ public class UpdatePersonServlet  {
     @Autowired
     DefaultPersonService defaultPersonService;
     @GetMapping("/update")
-    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
         Person person = (Person) defaultPersonService.getPerson(Integer.parseInt(id));
         req.setAttribute("person", person);
@@ -41,7 +41,7 @@ public class UpdatePersonServlet  {
     }
 
     @PostMapping("/update")
-    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final  int idAuth = Integer.valueOf(req.getParameter("idAuth"));
         final  int addressId = Integer.valueOf(req.getParameter("addressId"));
         final String firstName = req.getParameter("firstName");

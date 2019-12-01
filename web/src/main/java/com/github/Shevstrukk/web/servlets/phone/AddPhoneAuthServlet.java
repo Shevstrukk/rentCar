@@ -28,7 +28,7 @@ public class AddPhoneAuthServlet  {
     DefaultPhoneService defaultPhoneService;
 
     @GetMapping("/addPhoneAuth")
-    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getSession().getAttribute("person");
         List<Phone> listPhone = person.getPhones();
         req.setAttribute("phoneList", listPhone);
@@ -40,7 +40,7 @@ public class AddPhoneAuthServlet  {
     }
 
     @PostMapping("/addPhoneAuth")
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String line = String.valueOf(req.getParameter("phoneEntity"));
         Person person1 = (Person) req.getSession().getAttribute("person1");
         int id = person1.getId();

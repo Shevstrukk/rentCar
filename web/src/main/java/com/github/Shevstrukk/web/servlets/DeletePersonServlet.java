@@ -32,7 +32,7 @@ public class DeletePersonServlet  {
     @Autowired
     DefaultUserService defaultUserService;
     @GetMapping("/delete")
-    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Person> personList = defaultPersonService.listAllPerson();
         req.setAttribute("personList", personList);
         return "personList";
@@ -41,7 +41,7 @@ public class DeletePersonServlet  {
     }
 
     @PostMapping("/delete")
-    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Integer id = Integer.parseInt(req.getParameter("id"));
         defaultUserService.deleteAuthUser(id);

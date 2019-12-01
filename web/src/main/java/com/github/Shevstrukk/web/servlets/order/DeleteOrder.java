@@ -27,7 +27,7 @@ public class DeleteOrder  {
     @Autowired
     DefaultOrderService defaultOrderService;
     @PostMapping("/deleteOrder")
-    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final int id = Integer.parseInt(req.getParameter("id"));
         final int personId = Integer.parseInt(req.getParameter("personId"));
         defaultOrderService.deleteOrder(id, personId);
@@ -36,7 +36,7 @@ public class DeleteOrder  {
     }
 
     @GetMapping("/deleteOrder")
-    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
         AuthUser authUser = (AuthUser)session.getAttribute("authUser");

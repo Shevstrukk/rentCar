@@ -26,7 +26,7 @@ public class DeletePhoneAuth  {
     @Autowired
     DefaultPhoneService defaultPhoneService;
     @GetMapping("/deletePhone")
-    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getAttribute("person");
         List<Phone> listPhone = person.getPhones();
         req.setAttribute("phoneList", listPhone);
@@ -36,7 +36,7 @@ public class DeletePhoneAuth  {
     }
 
     @PostMapping("/deletePhone")
-    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         Person person =  defaultPhoneService.deletePhone(id);
         req.setAttribute("person", person);

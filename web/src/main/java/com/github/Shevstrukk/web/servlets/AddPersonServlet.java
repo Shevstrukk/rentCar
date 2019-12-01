@@ -29,7 +29,7 @@ DefaultUserService defaultUserService;
 DefaultPersonService defaultPersonService;
 
     @PostMapping("/addPerson")
-    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public  String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");
         final String state = req.getParameter("state");

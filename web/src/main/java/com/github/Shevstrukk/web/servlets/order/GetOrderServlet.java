@@ -24,7 +24,7 @@ public class GetOrderServlet  {
     DefaultCarsService defaultCarsService;
 
     @PostMapping("/getOrder")
-    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final int id = Integer.parseInt(req.getParameter("id"));
         final int rentDay = Integer.parseInt(req.getParameter("rentDay"));
 

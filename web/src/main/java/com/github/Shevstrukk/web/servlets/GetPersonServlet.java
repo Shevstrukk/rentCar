@@ -24,7 +24,7 @@ public class GetPersonServlet {
     @Autowired
     DefaultPersonService defaultPersonService;
     @GetMapping("/getPerson")
-    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         List<Person> personList= defaultPersonService.listAllPerson();
         req.setAttribute("personList", personList);

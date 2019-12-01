@@ -25,7 +25,7 @@ public class RegistrationServlet  {
     @Autowired
     DefaultUserService defaultUserService;
     @GetMapping("/registration")
-    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Object authUser = req.getSession().getAttribute("authUser");
         if (authUser == null) {
             return "registration";
@@ -35,7 +35,7 @@ public class RegistrationServlet  {
     }
 
     @PostMapping("/registration")
-    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String login = req.getParameter("login");
         final String password = req.getParameter("password");
         AuthUser user = defaultUserService.addAuthUser(login, password);
