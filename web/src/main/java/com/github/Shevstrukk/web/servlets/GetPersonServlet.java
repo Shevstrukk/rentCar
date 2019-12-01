@@ -17,18 +17,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-@WebServlet("/getPerson")
+//@WebServlet("/getPerson")
 @Controller
 @RequestMapping
-public class GetPersonServlet extends HttpServlet {
+public class GetPersonServlet {
     @Autowired
     DefaultPersonService defaultPersonService;
     @GetMapping("/getPerson")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         List<Person> personList= defaultPersonService.listAllPerson();
         req.setAttribute("personList", personList);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
-        requestDispatcher.forward(req, resp);
+        return "personlist";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
+//        requestDispatcher.forward(req, resp);
     }
 }

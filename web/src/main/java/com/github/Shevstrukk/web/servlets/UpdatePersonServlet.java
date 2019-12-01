@@ -31,16 +31,17 @@ public class UpdatePersonServlet  {
     @Autowired
     DefaultPersonService defaultPersonService;
     @GetMapping("/update")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
         Person person = (Person) defaultPersonService.getPerson(Integer.parseInt(id));
         req.setAttribute("person", person);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/updatePerson.jsp");
-        requestDispatcher.forward(req, resp);
+        return "updatePerson";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/updatePerson.jsp");
+//        requestDispatcher.forward(req, resp);
     }
 
     @PostMapping("/update")
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final  int idAuth = Integer.valueOf(req.getParameter("idAuth"));
         final  int addressId = Integer.valueOf(req.getParameter("addressId"));
         final String firstName = req.getParameter("firstName");
@@ -61,7 +62,8 @@ public class UpdatePersonServlet  {
         List<Person> personList = defaultPersonService.listAllPerson();
 
         req.setAttribute("personList", personList);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
-        requestDispatcher.forward(req, resp);
-    }
+        return "personList";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
+//        requestDispatcher.forward(req, resp);
+     }
 }

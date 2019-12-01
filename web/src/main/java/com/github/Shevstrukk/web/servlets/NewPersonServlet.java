@@ -32,12 +32,13 @@ public class NewPersonServlet   {
     @Autowired
     DefaultPersonService defaultPersonService;
     @GetMapping("/newPerson")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/newPerson.jsp");
-        requestDispatcher.forward(req, resp);
+    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        return "newPerson";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/newPerson.jsp");
+//        requestDispatcher.forward(req, resp);
     }
     @PostMapping("/newPerson")
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");
         final String state = req.getParameter("state");
@@ -50,7 +51,8 @@ public class NewPersonServlet   {
         Person person = new Person(null,firstName,lastName, user, addressEntity,null,null);
         Person person1= defaultPersonService.insertPerson(person);
         req.getSession().setAttribute("person1", person1);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
-        requestDispatcher.forward(req, resp);
+        return "/phone/addPhoneAuth";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
+//        requestDispatcher.forward(req, resp);
     }
 }

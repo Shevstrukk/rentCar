@@ -24,7 +24,7 @@ public class GetCarServlet  {
 
     @Autowired
     DefaultCarsService defaultCarsService;
-@GetMapping("/getCars")
+    @GetMapping("/getCars")
     protected String doGet(HttpServletRequest req) throws ServletException, IOException {
         List<Car> carList = defaultCarsService.getCars();
         req.setAttribute("carEntityList", carList);

@@ -23,27 +23,29 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet("/delete")
+//@WebServlet("/delete")
 @Controller
 @RequestMapping
-public class DeletePersonServlet extends HttpServlet {
+public class DeletePersonServlet  {
     @Autowired
     DefaultPersonService defaultPersonService;
     @Autowired
     DefaultUserService defaultUserService;
     @GetMapping("/delete")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Person> personList = defaultPersonService.listAllPerson();
         req.setAttribute("personList", personList);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
-        requestDispatcher.forward(req, resp);
+        return "personList";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
+//        requestDispatcher.forward(req, resp);
     }
 
     @PostMapping("/delete")
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Integer id = Integer.parseInt(req.getParameter("id"));
         defaultUserService.deleteAuthUser(id);
-        doGet(req,resp);
+        return "redirect:/delete";
+       // doGet(req,resp);
     }
 }

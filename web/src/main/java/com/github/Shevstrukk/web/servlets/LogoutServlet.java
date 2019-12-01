@@ -12,10 +12,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 @Controller
 @RequestMapping
-public class LogoutServlet extends HttpServlet {
+public class LogoutServlet  {
 
     @GetMapping("/login")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected String doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
 
@@ -25,8 +25,9 @@ public class LogoutServlet extends HttpServlet {
         // session.removeAttribute("login");
         // session.removeAttribute("role");
         session.invalidate();
+        return "login";
 
-        resp.sendRedirect(super.getServletContext().getContextPath()+"/");
+//        resp.sendRedirect(super.getServletContext().getContextPath()+"/");
     }
 
 }

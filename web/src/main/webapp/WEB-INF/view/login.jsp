@@ -8,17 +8,17 @@
 </head>
 <body>
 
-<div class="form">
+
 
     <h1>Вход в систему</h1><br>
-    <form method="post" action="/login">
+    <form method="POST" action="/login">
 
         <input type="text" required placeholder="login" name="login"><br>
         <input type="password" required placeholder="password" name="password"><br><br>
         <input class="button" type="submit" value="Войти">
 
     </form>
-</div>
+
 <a href="<c:url value='/regisration' />">Зарегистрироваться</a>
 <p style="color: red">${error}</p>
 </body>

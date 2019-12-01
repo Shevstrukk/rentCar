@@ -23,14 +23,6 @@ public class UserFilter  implements Filter {
         }
         filterChain.doFilter(rq, resp);
     }
-     /*   Object user;
-        if (null == (user = rq.getSession().getAttribute("admin") )) {
-            RequestDispatcher requestDispatcher = rq.getRequestDispatcher("/WEB-INF/view/login.jsp");
-            requestDispatcher.forward(rq,resp);
-            return;
-        }else if ( (user=rq.getSession().getAttribute("user")) == null){
-
-        }*/
 
 
 

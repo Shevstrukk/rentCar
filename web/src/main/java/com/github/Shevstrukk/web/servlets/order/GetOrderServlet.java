@@ -24,7 +24,7 @@ public class GetOrderServlet  {
     DefaultCarsService defaultCarsService;
 
     @PostMapping("/getOrder")
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final int id = Integer.parseInt(req.getParameter("id"));
         final int rentDay = Integer.parseInt(req.getParameter("rentDay"));
 
@@ -33,7 +33,8 @@ public class GetOrderServlet  {
         req.setAttribute("carEntity", carEntity);
         req.setAttribute("price", price);
         req.setAttribute("rentDay", rentDay);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/addOrder.jsp");
-        requestDispatcher.forward(req, resp);
+        return "/order/addOrder";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/addOrder.jsp");
+//        requestDispatcher.forward(req, resp);
     }
 }

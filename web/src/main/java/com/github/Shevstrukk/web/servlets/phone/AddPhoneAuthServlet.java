@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/addPhoneAuth")
+//@WebServlet("/addPhoneAuth")
 @Controller
 @RequestMapping
 public class AddPhoneAuthServlet  {
@@ -28,13 +28,14 @@ public class AddPhoneAuthServlet  {
     DefaultPhoneService defaultPhoneService;
 
     @GetMapping("/addPhoneAuth")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getSession().getAttribute("person");
         List<Phone> listPhone = person.getPhones();
         req.setAttribute("phoneList", listPhone);
         req.getSession().setAttribute("person", person);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
-        requestDispatcher.forward(req, resp);
+        return "/phone/addPhoneAuth";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
+//        requestDispatcher.forward(req, resp);
 
     }
 

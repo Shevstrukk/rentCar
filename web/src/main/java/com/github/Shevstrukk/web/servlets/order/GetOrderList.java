@@ -26,14 +26,15 @@ public class GetOrderList  {
     @Autowired
     DefaultOrderService defaultOrderService;
     @GetMapping("/getOrderList")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         AuthUser authUser = (AuthUser)session.getAttribute("authUser");
         Person person = authUser.getPerson();
         int id = person.getId();
         Person personList = defaultOrderService.getOrderList(id);
         req.setAttribute("personList", personList);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/orderList.jsp");
-        requestDispatcher.forward(req, resp);
+        return "/order/orderList";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/orderList.jsp");
+//        requestDispatcher.forward(req, resp);
     }
 }

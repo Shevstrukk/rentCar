@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/addPerson")
+//@WebServlet("/addPerson")
 public class AddPersonServlet  {
 @Autowired
 DefaultUserService defaultUserService;
@@ -29,7 +29,7 @@ DefaultUserService defaultUserService;
 DefaultPersonService defaultPersonService;
 
     @PostMapping("/addPerson")
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");
         final String state = req.getParameter("state");
@@ -43,8 +43,9 @@ DefaultPersonService defaultPersonService;
 
         Person person1= defaultPersonService.insertPerson(person);
         req.getSession().setAttribute("person1", person1);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
-        requestDispatcher.forward(req, resp);
+        return "/phone/addPhoneAuth";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
+//        requestDispatcher.forward(req, resp);
     }
 
 }

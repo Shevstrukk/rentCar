@@ -27,13 +27,14 @@ public class AddPhoneServlet  {
     @Autowired
     DefaultPhoneService defaultPhoneService;
     @GetMapping("/addPhone")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getSession().getAttribute("person");
         List<Phone> listPhoneEntity = person.getPhones();
         req.getSession().setAttribute("phoneList", listPhoneEntity);
         req.getSession().setAttribute("person", person);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhone.jsp");
-        requestDispatcher.forward(req, resp);
+        return "/phone/addPhone";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhone.jsp");
+//        requestDispatcher.forward(req, resp);
 
     }
 

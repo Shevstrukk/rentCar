@@ -25,24 +25,27 @@ public class RegistrationServlet  {
     @Autowired
     DefaultUserService defaultUserService;
     @GetMapping("/registration")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Object authUser = req.getSession().getAttribute("authUser");
         if (authUser == null) {
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/registration.jsp");
-            requestDispatcher.forward(req, resp);
-        }
+            return "registration";
+//            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/registration.jsp");
+//            requestDispatcher.forward(req, resp);
+        }return "user_menu";
     }
 
     @PostMapping("/registration")
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String login = req.getParameter("login");
         final String password = req.getParameter("password");
         AuthUser user = defaultUserService.addAuthUser(login, password);
         if(user.getPerson() == null){
-            req.getSession().setAttribute("authUser", user);
-            req.getRequestDispatcher("/WEB-INF/view/user_menu.jsp").forward(req, resp);
+//            req.getSession().setAttribute("authUser", user);
+//            req.getRequestDispatcher("/WEB-INF/view/user_menu.jsp").forward(req, resp);
+            return "user_menu";
         }else{
             req.getSession().setAttribute("authUser", user);
-            req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp").forward(req, resp);}
+            return "/order/orderUser";}
+           // req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp").forward(req, resp);}
     }
 }

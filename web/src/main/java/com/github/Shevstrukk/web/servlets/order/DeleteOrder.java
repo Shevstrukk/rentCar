@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/deleteOrder")
+//@WebServlet("/deleteOrder")
 @Controller
 @RequestMapping
 public class DeleteOrder  {
@@ -27,15 +27,16 @@ public class DeleteOrder  {
     @Autowired
     DefaultOrderService defaultOrderService;
     @PostMapping("/deleteOrder")
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final int id = Integer.parseInt(req.getParameter("id"));
         final int personId = Integer.parseInt(req.getParameter("personId"));
         defaultOrderService.deleteOrder(id, personId);
-        doGet(req, resp);
+        return "redirect:deleteOrder";
+      //  doGet(req, resp);
     }
 
     @GetMapping("/deleteOrder")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
         AuthUser authUser = (AuthUser)session.getAttribute("authUser");
@@ -43,8 +44,9 @@ public class DeleteOrder  {
         int id = person.getId();
         Person personList = defaultOrderService.getOrderList(id);
         req.setAttribute("personList", personList);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/orderList.jsp");
-        requestDispatcher.forward(req, resp);
+        return "/order/orderList";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/order/orderList.jsp");
+//        requestDispatcher.forward(req, resp);
     }
 }
 

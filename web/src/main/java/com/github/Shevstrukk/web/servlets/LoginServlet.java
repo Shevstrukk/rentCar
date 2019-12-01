@@ -31,25 +31,16 @@ public class LoginServlet  {
     @Autowired
     DefaultUserService defaultUserService;
     @GetMapping("/login")
-    protected String doGet(HttpServletRequest rq) {
+    public String doGet(HttpServletRequest rq) {
         Object authUser = rq.getSession().getAttribute("authUser");
         if (authUser == null)
             return "login";
-//            RequestDispatcher requestDispatcher = rq.getRequestDispatcher("/WEB-INF/view/login.jsp");
-//            try {
-//                requestDispatcher.forward(rq,rs);
-//            } catch (ServletException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            return;
 
-        return "login";
+        return "registration";
 
     }
     @PostMapping("/login")
-    protected String doPost(HttpServletRequest req)  {
+    public String doPost(HttpServletRequest req)  {
 
         final String login = req.getParameter("login");
         final String password = req.getParameter("password");
