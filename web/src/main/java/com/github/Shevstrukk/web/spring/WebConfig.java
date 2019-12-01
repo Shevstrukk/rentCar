@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.github.Shevstrukk.web")
+@ComponentScan(basePackages = "com.github.Shevstrukk")
 public class WebConfig {
     @Bean
     ViewResolver viewResolver(){
