@@ -9,6 +9,9 @@ import com.github.Shevstrukk.model.AuthUser;
 import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.service.DefaultPersonService;
 import com.github.Shevstrukk.service.DefaultUserService;
+import com.github.Shevstrukk.service.PersonService;
+import com.github.Shevstrukk.service.UserService;
+import com.github.Shevstrukk.service.address.AddressService;
 import com.github.Shevstrukk.service.address.DefaultAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,13 +31,13 @@ import java.io.IOException;
 @RequestMapping
 public class AddUserServlet  {
     @Autowired
-    DefaultAddressService defaultAddressService;
+    AddressService defaultAddressService;
     @Autowired
-    DefaultPersonService defaultPersonService;
+    PersonService defaultPersonService;
     @Autowired
-    DefaultUserService defaultUserService;
+    UserService defaultUserService;
     @PostMapping("/addUser")
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected String doPost(HttpServletRequest req)  {
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");
         final String state = req.getParameter("state");
@@ -49,8 +52,9 @@ public class AddUserServlet  {
         Person person1= defaultPersonService.insertPerson(person);
         req.getSession().setAttribute("person1", person1);
         AuthUser authUserUpdate = defaultUserService.update(authUser.getId(), person1.getId());
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhone.jsp");
-        requestDispatcher.forward(req, resp);
+        return "/phone/addPhone";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhone.jsp");
+//        requestDispatcher.forward(req, resp);
     }
 
 }
