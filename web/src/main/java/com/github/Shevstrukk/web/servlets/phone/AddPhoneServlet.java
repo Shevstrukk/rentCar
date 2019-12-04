@@ -5,6 +5,7 @@ import com.github.Shevstrukk.dao.entity.PhoneEntity;
 import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.model.Phone;
 import com.github.Shevstrukk.service.phoneservice.DefaultPhoneService;
+import com.github.Shevstrukk.service.phoneservice.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ import java.util.List;
 @RequestMapping
 public class AddPhoneServlet  {
     @Autowired
-    DefaultPhoneService defaultPhoneService;
+    PhoneService defaultPhoneService;
     @GetMapping("/addPhone")
     public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getSession().getAttribute("person");
