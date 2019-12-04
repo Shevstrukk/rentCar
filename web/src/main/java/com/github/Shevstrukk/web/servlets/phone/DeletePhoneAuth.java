@@ -4,6 +4,7 @@ import com.github.Shevstrukk.dao.entity.PersonEntity;
 import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.model.Phone;
 import com.github.Shevstrukk.service.phoneservice.DefaultPhoneService;
+import com.github.Shevstrukk.service.phoneservice.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ import java.util.List;
 @RequestMapping
 public class DeletePhoneAuth  {
     @Autowired
-    DefaultPhoneService defaultPhoneService;
+    PhoneService defaultPhoneService;
     @GetMapping("/deletePhone")
     public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Person person = (Person) req.getAttribute("person");
