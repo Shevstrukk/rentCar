@@ -22,11 +22,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 //@WebServlet("/addPerson")
-public class AddPersonServlet  {
-@Autowired
-DefaultUserService defaultUserService;
-@Autowired
-DefaultPersonService defaultPersonService;
+public class AddPersonServlet {
+    @Autowired
+   UserService userService;
+    @Autowired
+    DefaultPersonService defaultPersonService;
+
 
     @PostMapping("/addPerson")
     public  String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,9 +38,10 @@ DefaultPersonService defaultPersonService;
         final String street = req.getParameter("street");
         final int home = Integer.valueOf(req.getParameter("home"));
         final int number = Integer.valueOf(req.getParameter("number"));
-        Address addressEntity = new Address(null,state, city, street, home,number, null);
-        AuthUser authUser = defaultUserService.login(firstName, lastName);
-        Person person = new Person(null,firstName,lastName, authUser, addressEntity,null,null);
+        Address addressEntity = new Address(null, state, city, street, home, number, null);
+        AuthUser authUser = userService.login(firstName, lastName);
+        Person person = new Person(null, firstName, lastName, authUser, addressEntity, null, null);
+
 
         Person person1= defaultPersonService.insertPerson(person);
         req.getSession().setAttribute("person1", person1);
