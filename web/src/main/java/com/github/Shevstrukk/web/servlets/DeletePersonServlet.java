@@ -7,6 +7,7 @@ import com.github.Shevstrukk.service.DefaultPersonService;
 import com.github.Shevstrukk.service.DefaultUserService;
 
 import com.github.Shevstrukk.service.PersonService;
+import com.github.Shevstrukk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,9 +29,9 @@ import java.util.List;
 @RequestMapping
 public class DeletePersonServlet  {
     @Autowired
-    DefaultPersonService defaultPersonService;
+    PersonService defaultPersonService;
     @Autowired
-    DefaultUserService defaultUserService;
+    UserService defaultUserService;
     @GetMapping("/delete")
     public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Person> personList = defaultPersonService.listAllPerson();
