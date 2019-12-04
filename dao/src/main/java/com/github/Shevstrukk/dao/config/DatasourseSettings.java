@@ -6,7 +6,7 @@ public class DatasourseSettings {
     @Value("${url}")
     private String url;
 
-    @Value("${username}")
+    @Value("${dbuser}")
     private String user;
 
     @Value("${password}")
