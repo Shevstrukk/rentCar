@@ -11,8 +11,10 @@ import com.github.Shevstrukk.dao.util.EMUtil;
 import com.github.Shevstrukk.model.Order;
 import com.github.Shevstrukk.model.Person;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -20,16 +22,18 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
-@Repository
+
 public class DefaultPersonDAO implements PersonDAO {
     private static final Logger log = LoggerFactory.getLogger(DefaultPersonDAO.class);
-    public DefaultPersonDAO() {
+    private final SessionFactory sessionFactory;
+    @Autowired
+    public DefaultPersonDAO(SessionFactory sessionFactory) {this.sessionFactory = sessionFactory;
     }
 
     public Person insertPerson(Person person1) {
         PersonEntity person = PersonConverter.toEntity(person1);
-        Session session = EMUtil.getSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
+//        session.beginTransaction();
         //  AuthUserEntity authUserEntity = person.getAuthUserEntity();
         //  AddressEntity addressEntity = person.getAddressEntity();
         //  session.save(addressEntity);
@@ -37,17 +41,17 @@ public class DefaultPersonDAO implements PersonDAO {
         //  person.setAddressEntity(addressEntity);
         session.save(person);
         // session.saveOrUpdate(authUserEntity);
-        session.getTransaction().commit();
-        session.close();
+//        session.getTransaction().commit();
+//        session.close();
         return PersonConverter.fromEntity(person);
     }
     public Person getPerson(int id) {
         PersonEntity person = null;
-        Session session = EMUtil.getSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
+//        session.beginTransaction();
         person = session.get(PersonEntity.class, id);
-        session.getTransaction().commit();
-        session.close();
+//        session.getTransaction().commit();
+//        session.close();
         return PersonConverter.fromEntity(person);
         //String sql = "SELECT * FROM person WHERE person_id = ?";
     }
@@ -55,12 +59,12 @@ public class DefaultPersonDAO implements PersonDAO {
     @Override
     public List<AuthUserEntity> listAllAuthUsers() {
         List<AuthUserEntity> list;
-        Session session = EMUtil.getSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
+//        session.beginTransaction();
         String str = "FROM AuthUserEntity  ORDER BY id ASC";
         list = session.createQuery(str).getResultList();
-        session.getTransaction().commit();
-        session.close();
+//        session.getTransaction().commit();
+//        session.close();
         return list;
     }
 //    public List<PersonEntity> pagePerson(int page) {
@@ -77,7 +81,7 @@ public class DefaultPersonDAO implements PersonDAO {
 //    }
 
     public List<Person> listAllPerson() {
-        Session session = EMUtil.getSession();
+        Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
 //        int pageNamber = 1;
 //        int pageSize = 4;
         CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -102,21 +106,21 @@ public class DefaultPersonDAO implements PersonDAO {
     }
     public Person updatePerson(Person person){
         int id = person.getId();
-        Session session = EMUtil.getSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
+//        session.beginTransaction();
         PersonEntity person1 = session.get(PersonEntity.class,id);
         person1.setFirstName(person.getFirstName());
         person1.setLastName(person.getLastName());
         person1.setAddressEntity(AddressConverter.toEntity(person.getAddress()));
         session.saveOrUpdate(person1);
-        session.getTransaction().commit();
-        session.close();
+//        session.getTransaction().commit();
+//        session.close();
         return PersonConverter.fromEntity(person1);
     }
     public Person updatePerson(Person person, Order orderEntity){
         Person person2;
-        Session session = EMUtil.getSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
+//        session.beginTransaction();
         int id = person.getId();
         PersonEntity person1 = session.get(PersonEntity.class, id);
         OrderEntity orderEntity1 = session.get(OrderEntity.class, orderEntity.getId());
@@ -127,8 +131,8 @@ public class DefaultPersonDAO implements PersonDAO {
         Query query =  session.createQuery(str);
         query.setParameter("id", id);
         person1 =(PersonEntity)query.getSingleResult();
-        session.getTransaction().commit();
-        session.close();
+//        session.getTransaction().commit();
+//        session.close();
         person2=PersonConverter.fromEntityOrder(person1);
         return person2;
     }
