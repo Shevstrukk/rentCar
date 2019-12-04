@@ -14,13 +14,10 @@ import java.io.IOException;
 @RequestMapping
 public class LogoutServlet  {
 
-    @GetMapping("/login")
-    protected String doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
+    @GetMapping("/logout")
+    protected String doGet(HttpServletRequest req)  {
 
         final HttpSession session = req.getSession();
-
         session.removeAttribute("authUser");
         // session.removeAttribute("login");
         // session.removeAttribute("role");
