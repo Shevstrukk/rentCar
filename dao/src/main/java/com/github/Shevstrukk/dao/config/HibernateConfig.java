@@ -8,12 +8,14 @@ import org.springframework.context.annotation.Import;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.sql.DataSource;
 
 @Configuration
 @Import(SettingsConfig.class)
+//@EnableTransactionManagement
 public class HibernateConfig {
 
     private final SettingsConfig settingsConfig;
@@ -53,11 +55,9 @@ public class HibernateConfig {
         return transactionManager;
     }
 
-    @Bean
-    public TransactionTemplate transactionTemplate(){
-        return new TransactionTemplate(hibernateTransactionManager());
-    }
-
-
-
+//    @Bean
+//    public TransactionTemplate transactionTemplate(){
+//        return new TransactionTemplate(hibernateTransactionManager());
+//    }
+//
 }
