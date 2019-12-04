@@ -12,13 +12,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Transactional
 public class DefaultOrderService implements OrderService {
     private static final Logger log = LoggerFactory.getLogger(DefaultOrderService.class);
-@Autowired
-DefaultOrderDAO defaultOrderDAO;
-
+    @Autowired
+    OrderDAO defaultOrderDAO;
+    public DefaultOrderService(OrderDAO defaultOrderDAO){ this.defaultOrderDAO = defaultOrderDAO;}
+    @Override
+    @Transactional
     public Order saveOrder(Order orderEntity, int id) { return defaultOrderDAO.saveOrder(orderEntity, id);    }
     public Order saveUpdate(Order orderEntity, int id) { return defaultOrderDAO.saveUpdate(orderEntity, id);    }
 
