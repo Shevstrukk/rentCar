@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping
 public class GetPersonServlet {
     @Autowired
-    DefaultPersonService defaultPersonService;
+    PersonService defaultPersonService;
     @GetMapping("/getPerson")
     public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
