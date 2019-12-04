@@ -48,8 +48,8 @@ public class BaseDao<T> //implements Dao
 //        session.getTransaction().commit();
 //    }
 
-    public Session getSession() {
-        return factory.createEntityManager().unwrap(Session.class);
-    }
+//   // public Session getSession() {
+//        return factory.createEntityManager().unwrap(Session.class);
+//    }
 
 }
