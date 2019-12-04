@@ -8,6 +8,7 @@ import com.github.Shevstrukk.dao.util.EMUtil;
 import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.model.Phone;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -15,16 +16,17 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-@Repository
+
 public class DefaultPhoneDAO implements PhoneDAO {
     private static final Logger log = LoggerFactory.getLogger(DefaultPhoneDAO.class);
-    public DefaultPhoneDAO() {    }
+    private final SessionFactory sessionFactory;
+    public DefaultPhoneDAO(SessionFactory sessionFactory) { this.sessionFactory = sessionFactory;    }
 
 
     public Person savePhone(Phone phone, int id){
         PhoneEntity phoneEntity = PhoneConverter.toEntity(phone);
-        Session session = EMUtil.getSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
+//        session.beginTransaction();
         PersonEntity person = session.get(PersonEntity.class, id);
         person.getPhoneEntities().add(phoneEntity);
         phoneEntity.setPerson(person);
@@ -33,13 +35,13 @@ public class DefaultPhoneDAO implements PhoneDAO {
         Query query =  session.createQuery(str);
         query.setParameter("id", id);
         person =(PersonEntity) query.getSingleResult();
-        session.getTransaction().commit();
-        session.close();
+//        session.getTransaction().commit();
+//        session.close();
         return PersonConverter.fromEntityCreatePhone(person);
     }
     public Person deletePhone( int id){
-        Session session = EMUtil.getSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
+//        session.beginTransaction();
         PhoneEntity phone = session.get(PhoneEntity.class,id);
         List<PhoneEntity> phoneEntity = new CopyOnWriteArrayList<>(phone.getPerson().getPhoneEntities()) ;
         for (PhoneEntity w: phoneEntity){
@@ -51,8 +53,8 @@ public class DefaultPhoneDAO implements PhoneDAO {
         person1.getPhoneEntities().clear();
         person1.getPhoneEntities().addAll(phoneEntity);
         session.saveOrUpdate(person1);
-        session.getTransaction().commit();
-        session.close();
+//        session.getTransaction().commit();
+//        session.close();
         return PersonConverter.fromEntityCreatePhone(person1);
     }
 }
