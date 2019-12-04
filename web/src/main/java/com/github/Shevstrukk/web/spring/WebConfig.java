@@ -7,12 +7,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.github.Shevstrukk")
-public class WebConfig {
+public class WebConfig  {
     @Bean
     ViewResolver viewResolver(){
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -20,12 +21,6 @@ public class WebConfig {
         resolver.setSuffix(".jsp");
         return resolver;
     }
-    @Bean
-    DefaultUserService defaultUserService() {
-        return new DefaultUserService();
-    }
-    @Bean
-    DefaultPersonService defaultPersonService() {
-        return new DefaultPersonService();
-    }
+
+
 }
