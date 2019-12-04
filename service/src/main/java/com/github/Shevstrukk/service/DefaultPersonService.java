@@ -10,34 +10,47 @@ import com.github.Shevstrukk.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
-@Service
+
 public class DefaultPersonService implements PersonService {
+
+    private final PersonDAO dao;
     @Autowired
-    DefaultPersonDAO defaultPersonDAO;
+    public DefaultPersonService(PersonDAO personDAO){this.dao = personDAO;}
 
+    @Transactional
     public List<AuthUserEntity> listAllAuthUser() {
-        return defaultPersonDAO.listAllAuthUsers();
-    }
-    public List<Person> listAllPerson() {
-        return defaultPersonDAO.listAllPerson();
+        return dao.listAllAuthUsers();
     }
 
+    @Transactional
+    public List<Person> listAllPerson() {
+        return dao.listAllPerson();
+    }
+
+    @Transactional
     public Person insertPerson(Person person)  {
-        return defaultPersonDAO.insertPerson(person);
+        return dao.insertPerson(person);
     }
+
+    @Transactional
     public Person updatePerson(Person person){
-        return   defaultPersonDAO.updatePerson(person);
+        return   dao.updatePerson(person);
     }
+
+    @Transactional
     public Person updatePerson(Person person, Order orderEntity){
-        return   defaultPersonDAO.updatePerson(person, orderEntity);
+        return   dao.updatePerson(person, orderEntity);
     }
     /* public void deletePerson(int person){
               DefaultPersonDAO.getInstance().deletePerson(person);
      }*/
+
+    @Transactional
     public Person getPerson(int id) {
-        return defaultPersonDAO.getPerson(id);
+        return dao.getPerson(id);
     }
 }
