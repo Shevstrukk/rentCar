@@ -29,7 +29,7 @@ import java.util.List;
 @RequestMapping
 public class UpdatePersonServlet  {
     @Autowired
-    DefaultPersonService defaultPersonService;
+    PersonService defaultPersonService;
     @GetMapping("/update")
     public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
