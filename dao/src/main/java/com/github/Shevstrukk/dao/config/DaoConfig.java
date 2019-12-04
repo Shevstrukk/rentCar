@@ -12,33 +12,42 @@ import com.github.Shevstrukk.dao.orderDao.DefaultOrderDAO;
 import com.github.Shevstrukk.dao.orderDao.OrderDAO;
 import com.github.Shevstrukk.dao.phonedao.DefaultPhoneDAO;
 import com.github.Shevstrukk.dao.phonedao.PhoneDAO;
+import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @Configuration
+@Import(HibernateConfig.class)
+@EnableTransactionManagement
 public class DaoConfig {
+
+    private SessionFactory sessionFactory;
+
+   public DaoConfig(SessionFactory sessionFactory) { this.sessionFactory = sessionFactory; }
 
     @Bean
     public AddressDao addressDao() {
-        return new DefaultAddressDao();
+        return new DefaultAddressDao( sessionFactory);
     }
     @Bean
     public CarsDAO carDao() {
-        return new DefaultCarDAO();
+        return new DefaultCarDAO(sessionFactory);
     }
     @Bean
     public OrderDAO orderDao() {
-        return new DefaultOrderDAO();
+        return new DefaultOrderDAO(sessionFactory);
     }
     @Bean
     public PhoneDAO phoneDao() {
-        return new DefaultPhoneDAO();
+        return new DefaultPhoneDAO(sessionFactory);
     }
     @Bean
     public AuthUsersDAO authUsersDao() {
-        return new DefaultAuthUsersDAO();
+        return new DefaultAuthUsersDAO(sessionFactory);
     }
     @Bean
-    public PersonDAO personDao() {    return new DefaultPersonDAO();    }
+    public PersonDAO personDao() {    return new DefaultPersonDAO(sessionFactory);    }
 }
