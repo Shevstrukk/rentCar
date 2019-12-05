@@ -41,13 +41,14 @@ public class AddPhoneAuthServlet  {
     }
 
     @PostMapping("/addPhoneAuth")
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String line = String.valueOf(req.getParameter("phoneEntity"));
         Person person1 = (Person) req.getSession().getAttribute("person1");
         int id = person1.getId();
         Phone phoneEntity = new Phone(null,line,null);
         Person person = defaultPhoneService.savePhone(phoneEntity, id);
         req.getSession().setAttribute("person", person);
-        doGet(req, resp);
+        return "redirect:/addPhoneAuth";
+      //  doGet(req, resp);
     }
 }

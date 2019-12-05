@@ -9,9 +9,12 @@ import com.github.Shevstrukk.model.AuthUser;
 import com.github.Shevstrukk.model.Person;
 import com.github.Shevstrukk.service.DefaultPersonService;
 import com.github.Shevstrukk.service.DefaultUserService;
+import com.github.Shevstrukk.service.PersonService;
 import com.github.Shevstrukk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,11 +25,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 //@WebServlet("/addPerson")
+@Controller
+@RequestMapping
 public class AddPersonServlet {
     @Autowired
    UserService userService;
     @Autowired
-    DefaultPersonService defaultPersonService;
+    PersonService defaultPersonService;
 
 
     @PostMapping("/addPerson")
