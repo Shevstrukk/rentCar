@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,13 +71,14 @@ public class OrderController {
         return "/order/addOrder";
     }
     @GetMapping("/getOrderList")
-    public String getOrderList(HttpServletRequest req)  {
+    public String getOrderList(HttpServletRequest req, Model model)  {
         HttpSession session = req.getSession();
         AuthUser authUser = (AuthUser)session.getAttribute("authUser");
-        Person person = authUser.getPerson();
-        int id = person.getId();
+       // Person person =(Person)session.getAttribute("person1");
+        int id = authUser.getPerson().getId();
         Person personList = defaultOrderService.getOrderList(id);
-        req.setAttribute("personList", personList);
+        model.addAttribute("personList", personList);
+       // req.setAttribute("personList", personList);
         return "/order/orderList";
     }
     @PostMapping("/deleteOrder")
