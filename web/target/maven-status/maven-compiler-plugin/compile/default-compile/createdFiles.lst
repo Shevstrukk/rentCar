@@ -1,12 +1,8 @@
-com\github\Shevstrukk\web\servlets\LoginServlet.class
 com\github\Shevstrukk\web\servlets\NewPersonServlet.class
-com\github\Shevstrukk\web\servlets\user\GetUserServlet.class
 com\github\Shevstrukk\web\filter\AddPersonFilter.class
 com\github\Shevstrukk\web\filter\user\filter\UserFilter.class
 com\github\Shevstrukk\web\servlets\GetPersonServlet.class
-com\github\Shevstrukk\web\servlets\user\NewUserServlet.class
 com\github\Shevstrukk\web\servlets\AddPersonServlet.class
-com\github\Shevstrukk\web\servlets\user\UpdateUserServlet.class
 com\github\Shevstrukk\web\servlets\LogoutServlet.class
 com\github\Shevstrukk\web\servlets\UpdatePersonServlet.class
 com\github\Shevstrukk\web\servlets\DeletePersonServlet.class

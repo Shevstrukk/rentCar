@@ -6,9 +6,9 @@ import org.junit.Test;
 
 public class DefaultUsersDAOTest {
 
-    @Test
-    public void saveOrUpdateAuthUser() {
-        EMUtil.getSession().get(AddressEntity.class, 1);
-        EMUtil.getSession().get(AddressEntity.class, 1);
-    }
+//    @Test
+//    public void saveOrUpdateAuthUser() {
+//        EMUtil.getSession().get(AddressEntity.class, 1);
+//        EMUtil.getSession().get(AddressEntity.class, 1);
+//    }
 }

@@ -11,10 +11,11 @@ import com.github.Shevstrukk.service.phoneservice.DefaultPhoneService;
 import com.github.Shevstrukk.service.phoneservice.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-//@ComponentScan("com.github.Shevstrukk.service")
+@ComponentScan("com.github.Shevstrukk.service")
 public class ConfigService {
 
     private DaoConfig daoConfig;
