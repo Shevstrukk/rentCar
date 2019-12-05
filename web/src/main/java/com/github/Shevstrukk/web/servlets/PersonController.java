@@ -13,6 +13,8 @@ import com.github.Shevstrukk.service.PersonService;
 import com.github.Shevstrukk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,11 +25,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 //@WebServlet("/addPerson")
 @Controller
 @RequestMapping
-public class AddPersonServlet {
+public class PersonController {
     @Autowired
    UserService userService;
     @Autowired
@@ -35,7 +38,7 @@ public class AddPersonServlet {
 
 
     @PostMapping("/addPerson")
-    public  String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public  String addPerson(HttpServletRequest req)  {
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");
         final String state = req.getParameter("state");
@@ -46,13 +49,33 @@ public class AddPersonServlet {
         Address addressEntity = new Address(null, state, city, street, home, number, null);
         AuthUser authUser = userService.login(firstName, lastName);
         Person person = new Person(null, firstName, lastName, authUser, addressEntity, null, null);
-
-
         Person person1= defaultPersonService.insertPerson(person);
         req.getSession().setAttribute("person1", person1);
         return "/phone/addPhoneAuth";
-//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
-//        requestDispatcher.forward(req, resp);
+    }
+
+    @GetMapping("/delete")
+    public String deletePerson(HttpServletRequest req)  {
+        List<Person> personList = defaultPersonService.listAllPerson();
+        req.setAttribute("personList", personList);
+        return "personList";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
+    }
+
+    @PostMapping("/delete")
+    public String doPost(HttpServletRequest req) {
+        Integer id = Integer.parseInt(req.getParameter("id"));
+        userService.deleteAuthUser(id);
+        return "redirect:/delete";
+        // doGet(req,resp);
+    }
+
+    @GetMapping("/getPerson")
+    public String getPersonList(HttpServletRequest req, Model model)  {
+        List<Person> personList= defaultPersonService.listAllPerson();
+        model.addAttribute("personList", personList);
+        return "personlist";
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
     }
 
 }
