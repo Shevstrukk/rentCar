@@ -23,7 +23,7 @@ import java.util.List;
 public class GetPersonServlet {
     @Autowired
     PersonService defaultPersonService;
-    @GetMapping("/getPerson")
+//    @GetMapping("/getPerson")
     public String doGet(HttpServletRequest req)  {
 
         List<Person> personList= defaultPersonService.listAllPerson();

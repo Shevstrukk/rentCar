@@ -27,7 +27,7 @@
             <th>Удалить</th>
             <th>Редактировать</th>
         </tr>
-        <c:forEach var="person" items="${personList}">
+        <c:forEach var="person" items="${persList}">
             <tr>
                 <td><c:out value="${person.id}" /></td>
                 <td><c:out value="${person.authUser.role}" /></td>

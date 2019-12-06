@@ -1,1 +1,6 @@
+com\github\Shevstrukk\model\Car.class
+com\github\Shevstrukk\model\Order.class
+com\github\Shevstrukk\model\AuthUser.class
 com\github\Shevstrukk\model\Person.class
+com\github\Shevstrukk\model\Address.class
+com\github\Shevstrukk\model\Phone.class

@@ -1,13 +1,11 @@
 D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\spring\RootConfig.java
 D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\servlets\order\GetOrderServlet.java
-D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\servlets\DeletePersonServlet.java
-D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\servlets\AddPersonServlet.java
-D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\servlets\phone\DeletePhoneAuth.java
+D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\servlets\PersonController.java
 D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\filter\AddPersonFilter.java
-D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\servlets\phone\AddPhoneServlet.java
+D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\servlets\car\GetCarServlet.java
+D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\servlets\phone\PhoneController.java
 D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\servlets\user\AddUserServlet.java
 D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\spring\WebConfig.java
-D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\servlets\phone\AddPhoneAuthServlet.java
 D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\servlets\UpdatePersonServlet.java
 D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\filter\user\filter\UserFilter.java
 D:\academyTest\rentCar\web\src\main\java\com\github\Shevstrukk\web\servlets\GetPersonServlet.java

@@ -1,4 +1,13 @@
+com\github\Shevstrukk\service\ConfigService.class
+com\github\Shevstrukk\service\orderService\DefaultOrderService.class
+com\github\Shevstrukk\service\carService\DefaultCarsService.class
+com\github\Shevstrukk\service\address\DefaultAddressService.class
 com\github\Shevstrukk\service\DefaultUserService.class
+com\github\Shevstrukk\service\orderService\OrderService.class
+com\github\Shevstrukk\service\phoneservice\PhoneService.class
+com\github\Shevstrukk\service\phoneservice\DefaultPhoneService.class
 com\github\Shevstrukk\service\PersonService.class
+com\github\Shevstrukk\service\address\AddressService.class
 com\github\Shevstrukk\service\DefaultPersonService.class
+com\github\Shevstrukk\service\carService\CarsService.class
 com\github\Shevstrukk\service\UserService.class

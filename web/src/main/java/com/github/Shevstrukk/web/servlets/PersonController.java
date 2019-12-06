@@ -36,7 +36,6 @@ public class PersonController {
     @Autowired
     PersonService defaultPersonService;
 
-
     @PostMapping("/addPerson")
     public  String addPerson(HttpServletRequest req)  {
         final String firstName = req.getParameter("firstName");
@@ -47,7 +46,7 @@ public class PersonController {
         final int home = Integer.valueOf(req.getParameter("home"));
         final int number = Integer.valueOf(req.getParameter("number"));
         Address addressEntity = new Address(null, state, city, street, home, number, null);
-        AuthUser authUser = userService.login(firstName, lastName);
+        AuthUser authUser = userService.addAuthUser(firstName, lastName);
         Person person = new Person(null, firstName, lastName, authUser, addressEntity, null, null);
         Person person1= defaultPersonService.insertPerson(person);
         req.getSession().setAttribute("person1", person1);
@@ -55,15 +54,16 @@ public class PersonController {
     }
 
     @GetMapping("/delete")
-    public String deletePerson(HttpServletRequest req)  {
+    public String deletePers(HttpServletRequest req, Model model)  {
         List<Person> personList = defaultPersonService.listAllPerson();
-        req.setAttribute("personList", personList);
+        model.addAttribute("persList", personList);
+       // req.setAttribute("personList", personList);
         return "personList";
 //        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
     }
 
     @PostMapping("/delete")
-    public String doPost(HttpServletRequest req) {
+    public String doPos(HttpServletRequest req) {
         Integer id = Integer.parseInt(req.getParameter("id"));
         userService.deleteAuthUser(id);
         return "redirect:/delete";
