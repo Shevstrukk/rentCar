@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping
-public class  GetCarServlet  {
+public class GetCarController {
         @Autowired
         CarsService defaultCarsService;
         @GetMapping("/getCars")
