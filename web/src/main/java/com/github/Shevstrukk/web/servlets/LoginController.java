@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,38 +29,19 @@ public class LoginController {
         if (authUser == null)
             return "login";
 
-        return "registration";}
-//
-//    }
-//    @PostMapping("/login")
-//    public String login(@ModelAttribute AuthUser authUser, Model model) {
-//        AuthUser user = userService.login(authUser.getLogin(), authUser.getPassword());
-//        if(user == null){
-//            return "login";
-//        }
-//        if (user.getRole().equals("admin")){
-//           // rq.getSession().setAttribute("authUser", user);
-//            return "admin_menu"; }
-//        if(user.getRole().equals("user")  & user.getPerson() == null){
-//           // req.getSession().setAttribute("authUser", user);
-//            return "user_menu";}
-//        if(user.getRole().equals("user") & user.getPerson()!=null ){
-//            Person person =user.getPerson();
-//           // HttpSession session=req.getSession();
-//           // session.setAttribute("authUser", user);
-//            return "order/orderUser";}
-//        return "registration";
-//
-//    }
+        return "registration";
+    }
+
         @PostMapping("/login")
-        public String doPost(HttpServletRequest rq)  {
-//public doPost(ModelandView model
+        public String doPost(HttpServletRequest rq, Model model)  {
+
         final String login = rq.getParameter("login");
         final String password = rq.getParameter("password");
         AuthUser user = userService.login(login, password);
 
         if (user == null) {
-            rq.setAttribute("error", "login or password invalid");
+           // rq.setAttribute("error", "login or password invalid");
+            model.addAttribute("error", "login or password invalid");
             return "login";
         }
         log.info("user {} logged", user.getLogin());
