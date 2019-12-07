@@ -17,8 +17,7 @@ public class UserFilter  implements Filter {
 
         Object authUser = rq.getSession().getAttribute("authUser");
         if (authUser == null) {
-            RequestDispatcher requestDispatcher = rq.getRequestDispatcher("/WEB-INF/view/login.jsp");
-            requestDispatcher.forward(rq,resp);
+            resp.sendRedirect("/login");
             return;
         }
         filterChain.doFilter(rq, resp);
