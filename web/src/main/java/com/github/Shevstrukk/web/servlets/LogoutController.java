@@ -23,16 +23,10 @@ public class LogoutController  {
     }
 
     @GetMapping("/logout")
-    protected String doGet(HttpServletRequest req)  {
-
-        final HttpSession session = req.getSession();
+    protected String doGet(HttpSession session)  {
         session.removeAttribute("authUser");
-        // session.removeAttribute("login");
-        // session.removeAttribute("role");
         session.invalidate();
         return "login";
-
-//        resp.sendRedirect(super.getServletContext().getContextPath()+"/");
     }
 
 }
