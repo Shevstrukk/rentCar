@@ -17,6 +17,7 @@ import java.io.IOException;
 @RequestMapping
 public class LogoutController  {
     private final UserService userService;
+
     @Autowired
     public LogoutController(UserService userService) {
         this.userService = userService;
