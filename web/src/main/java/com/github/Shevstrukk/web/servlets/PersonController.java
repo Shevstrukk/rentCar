@@ -49,6 +49,7 @@ public class PersonController {
         AuthUser authUser = userService.addAuthUser(firstName, lastName);
         Person person = new Person(null, firstName, lastName, authUser, addressEntity, null, null);
         Person person1= defaultPersonService.insertPerson(person);
+        AuthUser authUserUpdate = userService.update(authUser.getId(), person1.getId());
         req.getSession().setAttribute("person1", person1);
         return "/phone/addPhoneAuth";
     }
@@ -74,7 +75,7 @@ public class PersonController {
     public String getPersonList(HttpServletRequest req, Model model)  {
         List<Person> personList= defaultPersonService.listAllPerson();
         model.addAttribute("personList", personList);
-        return "personlist";
+        return "personList";
 //        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
     }
 
