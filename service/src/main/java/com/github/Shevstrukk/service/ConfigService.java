@@ -25,16 +25,16 @@ public class ConfigService {
     }
 
     @Bean
-    UserService userService () {return new DefaultUserService(daoConfig.authUsersDao()); }
+    public UserService userService () {return new DefaultUserService(daoConfig.authUsersDao()); }
     @Bean
-    PersonService personService() { return new DefaultPersonService(daoConfig.personDao()); }
+    public  PersonService personService() { return new DefaultPersonService(daoConfig.personDao()); }
     @Bean
-    AddressService addressService() {return new DefaultAddressService(daoConfig.addressDao());    }
+    public AddressService addressService() {return new DefaultAddressService(daoConfig.addressDao());    }
     @Bean
-    CarsService carsService(){ return new DefaultCarsService(daoConfig.carDao());    }
+    public CarsService carsService(){ return new DefaultCarsService(daoConfig.carDao());    }
     @Bean
-    OrderService orderService() {return new DefaultOrderService(daoConfig.orderDao());   }
+    public OrderService orderService() {return new DefaultOrderService(daoConfig.orderDao());   }
     @Bean
-    PhoneService phoneService( ){return new DefaultPhoneService(daoConfig.phoneDao());
+    public PhoneService phoneService( ){return new DefaultPhoneService(daoConfig.phoneDao());
     }
 }
