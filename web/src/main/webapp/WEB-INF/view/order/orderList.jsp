@@ -48,7 +48,8 @@
     </table>
 </div>
 <br>
-<a href="<c:url value='/logout' />">Выйти</a>
+<a href="${pageContext.request.contextPath}/getPerson">Получить список заказов</a>
+<a href="/logout">Выйти</a>
 
 </body>
 </html>
