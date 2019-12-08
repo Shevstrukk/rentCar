@@ -17,7 +17,7 @@ public class UserFilter  implements Filter {
 
         Object authUser = rq.getSession().getAttribute("authUser");
         if (authUser == null) {
-            resp.sendRedirect("/login");
+            resp.sendRedirect(rq.getContextPath()+"/login");
             return;
         }
         filterChain.doFilter(rq, resp);
