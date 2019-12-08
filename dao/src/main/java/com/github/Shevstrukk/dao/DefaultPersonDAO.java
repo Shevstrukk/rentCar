@@ -48,10 +48,7 @@ public class DefaultPersonDAO implements PersonDAO {
     public Person getPerson(int id) {
         PersonEntity person = null;
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        session.beginTransaction();
         person = session.get(PersonEntity.class, id);
-//        session.getTransaction().commit();
-//        session.close();
         return PersonConverter.fromEntity(person);
         //String sql = "SELECT * FROM person WHERE person_id = ?";
     }
@@ -60,11 +57,8 @@ public class DefaultPersonDAO implements PersonDAO {
     public List<AuthUserEntity> listAllAuthUsers() {
         List<AuthUserEntity> list;
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        session.beginTransaction();
         String str = "FROM AuthUserEntity  ORDER BY id ASC";
         list = session.createQuery(str).getResultList();
-//        session.getTransaction().commit();
-//        session.close();
         return list;
     }
 //    public List<PersonEntity> pagePerson(int page) {
@@ -105,22 +99,14 @@ public class DefaultPersonDAO implements PersonDAO {
         return PersonConverter.fromListPersonEntity(list);
     }
     public Person updatePerson(Person person){
-        int id = person.getId();
+        PersonEntity personEntity = PersonConverter.toEntity(person);
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        session.beginTransaction();
-        PersonEntity person1 = session.get(PersonEntity.class,id);
-        person1.setFirstName(person.getFirstName());
-        person1.setLastName(person.getLastName());
-        person1.setAddressEntity(AddressConverter.toEntity(person.getAddress()));
-        session.saveOrUpdate(person1);
-//        session.getTransaction().commit();
-//        session.close();
-        return PersonConverter.fromEntity(person1);
+        session.saveOrUpdate(personEntity);
+        return PersonConverter.fromEntity(personEntity);
     }
     public Person updatePerson(Person person, Order orderEntity){
         Person person2;
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        session.beginTransaction();
         int id = person.getId();
         PersonEntity person1 = session.get(PersonEntity.class, id);
         OrderEntity orderEntity1 = session.get(OrderEntity.class, orderEntity.getId());
@@ -131,8 +117,6 @@ public class DefaultPersonDAO implements PersonDAO {
         Query query =  session.createQuery(str);
         query.setParameter("id", id);
         person1 =(PersonEntity)query.getSingleResult();
-//        session.getTransaction().commit();
-//        session.close();
         person2=PersonConverter.fromEntityOrder(person1);
         return person2;
     }
