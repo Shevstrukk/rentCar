@@ -21,7 +21,7 @@ import java.io.IOException;
 // @WebServlet("/regisration")
 @Controller
 @RequestMapping()
-public class RegistrationServlet  {
+public class RegistrationController {
     @Autowired
     UserService userService;
     @GetMapping("/registration")
