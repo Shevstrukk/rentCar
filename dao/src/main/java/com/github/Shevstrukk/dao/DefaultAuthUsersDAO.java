@@ -53,22 +53,13 @@ public class DefaultAuthUsersDAO implements AuthUsersDAO {
         return AuthUserConverter.fromEntity(authUserEntity);
     }
     public void deleteAuthUser (int id){
-        try(Session session = sessionFactory.getCurrentSession())//EMUtil.getSession())
-             {
+        Session session = sessionFactory.getCurrentSession();//EMUtil.getSession())
+
             AuthUserEntity authUserEntity = session.get(AuthUserEntity.class, id);
 
-            if(authUserEntity != null){
-                log.info("authUserNotNull*********");
-//                session.beginTransaction();
+
                 session.delete(authUserEntity);
-//                session.getTransaction().commit();
-//                session.close();
-            } else {
-                System.out.println(" no authUser--------");
-            }
-        } catch (HibernateException e){
-            log.error("Authuser not found by id{}", id);
-        }
+
 
 //        Session session = EMUtil.getSession();
 //        session.beginTransaction();
