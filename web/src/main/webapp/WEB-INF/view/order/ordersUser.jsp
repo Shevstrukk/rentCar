@@ -8,7 +8,7 @@
 </head>
 <body>
 сделай заказ User
-<form method="get" action="/getCars">
+<form method="get" action="/getCarsAuth">
     <input type="submit" value="Получить список машин"/>
 </form>
 
@@ -16,6 +16,7 @@
     <input type="submit" value="Получить список заказов"/>
 </form>
 
-<a href="<c:url value='/logout' />">Выйти</a>
+<a href="/logout">Выйти</a>
+<a href="${pageContext.request.contextPath}/logout">logout</a>
 </body>
 </html>
