@@ -48,9 +48,11 @@ public class NewPersonServlet   {
         final int home = Integer.valueOf(req.getParameter("home"));
         final int number = Integer.valueOf(req.getParameter("number"));
         Address addressEntity = new Address(null,state, city, street, home,number, null);
-        AuthUser user = userService.login(firstName, lastName);
-        Person person = new Person(null,firstName,lastName, user, addressEntity,null,null);
+        AuthUser authUser = userService.addAuthUser(firstName, lastName);
+        Person person = new Person(null,firstName,lastName, authUser, addressEntity,null,null);
         Person person1= defaultPersonService.insertPerson(person);
+        AuthUser authUserUpdate = userService.update(authUser.getId(), person1.getId());
+        req.getSession().setAttribute("authUserUpdate", authUserUpdate);
         req.getSession().setAttribute("person1", person1);
         return "/phone/addPhoneAuth";
 //        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
