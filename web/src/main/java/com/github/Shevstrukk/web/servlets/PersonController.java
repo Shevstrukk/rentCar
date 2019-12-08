@@ -36,7 +36,7 @@ public class PersonController {
     @Autowired
     PersonService defaultPersonService;
 
-    @PostMapping("/addPerson")
+    @PostMapping("/addPersonAuth")
     public  String addPerson(HttpServletRequest req)  {
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");
@@ -50,6 +50,7 @@ public class PersonController {
         Person person = new Person(null, firstName, lastName, authUser, addressEntity, null, null);
         Person person1= defaultPersonService.insertPerson(person);
         AuthUser authUserUpdate = userService.update(authUser.getId(), person1.getId());
+        req.getSession().setAttribute("authUserUpdate", authUserUpdate);
         req.getSession().setAttribute("person1", person1);
         return "/phone/addPhoneAuth";
     }
@@ -57,7 +58,7 @@ public class PersonController {
     @GetMapping("/delete")
     public String deletePers(HttpServletRequest req, Model model)  {
         List<Person> personList = defaultPersonService.listAllPerson();
-        model.addAttribute("persList", personList);
+        model.addAttribute("personList", personList);
        // req.setAttribute("personList", personList);
         return "personList";
 //        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
@@ -76,7 +77,38 @@ public class PersonController {
         List<Person> personList= defaultPersonService.listAllPerson();
         model.addAttribute("personList", personList);
         return "personList";
-//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/personList.jsp");
+    }
+
+    @GetMapping("/update")
+    public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+        Person person = (Person) defaultPersonService.getPerson(Integer.parseInt(id));
+        req.setAttribute("person", person);
+        return "updatePerson";
+    }
+
+    @PostMapping("/update")
+    public String updatePerson(HttpServletRequest req, Model model)  {
+        final  int idAuth = Integer.valueOf(req.getParameter("idAuth"));
+        final  int addressId = Integer.valueOf(req.getParameter("addressId"));
+        final String firstName = req.getParameter("firstName");
+        final String lastName = req.getParameter("lastName");
+        final String state = req.getParameter("state");
+        final String city = req.getParameter("city");
+        final String street = req.getParameter("street");
+        final int home = Integer.valueOf(req.getParameter("home"));
+        final int number = Integer.valueOf(req.getParameter("number"));
+        final int id = Integer.valueOf(req.getParameter("id"));
+        final String login = req.getParameter("login");
+        final String password = req.getParameter("password");
+        final String role = req.getParameter("role");
+        Address addressEntity = new Address(addressId,state, city, street, home,number,null);
+        AuthUser user = new AuthUser(idAuth,login,password,role,null);
+        Person person = new Person(id,firstName,lastName, user, addressEntity,null,null);
+        Person updatePerson = defaultPersonService.updatePerson(person);
+        List<Person> personList = defaultPersonService.listAllPerson();
+        model.addAttribute("personList", personList);
+        return "personList";
     }
 
 }
