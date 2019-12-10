@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
+
 //@WebServlet("/login")
 @Controller
 @RequestMapping
@@ -35,34 +36,35 @@ public class LoginController {
         @PostMapping("/login")
         public String doPost(HttpServletRequest rq, Model model)  {
 
-        final String login = rq.getParameter("login");
-        final String password = rq.getParameter("password");
-        AuthUser user = userService.login(login, password);
+            final String login = rq.getParameter("login");
+            final String password = rq.getParameter("password");
+            AuthUser user = userService.login(login, password);
 
-        if (user == null) {
-           // rq.setAttribute("error", "login or password invalid");
-            model.addAttribute("error", "login or password invalid");
-            return "login";
+            if (user == null) {
+               // rq.setAttribute("error", "login or password invalid");
+                model.addAttribute("error", "login or password invalid");
+                return "login";
+            }
+            log.info("user {} logged", user.getLogin());
+
+            if (user.getRole().equals("admin")){
+                rq.getSession().setAttribute("authUser", user);
+                return "admin_menu";
+
+            }else if(user.getRole().equals("user")
+                    & user.getPerson() == null){
+                rq.getSession().setAttribute("authUser", user);
+                return "user_menu";
+
+            }else
+                if(user.getRole().equals("user") & user.getPerson()!=null ){
+                Person person =user.getPerson();
+                HttpSession session=rq.getSession();
+                session.setAttribute("authUser", user);
+                return "/order/ordersUser";
+            }
+            return null;
         }
-        log.info("user {} logged", user.getLogin());
 
-        if (user.getRole().equals("admin")){
-            rq.getSession().setAttribute("authUser", user);
-            return "admin_menu";
 
-        }else if(user.getRole().equals("user")
-                & user.getPerson() == null){
-            rq.getSession().setAttribute("authUser", user);
-            return "user_menu";
-//            req.getRequestDispatcher("/WEB-INF/view/user_menu.jsp").forward(req, resp);
-//            return;
-        }else if(user.getRole().equals("user") & user.getPerson()!=null ){
-            Person person =user.getPerson();
-            HttpSession session=rq.getSession();
-            session.setAttribute("authUser", user);
-            return "/order/ordersUser";
-//            req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp").forward(req, resp);
-        }
-        return null;
     }
-}

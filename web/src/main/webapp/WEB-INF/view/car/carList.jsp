@@ -35,6 +35,7 @@
                         <input type="submit" value="Заказать машину"/>
                     </td>
                 </form>
+
             </tr>
         </c:forEach>
     </table>

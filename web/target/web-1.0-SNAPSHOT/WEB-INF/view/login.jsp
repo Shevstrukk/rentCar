@@ -9,7 +9,7 @@
 <body>
 
 
-personController
+
     <h1>Вход в систему</h1><br>
     <form method="post" action="/login">
 
@@ -19,7 +19,7 @@ personController
 
     </form>
 
-<a href="<c:url value='/regisration' />">Зарегистрироваться</a>
+<a href="regisration">Зарегистрироваться</a>
 <p style="color: red">${error}</p>
 </body>
 </html>

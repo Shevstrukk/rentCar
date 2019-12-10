@@ -35,12 +35,13 @@
                         <input type="submit" value="Заказать машину"/>
                     </td>
                 </form>
+
             </tr>
         </c:forEach>
     </table>
 </div>
 <br>
-<a href="<c:url value='/logout' />">Выйти</a>
+<a href="/logout">Выйти</a>
 
 </body>
 </html>

@@ -54,6 +54,7 @@
 
 </form>
 <a href="${pageContext.request.contextPath}/getPerson">Получить список</a>
+<a href="${pageContext.request.contextPath}/addCar">Получить список машин</a>
 <%--<a href="<c:url value="/getPerson' />">Получить список</a>--%>
 
 

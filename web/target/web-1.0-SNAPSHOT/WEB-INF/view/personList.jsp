@@ -27,7 +27,7 @@
             <th>Удалить</th>
             <th>Редактировать</th>
         </tr>
-        <c:forEach var="person" items="${persList}">
+        <c:forEach var="person" items="${personList}">
             <tr>
                 <td><c:out value="${person.id}" /></td>
                 <td><c:out value="${person.authUser.role}" /></td>
@@ -65,8 +65,9 @@
     </table>
 </div>
 <br>
-<a href="<c:url value='/newPerson' />">Сделать заявку</a>
+<a href="/newPerson">Сделать заявку</a>
 <br>
-<a href="<c:url value='/logout' />">Выйти</a>
+
+<a href="${pageContext.request.contextPath}/logout">logout</a>
 </body>
 </html>

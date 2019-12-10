@@ -35,10 +35,31 @@ public class DefaultCarDAO implements CarsDAO{
     public Car getCar(int id){
         CarEntity carEntity;
         Session session = sessionFactory.getCurrentSession();// EMUtil.getSession();
-//        session.beginTransaction();
         carEntity = session.get(CarEntity.class, id);
-//        session.getTransaction().commit();
-//        session.close();
         return CarConverter.fromEntity(carEntity);
+    }
+    public Car create(Car car){
+        CarEntity carEntity = CarConverter.toEntity(car);
+        Session session =  sessionFactory.getCurrentSession();
+        session.save(carEntity);
+        return CarConverter.fromEntity(carEntity);
+    }
+    public Car update(Car car){
+       // CarEntity carEntity = CarConverter.toEntity(car);
+        Session session =  sessionFactory.getCurrentSession();
+        CarEntity carEntity = session.get(CarEntity.class, car.getId());
+        carEntity.setCarColor(car.getCarColor());
+        carEntity.setCarName(car.getCarName());
+        carEntity.setCarYear(car.getCarYear());
+        carEntity.setComment(car.getComment());
+        carEntity.setPriceDay(car.getPriceDay());
+        session.update(carEntity);
+        return CarConverter.fromEntity(carEntity);
+    }
+    public void delete(int id){
+        // CarEntity carEntity = CarConverter.toEntity(car);
+        Session session =  sessionFactory.getCurrentSession();
+        CarEntity carEntity = session.get(CarEntity.class, id);
+        session.delete(carEntity);
     }
 }

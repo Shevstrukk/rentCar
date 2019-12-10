@@ -16,7 +16,7 @@
     <input type="submit" value="Получить список заказов"/>
 </form>
 
-<a href="/logout">Выйти</a>
+
 <a href="${pageContext.request.contextPath}/logout">logout</a>
 </body>
 </html>

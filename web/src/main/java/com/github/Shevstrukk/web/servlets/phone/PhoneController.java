@@ -7,6 +7,7 @@ import com.github.Shevstrukk.model.Phone;
 import com.github.Shevstrukk.service.PersonService;
 import com.github.Shevstrukk.service.phoneservice.DefaultPhoneService;
 import com.github.Shevstrukk.service.phoneservice.PhoneService;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -80,12 +82,13 @@ public class PhoneController {
     }
 
     @GetMapping("/deletePhone")
-    public String doGet(HttpServletRequest req)  {
-        Person person = (Person) req.getSession().getAttribute("person1");
+    public String doGet(HttpSession session, Model model)  {
+        Person person = (Person) session.getAttribute("person1");
         int id = person.getId();
         Person personPhone = personService.getPerson(id);
         List<Phone> listPhone = personPhone.getPhones();
-        req.setAttribute("phoneList", listPhone);
+        model.addAttribute("phoneList", listPhone);
+       // req.setAttribute("phoneList", listPhone);
         return "/phone/addPhoneAuth";
 //        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
 //        requestDispatcher.forward(req, resp);

@@ -11,11 +11,11 @@
     <table border="1" cellpadding="5">
 
         <input type="hidden" name="id" value="<c:out value="${person.id}" />" />
-        <input type="hidden" name="idAuth" value="<c:out value="${person.authUserEntity.id}" />" />
-        <input type="hidden" name="login" value="<c:out value="${person.authUserEntity.login}" />" />
-        <input type="hidden" name="password" value="<c:out value="${person.authUserEntity.password}" />" />
-        <input type="hidden" name="role" value="<c:out value="${person.authUserEntity.role}" />" />
-        <input type="hidden" name="addressId" value="<c:out value="${person.addressEntity.id}" />" />
+        <input type="hidden" name="idAuth" value="<c:out value="${person.authUser.id}" />" />
+        <input type="hidden" name="login" value="<c:out value="${person.authUser.login}" />" />
+        <input type="hidden" name="password" value="<c:out value="${person.authUser.password}" />" />
+        <input type="hidden" name="role" value="<c:out value="${person.authUser.role}" />" />
+        <input type="hidden" name="addressId" value="<c:out value="${person.address.id}" />" />
 
         <tr>
             <th>Имя: </th>
@@ -32,28 +32,28 @@
         <tr>
             <th>город: </th>
             <td>
-                <input type="text" name="city" size="45"  value="<c:out value="${person.addressEntity.city}" />"
+                <input type="text" name="city" size="45"  value="<c:out value="${person.address.city}" />"
                 />
             </td>
         </tr>
         <tr>
             <th>улица: </th>
             <td>
-                <input type="text" name="street" size="45"  value="<c:out value="${person.addressEntity.street}" />"
+                <input type="text" name="street" size="45"  value="<c:out value="${person.address.street}" />"
                 />
             </td>
         </tr>
         <tr>
             <th>дом: </th>
             <td>
-                <input type="number" name="home" size="45"  value="<c:out value="${person.addressEntity.home}" />"
+                <input type="number" name="home" size="45"  value="<c:out value="${person.address.home}" />"
                 />
             </td>
         </tr>
         <tr>
             <th>номер: </th>
             <td>
-                <input type="number" name="number" size="5"  value="<c:out value="${person.addressEntity.number}" />"
+                <input type="number" name="number" size="5"  value="<c:out value="${person.address.number}" />"
                 />
             </td>
         </tr>
@@ -66,8 +66,9 @@
     </table>
 </form>
 
-<a href="<c:url value='/getPerson' />">Получить список</a>
+<a href="/getPerson">Получить список</a>
 <br>
-<a href="<c:url value='/logout' />">Выйти</a>
+<a href="/logout">Выйти</a>
+<a href="${pageContext.request.contextPath}/logout">logout</a>
 </body>
 </html>

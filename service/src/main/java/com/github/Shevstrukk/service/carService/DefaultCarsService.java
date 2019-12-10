@@ -22,4 +22,10 @@ public class DefaultCarsService implements CarsService {
     @Override
     @Transactional
     public Car getCar(int id){return carDAO.getCar(id);}
+    @Transactional
+    public Car create(Car car){ return carDAO.create(car);}
+ @Transactional
+ public Car update(Car car){ return carDAO.update(car);}
+ @Transactional
+ public void delete(int id){  carDAO.delete(id);}
 }

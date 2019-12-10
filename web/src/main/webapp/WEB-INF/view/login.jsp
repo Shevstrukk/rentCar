@@ -19,7 +19,7 @@
 
     </form>
 
-<a href="<c:url value='/regisration' />">Зарегистрироваться</a>
+<a href="regisration">Зарегистрироваться</a>
 <p style="color: red">${error}</p>
 </body>
 </html>

@@ -49,9 +49,9 @@
     </table>
 </form>
 <br>
-<%--<a href="<c:url value='/getOrderList' />">Получить список машин</a>--%>
 
 <br>
-<a href="<c:url value="/logout"/>">Выйти</a>
+<%--<a href="<c:url value="/logout"/>">Выйти</a>--%>
+<a href="${pageContext.request.contextPath}/logout">logout</a>
 </body>
 </html>

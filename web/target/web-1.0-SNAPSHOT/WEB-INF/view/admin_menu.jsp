@@ -10,7 +10,7 @@
 
 <h2>Hello Vitalij!</h2>
 
-<form method="post" action="/addPerson" >
+<form method="post" action="/addPersonAuth" >
 
 
 
@@ -53,12 +53,11 @@
     </table>
 
 </form>
-<%--<a href="<c:url value='/getPerson?PAGE=${}' />">Получить список</a>--%>
-<a href="<c:url value='/getPerson' />">Получить список</a>
+<a href="${pageContext.request.contextPath}/getPerson">Получить список</a>
+<a href="${pageContext.request.contextPath}/addCar">Получить список машин</a>
+<%--<a href="<c:url value="/getPerson' />">Получить список</a>--%>
 
-<%--<a href="<c:url value='/getPerson?PAGE=${PAGE + 1}' />">Получить список</a>--%>
 
-<a href="<c:url value='/logout' />">Выйти</a>
-
+<a href="${pageContext.request.contextPath}/logout">logout</a>
 </body>
 </html>

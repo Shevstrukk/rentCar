@@ -32,10 +32,12 @@ public class OrderController {
     OrderService defaultOrderService;
     @Autowired
     CarsService defaultCarsService;
+
     @GetMapping("/doOrder")
     public String doGet(HttpServletRequest req) {
         return "order/ordersUser";
     }
+
     @PostMapping("/doOrder")
     public String doPost(HttpServletRequest req)  {
         HttpSession session = req.getSession();
@@ -43,7 +45,7 @@ public class OrderController {
         final int rentDay = Integer.parseInt(req.getParameter("rentDay"));
         final int price = Integer.parseInt(req.getParameter("price"));
         Order orderEntityOld = (Order) session.getAttribute("order");
-        AuthUser authUser = (AuthUser)session.getAttribute("authUser");
+        AuthUser authUser = (AuthUser)session.getAttribute("authUserUpdate");
         Person person = authUser.getPerson();
         List<Car> carEntities = new ArrayList<>();
         Order newOrderEntity;
@@ -60,22 +62,27 @@ public class OrderController {
     }
 
     @PostMapping("/getOrder")
-    public String addOrder(HttpServletRequest req)  {
+    public String addOrder(HttpServletRequest req, Model model)  {
         final int id = Integer.parseInt(req.getParameter("id"));
         final int rentDay = Integer.parseInt(req.getParameter("rentDay"));
         Car carEntity = defaultCarsService.getCar(id);
         int price = rentDay* carEntity.getPriceDay();
-        req.setAttribute("carEntity", carEntity);
-        req.setAttribute("price", price);
-        req.setAttribute("rentDay", rentDay);
+        model.addAttribute("carEntity", carEntity);
+        model.addAttribute("price", price);
+        model.addAttribute("rentDay", rentDay);
+//        req.setAttribute("carEntity", carEntity);
+//        req.setAttribute("price", price);
+//        req.setAttribute("rentDay", rentDay);
         return "/order/addOrder";
     }
     @GetMapping("/getOrderList")
     public String getOrderList(HttpServletRequest req, Model model)  {
         HttpSession session = req.getSession();
-        AuthUser authUser = (AuthUser)session.getAttribute("authUser");
-       // Person person =(Person)session.getAttribute("person1");
-        int id = authUser.getPerson().getId();
+       // AuthUser authUser = (AuthUser)session.getAttribute("authUser");
+     //   int id = authUser.getPerson().getId();
+        Person person =(Person)session.getAttribute("person1");
+
+        int id = person.getId();
         Person personList = defaultOrderService.getOrderList(id);
         model.addAttribute("personList", personList);
        // req.setAttribute("personList", personList);
@@ -90,13 +97,14 @@ public class OrderController {
     }
 
     @GetMapping("/deleteOrder")
-    public String do1Get(HttpServletRequest req)  {
+    public String do1Get(HttpServletRequest req, Model model)  {
         HttpSession session = req.getSession();
-        AuthUser authUser = (AuthUser)session.getAttribute("authUser");
+        AuthUser authUser = (AuthUser)session.getAttribute("authUserUpdate");
         Person person = authUser.getPerson();
         int id = person.getId();
         Person personList = defaultOrderService.getOrderList(id);
-        req.setAttribute("personList", personList);
+        model.addAttribute("personList", personList);
+//        req.setAttribute("personList", personList);
         return "/order/orderList";
     }
 }
