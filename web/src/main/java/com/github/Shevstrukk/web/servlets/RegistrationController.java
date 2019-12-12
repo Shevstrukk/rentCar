@@ -22,8 +22,13 @@ import java.io.IOException;
 @Controller
 @RequestMapping()
 public class RegistrationController {
+
+  private final   UserService userService;
     @Autowired
-    UserService userService;
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping("/registration")
     public String doGet(HttpServletRequest req) {
         Object authUser = req.getSession().getAttribute("authUser");

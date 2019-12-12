@@ -31,10 +31,14 @@ import java.util.List;
 @Controller
 @RequestMapping
 public class PersonController {
+
+    private final   UserService userService;
+    private final PersonService defaultPersonService;
     @Autowired
-   UserService userService;
-    @Autowired
-    PersonService defaultPersonService;
+    public PersonController(UserService userService, PersonService defaultPersonService) {
+        this.userService = userService;
+        this.defaultPersonService = defaultPersonService;
+    }
 
     @PostMapping("/addPersonAuth")
     public  String addPerson(HttpServletRequest req)  {

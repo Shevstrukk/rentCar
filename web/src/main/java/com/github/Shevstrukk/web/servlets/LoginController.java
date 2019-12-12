@@ -22,8 +22,11 @@ import javax.servlet.http.HttpSession;
 @RequestMapping
 public class LoginController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
+
+  private final UserService userService;
     @Autowired
-    UserService userService;
+    public LoginController(UserService userService) {this.userService = userService;    }
+
     @GetMapping("/login")
     public String doGet(HttpServletRequest rq) {
         Object authUser = rq.getSession().getAttribute("authUser");

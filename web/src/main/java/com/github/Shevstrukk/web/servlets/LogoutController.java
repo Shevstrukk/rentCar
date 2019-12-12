@@ -24,7 +24,7 @@ public class LogoutController  {
     }
 
     @GetMapping("/logout")
-    public String doGet(HttpSession session)  {
+    public  String doGet(HttpSession session)  {
         session.removeAttribute("authUser");
         session.invalidate();
         return "login";
