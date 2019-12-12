@@ -68,6 +68,6 @@
 <a href="/newPerson">Сделать заявку</a>
 <br>
 
-<a href="${pageContext.request.contextPath}/logout">logout</a>
+<a href="/logout">logout</a>
 </body>
 </html>

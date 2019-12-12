@@ -61,7 +61,7 @@ public class DefaultOrderDAO implements OrderDAO {
 //        session.close();
         return PersonConverter.fromEntityOrder(person);
     }
-    public void deleteOrder(int id, int personId){
+    public void deleteOrder(int id){
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
 //        session.beginTransaction();
 //        PersonEntity personEntity = session.get(PersonEntity.class, personId);

@@ -92,7 +92,7 @@ public class OrderController {
     public String deleteOrder(HttpServletRequest req) {
         final int id = Integer.parseInt(req.getParameter("id"));
         final int personId = Integer.parseInt(req.getParameter("personId"));
-        defaultOrderService.deleteOrder(id, personId);
+        defaultOrderService.deleteOrder(id);
         return "redirect:deleteOrder";
     }
 

@@ -14,9 +14,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.github.Shevstrukk")
+@ComponentScan(basePackages = "com.github.Shevstrukk.web")
 public class WebConfig  {
-    private  final ConfigService service;
+    private   ConfigService service;
 
     public WebConfig(ConfigService service) { this.service = service;    }
     @Bean
