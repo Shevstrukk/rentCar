@@ -7,6 +7,10 @@ import com.github.Shevstrukk.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
+import java.util.Arrays;
+import java.util.List;
 
 
 //@WebServlet("/login")
@@ -23,14 +28,15 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
-  private final UserService userService;
+     private final UserService userService;
     @Autowired
     public LoginController(UserService userService) {this.userService = userService;    }
 
     @GetMapping("/login")
     public String doGet(HttpServletRequest rq) {
-        Object authUser = rq.getSession().getAttribute("authUser");
-        if (authUser == null)
+      //  Object authUser = rq.getSession().getAttribute("authUser");
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null)
             return "login";
 
         return "registration";
@@ -49,25 +55,16 @@ public class LoginController {
                 return "login";
             }
             log.info("user {} logged", user.getLogin());
-
-            if (user.getRole().equals("admin")){
-                rq.getSession().setAttribute("authUser", user);
-                return "admin_menu";
-
-            }else if(user.getRole().equals("user")
-                    & user.getPerson() == null){
-                rq.getSession().setAttribute("authUser", user);
-                return "user_menu";
-
-            }else
-                if(user.getRole().equals("user") & user.getPerson()!=null ){
-                Person person =user.getPerson();
-                HttpSession session=rq.getSession();
-                session.setAttribute("authUser", user);
-                return "/order/ordersUser";
-            }
-            return null;
+            Authentication auth = new UsernamePasswordAuthenticationToken( user, null, getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            return "redirect:/newPerson";
         }
+            private List<GrantedAuthority> getAuthorities() {
+                return Arrays.asList((GrantedAuthority) () -> "ROLE_admin",
+                (GrantedAuthority) () -> "ROLE_user");
+            }
+
+}
 
 
-    }
+

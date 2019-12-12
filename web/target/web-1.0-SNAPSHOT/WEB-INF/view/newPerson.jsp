@@ -45,8 +45,12 @@
     </table>
 </form>
 
-<a href="<c:url value='/getPerson' />">Получить список</a>
-<br>
-<a href="<c:url value='/logout' />">Выйти</a>
+<sec:authorize access="hasRole('ROLE_admin')">
+    <a href="<c:url value='/getPerson' />">Получить список</a>
+    <br>
+    <a href="<c:url value='/logout' />">Выйти</a>
+
+</sec:authorize>
+
 </body>
 </html>
