@@ -10,14 +10,14 @@
 
 
 
-    <h1>Вход в систему</h1><br>
-    <form method="post" action="/login">
+<h1>Вход в систему</h1><br>
+<form method="post" action="/login">
 
-        <input type="text" required placeholder="login" name="login"><br>
-        <input type="password" required placeholder="password" name="password"><br><br>
-        <input class="button" type="submit" value="Войти">
+    <input type="text" required placeholder="login" name="login"><br>
+    <input type="password" required placeholder="password" name="password"><br><br>
+    <input type="submit" value="Войти">
 
-    </form>
+</form>
 
 <a href="regisration">Зарегистрироваться</a>
 <p style="color: red">${error}</p>
