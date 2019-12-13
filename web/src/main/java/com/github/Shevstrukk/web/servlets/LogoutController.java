@@ -2,6 +2,8 @@ package com.github.Shevstrukk.web.servlets;
 
 import com.github.Shevstrukk.service.ConfigService;
 import com.github.Shevstrukk.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import java.io.IOException;
 @Controller
 @RequestMapping
 public class LogoutController  {
+    private static final Logger log = LoggerFactory.getLogger(LogoutController.class);
     private final UserService userService;
 
     @Autowired

@@ -11,7 +11,10 @@ import com.github.Shevstrukk.service.DefaultPersonService;
 import com.github.Shevstrukk.service.DefaultUserService;
 import com.github.Shevstrukk.service.PersonService;
 import com.github.Shevstrukk.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +34,7 @@ import java.util.List;
 @Controller
 @RequestMapping
 public class PersonController {
+    private static final Logger log = LoggerFactory.getLogger(PersonController.class);
 
     private final   UserService userService;
     private final PersonService defaultPersonService;
@@ -38,6 +42,10 @@ public class PersonController {
     public PersonController(UserService userService, PersonService defaultPersonService) {
         this.userService = userService;
         this.defaultPersonService = defaultPersonService;
+    }
+    @GetMapping("/addPersonAuth")
+    public String addPers (HttpServletRequest request){
+        return "admin_menu";
     }
 
     @PostMapping("/addPersonAuth")
@@ -60,6 +68,7 @@ public class PersonController {
     }
 
     @GetMapping("/delete")
+    @Secured("ROLE_admin")
     public String deletePers(HttpServletRequest req, Model model)  {
         List<Person> personList = defaultPersonService.listAllPerson();
         model.addAttribute("personList", personList);
