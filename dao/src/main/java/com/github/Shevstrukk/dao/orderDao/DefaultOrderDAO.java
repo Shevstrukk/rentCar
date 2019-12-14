@@ -24,17 +24,10 @@ public class DefaultOrderDAO implements OrderDAO {
     public DefaultOrderDAO(SessionFactory sessionFactory) {this.sessionFactory = sessionFactory;    }
 
     @Override
-    public Order saveOrder(Order order, int id) {
+    public Order saveOrder(Order order) {
         OrderEntity orderEntity = OrderConverter.toEntity(order);
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        session.beginTransaction();
-        CarEntity carEntity1  = session.get(CarEntity.class, id);
-        orderEntity.getCarEntities().add(carEntity1);
-        carEntity1.getOrderEntities().add(orderEntity);
-        session.saveOrUpdate(orderEntity);
-//        session.getTransaction().commit();
-//        session.clear();
-//        session.close();
+        session.save(orderEntity);
         return OrderConverter.fromEntity(orderEntity);
     }
     public Order saveUpdate(Order order, int id){

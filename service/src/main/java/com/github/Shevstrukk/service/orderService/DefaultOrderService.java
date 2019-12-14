@@ -22,7 +22,7 @@ public class DefaultOrderService implements OrderService {
     public DefaultOrderService(OrderDAO defaultOrderDAO){ this.defaultOrderDAO = defaultOrderDAO;}
     @Override
     @Transactional
-    public Order saveOrder(Order orderEntity, int id) { return defaultOrderDAO.saveOrder(orderEntity, id);    }
+    public Order saveOrder(Order orderEntity) { return defaultOrderDAO.saveOrder(orderEntity);    }
     public Order saveUpdate(Order orderEntity, int id) { return defaultOrderDAO.saveUpdate(orderEntity, id);    }
 
     public Person getOrderList(int id) { return defaultOrderDAO.getOrderList(id);}

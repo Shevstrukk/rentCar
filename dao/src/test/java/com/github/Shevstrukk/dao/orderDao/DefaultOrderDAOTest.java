@@ -17,6 +17,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 
@@ -38,13 +42,15 @@ private OrderDAO orderDao;
 
     @Test
     public void saveOrder() {
-//        Order order = new Order(null, 5, 25,null, null );
-//        Car car = new Car(null, "honda",
-//                2019, "black", 6, "no crash", null);
-//        Car carNew = carDao.create(car);
-//        Order orderSave = orderDao.saveOrder(order, carNew.getId());
-//        assertNotNull(orderSave);
-//        assertEquals(order.getPrice(),orderSave.getPrice());
+        Car car = new Car(null, "honda",
+                2019, "black", 6, "no crash", null);
+        List<Car> cars = new ArrayList<>();
+        Car carNew = carDao.create(car);
+        cars.add(carNew);
+        Order order = new Order(null, 5, 25,null, cars );
+        Order orderSave = orderDao.saveOrder(order);
+        assertNotNull(orderSave);
+        assertEquals(order.getPrice(),orderSave.getPrice());
     }
 
     @Test
