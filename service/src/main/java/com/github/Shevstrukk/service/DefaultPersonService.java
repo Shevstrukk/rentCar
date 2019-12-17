@@ -21,10 +21,10 @@ public class DefaultPersonService implements PersonService {
     @Autowired
     public DefaultPersonService(PersonDAO personDAO){this.dao = personDAO;}
 
-    @Transactional
-    public List<AuthUserEntity> listAllAuthUser() {
-        return dao.listAllAuthUsers();
-    }
+//    @Transactional
+//    public List<AuthUserEntity> listAllAuthUser() {
+//        return dao.listAllAuthUsers();
+//    }
 
     @Transactional
     public List<Person> listAllPerson() {
@@ -49,5 +49,9 @@ public class DefaultPersonService implements PersonService {
     @Transactional
     public Person getPerson(int id) {
         return dao.getPerson(id);
+    }
+    @Transactional
+    public Person getPersonOrderlist(int id) {
+        return dao.getPersonOrderList(id);
     }
 }

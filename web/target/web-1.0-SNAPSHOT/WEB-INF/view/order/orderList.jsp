@@ -48,7 +48,8 @@
     </table>
 </div>
 <br>
-<a href="${pageContext.request.contextPath}/getPerson">Получить список заказов</a>
+<%--<a href="${pageContext.request.contextPath}/getPerson">Получить список заказов</a>--%>
+<a href="/login">Добавить заказ</a>
 <a href="/logout">Выйти</a>
 
 </body>

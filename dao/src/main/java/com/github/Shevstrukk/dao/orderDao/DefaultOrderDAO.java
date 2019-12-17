@@ -32,43 +32,25 @@ public class DefaultOrderDAO implements OrderDAO {
     }
     public Order saveUpdate(Order order, int id){
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        session.beginTransaction();
         CarEntity carEntity = session.get(CarEntity.class, id);
         OrderEntity orderEntity1 = session.get(OrderEntity.class, order.getId());
         orderEntity1.setPrice(order.getPrice());
         orderEntity1.getCarEntities().add(carEntity);
         carEntity.getOrderEntities().add(orderEntity1);
         session.saveOrUpdate(orderEntity1);
-//        session.getTransaction().commit();
-//        session.close();
         return OrderConverter.fromEntity(orderEntity1);
     }
-    public Person getOrderList(int id){
-        Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        session.beginTransaction();
-        String str = "FROM  PersonEntity e JOIN FETCH e.orderEntities ordered WHERE e.id=:id ";
-        Query query = session.createQuery(str);
-        query.setParameter("id", id);
-        PersonEntity person = (PersonEntity) query.uniqueResult();
-//        session.getTransaction().commit();
-//        session.close();
-        return PersonConverter.fromEntityOrder(person);
-    }
+//    public Person getOrderList(int id){
+//        Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
+//        String str = "FROM  PersonEntity e JOIN FETCH e.orderEntities ordered WHERE e.id=:id ";
+//        Query query = session.createQuery(str);
+//        query.setParameter("id", id);
+//        PersonEntity person = (PersonEntity) query.uniqueResult();
+//        return PersonConverter.fromEntityOrder(person);
+//    }
     public void deleteOrder(int id){
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        session.beginTransaction();
-//        PersonEntity personEntity = session.get(PersonEntity.class, personId);
-//        for (OrderEntity em: personEntity.getOrderEntities()){
-//            if(em.getId() == id){
-//                personEntity.removeOrder(em);
-//            } break;
-//        }
-//        session.saveOrUpdate(personEntity);
         OrderEntity orderEntity = session.get(OrderEntity.class, id);
         session.remove(orderEntity);
-      //  PersonEntity personEntity = session.get(PersonEntity.class, personId);
-//       session.getTransaction().commit();
-//        session.close();
-       // return PersonConverter.fromEntityOrderList(personEntity);
     }
 }

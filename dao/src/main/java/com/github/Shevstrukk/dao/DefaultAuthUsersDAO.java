@@ -11,6 +11,8 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.NoResultException;
 import java.util.List;
 
 public class DefaultAuthUsersDAO implements AuthUsersDAO {
@@ -19,54 +21,46 @@ public class DefaultAuthUsersDAO implements AuthUsersDAO {
     @Autowired
     public DefaultAuthUsersDAO(SessionFactory sessionFactory) {this.sessionFactory = sessionFactory;    }
 
-
+public AuthUser getByLogin(String login){
+        AuthUserEntity authUser;
+    try {
+        authUser = (AuthUserEntity) sessionFactory.getCurrentSession()
+                .createQuery("from AuthUserEntity au where au.login = :login")
+                .setParameter("login", login).setMaxResults(1).uniqueResult();
+               // .getSingleResult();
+    } catch (NoResultException e) {
+        log.info("user not found by login{}", login);
+        authUser = null;
+    }
+    return AuthUserConverter.fromEntityLogin(authUser);
+}
 
     @SuppressWarnings("unchecked")
     public List<AuthUser> listAllUsers() {
         List<AuthUserEntity> list;
         String str = "FROM AuthUserEntity  ORDER BY id ASC";
-//        Session session = EMUtil.getSession();
-//        session.beginTransaction();
         Session session = sessionFactory.getCurrentSession();
         list = session.createQuery(str).getResultList();
-//        session.getTransaction().commit();
-//        session.close();
         return AuthUserConverter.fromListAuthUserEntity(list);
     }
 
     public AuthUser saveOrUpdateAuthUser(AuthUser authUser) {
         AuthUserEntity authUserEntity= AuthUserConverter.toEntity(authUser);
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        session.beginTransaction();
         session.save(authUserEntity);
-//        session.getTransaction().commit();
-//        session.close();
         return AuthUserConverter.fromEntity(authUserEntity);
     }
     public AuthUser saveAuthUserLogin(AuthUser authUser) {
         AuthUserEntity authUserEntity= AuthUserConverter.toEntityLogin(authUser);
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        session.beginTransaction();
         session.save(authUserEntity);
-//        session.getTransaction().commit();
-//        session.close();
         return AuthUserConverter.fromEntity(authUserEntity);
     }
     public void deleteAuthUser (int id){
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession())
-
             AuthUserEntity authUserEntity = session.get(AuthUserEntity.class, id);
+            session.delete(authUserEntity);
 
-
-                session.delete(authUserEntity);
-
-
-//        Session session = EMUtil.getSession();
-//        session.beginTransaction();
-//        AuthUserEntity authUserEntity = session.get(AuthUserEntity.class, id);
-//        session.delete(authUserEntity);
-//        session.getTransaction().commit();
-//        session.close();
     }
     public AuthUser update(int id, int personId){
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();

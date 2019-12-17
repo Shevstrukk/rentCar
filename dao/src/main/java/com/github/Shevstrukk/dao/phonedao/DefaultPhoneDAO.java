@@ -26,7 +26,6 @@ public class DefaultPhoneDAO implements PhoneDAO {
     public Person savePhone(Phone phone, int id){
         PhoneEntity phoneEntity = PhoneConverter.toEntity(phone);
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        session.beginTransaction();
         PersonEntity person = session.get(PersonEntity.class, id);
         person.getPhoneEntities().add(phoneEntity);
         phoneEntity.setPerson(person);
@@ -35,13 +34,11 @@ public class DefaultPhoneDAO implements PhoneDAO {
         Query query =  session.createQuery(str);
         query.setParameter("id", id);
         person =(PersonEntity) query.getSingleResult();
-//        session.getTransaction().commit();
-//        session.close();
         return PersonConverter.fromEntityCreatePhone(person);
     }
+
     public Person deletePhone( int id){
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        session.beginTransaction();
         PhoneEntity phone = session.get(PhoneEntity.class,id);
         List<PhoneEntity> phoneEntity = new CopyOnWriteArrayList<>(phone.getPerson().getPhoneEntities()) ;
         for (PhoneEntity w: phoneEntity){
@@ -53,8 +50,6 @@ public class DefaultPhoneDAO implements PhoneDAO {
         person1.getPhoneEntities().clear();
         person1.getPhoneEntities().addAll(phoneEntity);
         session.saveOrUpdate(person1);
-//        session.getTransaction().commit();
-//        session.close();
         return PersonConverter.fromEntityCreatePhone(person1);
     }
 }

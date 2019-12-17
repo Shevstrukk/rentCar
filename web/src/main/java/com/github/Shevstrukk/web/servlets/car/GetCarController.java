@@ -3,6 +3,8 @@ package com.github.Shevstrukk.web.servlets.car;
 
 import com.github.Shevstrukk.model.Car;
 import com.github.Shevstrukk.service.carService.CarsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import java.util.List;
 @Controller
 @RequestMapping
 public class GetCarController {
+    private static final Logger log = LoggerFactory.getLogger(GetCarController.class);
         @Autowired
         CarsService defaultCarsService;
         @GetMapping("/getCarsAuth")
@@ -52,7 +55,7 @@ public class GetCarController {
            return "car/updateCar";
     }
     @PostMapping("/updateCar")
-    public String updateCar(HttpServletRequest request){
+    public String updateCar(HttpServletRequest request, Model model){
             final int id = Integer.parseInt(request.getParameter("id"));
             final String carName = request.getParameter("carName");
             final int carYear = Integer.parseInt(request.getParameter("carYear"));
@@ -62,6 +65,7 @@ public class GetCarController {
 //            final int carYear = Integer.parseInt(request.getParameter("carYear"));
             Car car = new Car(id, carName, carYear, carColor, priceDay, comment, null);
             Car newcar = defaultCarsService.update(car);
+           // model.addAttribute("car", newcar);
             return "redirect:/addCar";
     }
     @PostMapping("/deleteCar")

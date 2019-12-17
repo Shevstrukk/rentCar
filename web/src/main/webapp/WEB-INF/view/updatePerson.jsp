@@ -39,8 +39,7 @@
         <tr>
             <th>улица: </th>
             <td>
-                <input type="text" name="street" size="45"  value="<c:out value="${person.address.street}" />"
-                />
+                <input type="text" name="street" size="45"  value="<c:out value="${person.address.street}" />"       />
             </td>
         </tr>
         <tr>

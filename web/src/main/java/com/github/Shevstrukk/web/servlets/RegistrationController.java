@@ -4,6 +4,8 @@ import com.github.Shevstrukk.dao.entity.AuthUserEntity;
 import com.github.Shevstrukk.model.AuthUser;
 import com.github.Shevstrukk.service.DefaultUserService;
 import com.github.Shevstrukk.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,7 @@ import java.io.IOException;
 @Controller
 @RequestMapping()
 public class RegistrationController {
+    private static final Logger log = LoggerFactory.getLogger(RegistrationController.class);
     @Autowired
     UserService userService;
     @GetMapping("/registration")
@@ -40,12 +43,10 @@ public class RegistrationController {
         final String password = req.getParameter("password");
         AuthUser user = userService.addAuthUser(login, password);
         if(user.getPerson() == null){
-//            req.getSession().setAttribute("authUser", user);
-//            req.getRequestDispatcher("/WEB-INF/view/user_menu.jsp").forward(req, resp);
+            req.getSession().setAttribute("authUser", user);
             return "user_menu";
         }else{
             req.getSession().setAttribute("authUser", user);
             return "/order/orderUser";}
-           // req.getRequestDispatcher("/WEB-INF/view/order/ordersUser.jsp").forward(req, resp);}
     }
 }

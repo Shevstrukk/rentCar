@@ -8,6 +8,7 @@ import com.github.Shevstrukk.model.AuthUser;
 import java.util.List;
 
 public interface AuthUsersDAO {
+    public AuthUser getByLogin(String login);
     public AuthUser saveAuthUserLogin(AuthUser authUser);
     public List<AuthUser> listAllUsers();
     public AuthUser saveOrUpdateAuthUser(AuthUser authUserEntity);

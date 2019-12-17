@@ -32,12 +32,7 @@
                 <input type="submit" name="delete" value="Удалить"/>
             </form>
         </td>
-            <%--        <td>--%>
-            <%--            <form method="get" action="/updatePhone">--%>
-            <%--                <input type="number" hidden name="id" value="${phone.id}" />--%>
-            <%--                <input type="submit" value="Редактированть"/>--%>
-            <%--            </form>--%>
-            <%--        </td>--%>
+
     </tr>
 </c:forEach>
 <a href="/getCarsAuth">Получить список машин</a>

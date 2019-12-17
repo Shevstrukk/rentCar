@@ -25,37 +25,37 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 // @WebServlet("/newPerson")
-@Controller
-@RequestMapping()
+//@Controller
+//@RequestMapping()
 public class NewPersonServlet   {
-    @Autowired
-    UserService userService;
-    @Autowired
-    PersonService defaultPersonService;
-    @GetMapping("/newPerson")
-    public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        return "newPerson";
-//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/newPerson.jsp");
-//        requestDispatcher.forward(req, resp);
-    }
-    @PostMapping("/newPerson")
-    public String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String firstName = req.getParameter("firstName");
-        final String lastName = req.getParameter("lastName");
-        final String state = req.getParameter("state");
-        final String city = req.getParameter("city");
-        final String street = req.getParameter("street");
-        final int home = Integer.valueOf(req.getParameter("home"));
-        final int number = Integer.valueOf(req.getParameter("number"));
-        Address addressEntity = new Address(null,state, city, street, home,number, null);
-        AuthUser authUser = userService.addAuthUser(firstName, lastName);
-        Person person = new Person(null,firstName,lastName, authUser, addressEntity,null,null);
-        Person person1= defaultPersonService.insertPerson(person);
-        AuthUser authUserUpdate = userService.update(authUser.getId(), person1.getId());
-        req.getSession().setAttribute("authUserUpdate", authUserUpdate);
-        req.getSession().setAttribute("person1", person1);
-        return "/phone/addPhoneAuth";
-//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
-//        requestDispatcher.forward(req, resp);
-    }
+//    @Autowired
+//    UserService userService;
+//    @Autowired
+//    PersonService defaultPersonService;
+//    @GetMapping("/newPerson")
+//    public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        return "newPerson";
+////        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/newPerson.jsp");
+////        requestDispatcher.forward(req, resp);
+//    }
+//    @PostMapping("/newPerson")
+//    public String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        final String firstName = req.getParameter("firstName");
+//        final String lastName = req.getParameter("lastName");
+//        final String state = req.getParameter("state");
+//        final String city = req.getParameter("city");
+//        final String street = req.getParameter("street");
+//        final int home = Integer.valueOf(req.getParameter("home"));
+//        final int number = Integer.valueOf(req.getParameter("number"));
+//        Address addressEntity = new Address(null,state, city, street, home,number, null);
+//        AuthUser authUser = userService.addAuthUser(firstName, lastName);
+//        Person person = new Person(null,firstName,lastName, authUser, addressEntity,null,null);
+//        Person person1= defaultPersonService.insertPerson(person);
+//        AuthUser authUserUpdate = userService.update(authUser.getId(), person1.getId());
+//        req.getSession().setAttribute("authUserUpdate", authUserUpdate);
+//        req.getSession().setAttribute("person1", person1);
+//        return "/phone/addPhoneAuth";
+////        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
+////        requestDispatcher.forward(req, resp);
+//    }
 }

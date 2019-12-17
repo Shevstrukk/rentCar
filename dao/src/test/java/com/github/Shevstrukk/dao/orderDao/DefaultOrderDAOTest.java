@@ -4,6 +4,8 @@ import com.github.Shevstrukk.dao.AuthUsersDAO;
 import com.github.Shevstrukk.dao.PersonDAO;
 import com.github.Shevstrukk.dao.carDao.CarsDAO;
 import com.github.Shevstrukk.dao.config.DaoConfig;
+import com.github.Shevstrukk.dao.entity.CarEntity;
+import com.github.Shevstrukk.dao.entity.OrderEntity;
 import com.github.Shevstrukk.dao.phonedao.PhoneDAO;
 import com.github.Shevstrukk.model.AuthUser;
 import com.github.Shevstrukk.model.Car;
@@ -23,8 +25,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-
-
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = DaoConfig.class)
 @Transactional
@@ -42,8 +42,7 @@ private OrderDAO orderDao;
 
     @Test
     public void saveOrder() {
-        Car car = new Car(null, "honda",
-                2019, "black", 6, "no crash", null);
+        Car car = new Car(null, "honda", 2019, "black", 6, "no crash", null);
         List<Car> cars = new ArrayList<>();
         Car carNew = carDao.create(car);
         cars.add(carNew);
@@ -55,25 +54,37 @@ private OrderDAO orderDao;
 
     @Test
     public void saveUpdate() {
-    }
-
-    @Test
-    public void getOrderList() {
-//        Order order = new Order(null, 5, 6, null, null);
-//        Order order1 = new Order(null, 3, 6, null, null);
-//        Order saveOrder = orderDao
-
+        Car car = new Car(null, "honda",
+                2019, "black", 6, "no crash", null);
+        Car car1 = new Car(null, "bmv",
+                2019, "black", 10, "no crash", null);
+        List<Car> cars = new ArrayList<>();
+        Car carDB = carDao.create(car);
+        cars.add(carDB);
+        Order order = new Order(null, 5, 25,null, cars );
+        Order orderSave = orderDao.saveOrder(order);
+        Car carDB1 = carDao.create(car);
+        Order orderUpdate = orderDao.saveUpdate(orderSave, carDB1.getId());
+        assertNotNull(orderSave);
+        assertNotEquals(orderSave, orderUpdate);
     }
 
     @Test
     public void deleteOrder() {
-//        AuthUser authUser = new AuthUser(null, "sd", "sd", "user", null);
-//        AuthUser saveAuthUser = authUsersDAO.saveOrUpdateAuthUser(authUser);
-//        Person person = new Person(null,"sd", "sd", saveAuthUser,
-//                null, null,null );
-//        Person savePerson = personDAO.insertPerson(person);
-//        Order order = new Order(null, 5, 6, savePerson, null);
-//        Order saveorder = orderDao.saveOrder(order);
-
+        AuthUser authUser = new AuthUser(null, "sd", "sd", "user", null);
+        AuthUser saveAuthUser = authUsersDAO.saveOrUpdateAuthUser(authUser);
+        Person person = new Person(null,"sd", "sd", authUser,
+                null, null,null );
+        Car car = new Car(null, "honda",
+                2019, "black", 6, "no crash", null);
+        List<Car> cars = new ArrayList<>();
+        Car carDB = carDao.create(car);
+        cars.add(carDB);
+        Order order = new Order(null, 5, 25,person, cars );
+        Order orderSave = orderDao.saveOrder(order);
+        orderDao.deleteOrder(orderSave.getId());
+        OrderEntity orderEntity = sessionFactory.getCurrentSession().get(OrderEntity.class, orderSave.getId());
+        assertNotNull(orderSave);
+        assertNull(orderEntity);
     }
 }

@@ -64,12 +64,7 @@
                 </td>
             </tr>
 
-<%--                <td><c:out value="${carEntities.id}" /></td>--%>
-<%--                <td><c:out value="${carEntities.carName}" /></td>--%>
-<%--                <td><c:out value="${carEntities.carYear}" /></td>--%>
-<%--                <td><c:out value="${carEntities.carColor}" /></td>--%>
-<%--                <td><c:out value="${carEntities.priceDay}" /></td>--%>
-<%--                <td><c:out value="${carEntities.comment}" /></td>--%>
+
                 <tr>
                 <form method="post" action="/deleteCar">
                     <td>
@@ -90,5 +85,10 @@
         </c:forEach>
     </table>
 </div>
+<br>
+<a href="/newPerson">Сделать заявку</a>
+<br>
+
+<a href="/logout">logout</a>
 </body>
 </html>

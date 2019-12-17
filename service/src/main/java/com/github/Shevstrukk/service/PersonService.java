@@ -12,10 +12,11 @@ import java.util.List;
 
 public interface PersonService {
     public Person insertPerson(Person person);
-    public List<AuthUserEntity> listAllAuthUser();
+//    public List<AuthUserEntity> listAllAuthUser();
     public List<Person> listAllPerson();
     // public void deletePerson(int person) ;
     public Person updatePerson(Person person) ;
     public Person updatePerson(Person person, Order orderEntity) ;
     public Person getPerson(int id) ;
+    public Person getPersonOrderlist(int id) ;
 }

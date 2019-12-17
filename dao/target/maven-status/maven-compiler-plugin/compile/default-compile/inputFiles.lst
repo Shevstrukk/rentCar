@@ -15,6 +15,7 @@ D:\academyTest\rentCar\dao\src\main\java\com\github\Shevstrukk\dao\orderDao\Orde
 D:\academyTest\rentCar\dao\src\main\java\com\github\Shevstrukk\dao\entity\CarEntity.java
 D:\academyTest\rentCar\dao\src\main\java\com\github\Shevstrukk\dao\AuthUsersDAO.java
 D:\academyTest\rentCar\dao\src\main\java\com\github\Shevstrukk\dao\converter\CarConverter.java
+D:\academyTest\rentCar\dao\src\main\java\com\github\Shevstrukk\dao\repository\PersonEntityRepository.java
 D:\academyTest\rentCar\dao\src\main\java\com\github\Shevstrukk\dao\converter\AuthUserConverter.java
 D:\academyTest\rentCar\dao\src\main\java\com\github\Shevstrukk\dao\address\DefaultAddressDao.java
 D:\academyTest\rentCar\dao\src\main\java\com\github\Shevstrukk\dao\converter\OrderConverter.java

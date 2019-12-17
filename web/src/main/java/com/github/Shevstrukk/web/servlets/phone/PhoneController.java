@@ -8,6 +8,8 @@ import com.github.Shevstrukk.service.PersonService;
 import com.github.Shevstrukk.service.phoneservice.DefaultPhoneService;
 import com.github.Shevstrukk.service.phoneservice.PhoneService;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,7 +57,7 @@ public class PhoneController {
         Person person = defaultPhoneService.savePhone(phoneEntity, id);
         req.getSession().setAttribute("person", person);
         return "redirect:/addPhoneAuth";
-      //  doGet(req, resp);
+        //  doGet(req, resp);
     }
 
     @GetMapping("/addPhone")
@@ -78,7 +80,7 @@ public class PhoneController {
         Person person = defaultPhoneService.savePhone(phoneEntity, id);
         req.getSession().setAttribute("person", person);
         return "redirect:/addPhone";
-       // doGet(req, resp);
+        // doGet(req, resp);
     }
 
     @GetMapping("/deletePhone")
@@ -88,7 +90,7 @@ public class PhoneController {
         Person personPhone = personService.getPerson(id);
         List<Phone> listPhone = personPhone.getPhones();
         model.addAttribute("phoneList", listPhone);
-       // req.setAttribute("phoneList", listPhone);
+        // req.setAttribute("phoneList", listPhone);
         return "/phone/addPhoneAuth";
 //        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhoneAuth.jsp");
 //        requestDispatcher.forward(req, resp);

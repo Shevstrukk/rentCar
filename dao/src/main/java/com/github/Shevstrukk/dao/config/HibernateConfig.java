@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @Import(SettingsConfig.class)
-//@EnableTransactionManagement
+@EnableTransactionManagement
 public class HibernateConfig {
 
     private final SettingsConfig settingsConfig;
@@ -38,7 +38,7 @@ public class HibernateConfig {
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactoryBean() {
+    public LocalSessionFactoryBean entityManagerFactory() {
         final LocalSessionFactoryBean sf = new LocalSessionFactoryBean();
         sf.setDataSource(dataSource());
         sf.setPackagesToScan("com.github.Shevstrukk.dao.entity");
@@ -48,10 +48,10 @@ public class HibernateConfig {
     }
 
     @Bean
-    public PlatformTransactionManager hibernateTransactionManager() {
+    public PlatformTransactionManager transactionManager() {
         HibernateTransactionManager transactionManager
                 = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactoryBean().getObject());
+        transactionManager.setSessionFactory(entityManagerFactory().getObject());
         return transactionManager;
     }
 

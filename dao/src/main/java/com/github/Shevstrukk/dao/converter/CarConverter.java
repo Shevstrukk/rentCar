@@ -12,7 +12,10 @@ public class CarConverter {
             return  null;
         }
         final CarEntity carEntity = new CarEntity();
-        carEntity.setId(car.getId());
+        if(car.getId() != null){
+            carEntity.setId(car.getId());
+        }
+       // carEntity.setId(car.getId());
         carEntity.setCarName(car.getCarName());
         carEntity.setCarColor(car.getCarColor());
         carEntity.setCarYear(car.getCarYear());

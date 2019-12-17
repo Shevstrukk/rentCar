@@ -20,12 +20,8 @@ public class DefaultAddressDao implements AddressDao {
 
     public Address saveAddress( Address address){
         AddressEntity addressEntity = AddressConverter.toEntity(address);
-       // Session session = EMUtil.getSession();
-      // session.beginTransaction();
-       final Session session = sessionFactory.getCurrentSession();
+        final Session session = sessionFactory.getCurrentSession();
         session.save(addressEntity);
-//        session.getTransaction().commit();
-//        session.close();
         return AddressConverter.fromEntity(addressEntity);
     }
 

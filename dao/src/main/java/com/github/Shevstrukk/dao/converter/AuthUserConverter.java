@@ -57,6 +57,18 @@ public class AuthUserConverter {
                 PersonConverter.fromEntityList(authUserEntity.getPerson())
         );
     }
+    public static AuthUser fromEntityLogin(AuthUserEntity authUserEntity){
+        if (authUserEntity == null){
+            return  null;
+        }
+        return  new AuthUser(
+                authUserEntity.getId(),
+                authUserEntity.getLogin(),
+                authUserEntity.getPassword(),
+                authUserEntity.getRole(),
+                PersonConverter.fromEntityList(authUserEntity.getPerson())
+        );
+    }
     public static List<AuthUser> fromListAuthUserEntity(List<AuthUserEntity> list){
         List<AuthUser> authUserList = new ArrayList<>();
         for(AuthUserEntity elem: list){

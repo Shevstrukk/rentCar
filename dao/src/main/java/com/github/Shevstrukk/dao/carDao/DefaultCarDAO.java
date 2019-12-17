@@ -25,11 +25,8 @@ public class DefaultCarDAO implements CarsDAO{
     public List<Car> getListCar() {
         List<CarEntity> carEntityList;
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        session.beginTransaction();
         String str = "FROM CarEntity  ORDER BY id ASC";
         carEntityList = session.createQuery(str).getResultList();
-//        session.getTransaction().commit();
-//        session.close();
         return CarConverter.fromListEntityCar(carEntityList);
     }
     public Car getCar(int id){
@@ -45,7 +42,6 @@ public class DefaultCarDAO implements CarsDAO{
         return CarConverter.fromEntity(carEntity);
     }
     public Car update(Car car){
-       // CarEntity carEntity = CarConverter.toEntity(car);
         Session session =  sessionFactory.getCurrentSession();
         CarEntity carEntity = session.get(CarEntity.class, car.getId());
         carEntity.setCarColor(car.getCarColor());
@@ -57,7 +53,6 @@ public class DefaultCarDAO implements CarsDAO{
         return CarConverter.fromEntity(carEntity);
     }
     public void delete(int id){
-        // CarEntity carEntity = CarConverter.toEntity(car);
         Session session =  sessionFactory.getCurrentSession();
         CarEntity carEntity = session.get(CarEntity.class, id);
         session.delete(carEntity);

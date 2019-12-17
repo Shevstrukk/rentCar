@@ -18,20 +18,30 @@ public class DefaultUserService implements UserService {
     public DefaultUserService(AuthUsersDAO authUsersDAO){
         this.authUsersDAO = authUsersDAO;
     }
+//    @Transactional
+//    public AuthUser login(String login, String password) {
+//        List<AuthUser> userList = listAllUsers();
+//       // AuthUser user;
+//        if (userList == null) {
+//            return null;
+//        } else {
+//            for (AuthUser user1 : userList) {
+//                if (user1.getPassword().equals(password) & user1.getLogin().equals(login)) {
+//                    return user1;
+//                }
+//            } return null;
+//        }
+//    }
     @Transactional
     public AuthUser login(String login, String password) {
-        List<AuthUser> userList = listAllUsers();
-       // AuthUser user;
-        if (userList == null) {
+        AuthUser authUser = authUsersDAO.getByLogin(login);
+
+        if (authUser == null) {
             return null;
-        } else {
-            for (AuthUser user1 : userList) {
-                if (user1.getPassword().equals(password) & user1.getLogin().equals(login)) {
-                    return user1;
-                }
-            } return null;
+        } if (authUser.getPassword().equals(password)) {
+            return authUser;
         }
-        //return user = addAuthUser(login,password);
+        return null;
     }
     @Transactional
     public AuthUser addAuthUser(String login, String password){
@@ -39,10 +49,10 @@ public class DefaultUserService implements UserService {
         return newAuthUser;
 
     }
-    @Transactional
-    public List<AuthUser> listAllUsers () {
-        return authUsersDAO.listAllUsers();
-    }
+//    @Transactional
+//    public List<AuthUser> listAllUsers () {
+//        return authUsersDAO.listAllUsers();
+//    }
     @Transactional
     public void deleteAuthUser (int id){
         authUsersDAO.deleteAuthUser( id);

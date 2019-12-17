@@ -4,6 +4,7 @@ import com.github.Shevstrukk.model.AuthUser;
 import com.github.Shevstrukk.model.Car;
 import com.github.Shevstrukk.model.Order;
 import com.github.Shevstrukk.model.Person;
+import com.github.Shevstrukk.service.PersonService;
 import com.github.Shevstrukk.service.carService.CarsService;
 import com.github.Shevstrukk.service.orderService.OrderService;
 import org.slf4j.Logger;
@@ -32,6 +33,8 @@ public class OrderController {
     OrderService defaultOrderService;
     @Autowired
     CarsService defaultCarsService;
+    @Autowired
+    PersonService defaultPersonService;
 
     @GetMapping("/doOrder")
     public String doGet(HttpServletRequest req) {
@@ -47,11 +50,14 @@ public class OrderController {
         Order orderEntityOld = (Order) session.getAttribute("order");
         AuthUser authUser = (AuthUser)session.getAttribute("authUserUpdate");
         Person person = authUser.getPerson();
-        List<Car> carEntities = new ArrayList<>();
+        List<Car> cars = new ArrayList<>();
+        Car car = defaultCarsService.getCar(carId);
+        cars.add(car);
         Order newOrderEntity;
         if (orderEntityOld == null) {
-            Order order = new Order(null, rentDay, price, person, carEntities);
-            newOrderEntity = defaultOrderService.saveOrder(order, carId);
+            Order order = new Order(null, rentDay, price, person, cars);
+            //newOrderEntity = defaultOrderService.saveOrder(order, carId);
+            newOrderEntity = defaultOrderService.saveOrder(order);
             session.setAttribute("order", newOrderEntity);
         } else {
             int newPrice = orderEntityOld.getPrice() + price;
@@ -78,14 +84,15 @@ public class OrderController {
     @GetMapping("/getOrderList")
     public String getOrderList(HttpServletRequest req, Model model)  {
         HttpSession session = req.getSession();
-       // AuthUser authUser = (AuthUser)session.getAttribute("authUser");
-     //   int id = authUser.getPerson().getId();
-        Person person =(Person)session.getAttribute("person1");
-
-        int id = person.getId();
-        Person personList = defaultOrderService.getOrderList(id);
+        AuthUser authUser = (AuthUser)session.getAttribute("authUser");
+        int id = authUser.getPerson().getId();
+//        Person person =(Person)session.getAttribute("person1");
+//
+//        int id = person.getId();
+      //  Person personList = defaultOrderService.getOrderList(id); рабочий
+        Person personList=defaultPersonService.getPersonOrderlist(id);
         model.addAttribute("personList", personList);
-       // req.setAttribute("personList", personList);
+
         return "/order/orderList";
     }
     @PostMapping("/deleteOrder")
@@ -102,9 +109,9 @@ public class OrderController {
         AuthUser authUser = (AuthUser)session.getAttribute("authUserUpdate");
         Person person = authUser.getPerson();
         int id = person.getId();
-        Person personList = defaultOrderService.getOrderList(id);
+      //  Person personList = defaultOrderService.getOrderList(id);
+        Person personList = defaultPersonService.getPersonOrderlist(id);
         model.addAttribute("personList", personList);
-//        req.setAttribute("personList", personList);
         return "/order/orderList";
     }
 }
