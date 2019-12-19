@@ -64,13 +64,10 @@ public AuthUser getByLogin(String login){
     }
     public AuthUser update(int id, int personId){
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        session.beginTransaction();
         AuthUserEntity authUserEntity = session.get(AuthUserEntity.class, id);
         PersonEntity personEntity = session.get(PersonEntity.class, personId);
         authUserEntity.setPerson(personEntity);
         session.update(authUserEntity);
-//        session.getTransaction().commit();
-//        session.close();
         return AuthUserConverter.fromEntityAuth(authUserEntity);
 
     }

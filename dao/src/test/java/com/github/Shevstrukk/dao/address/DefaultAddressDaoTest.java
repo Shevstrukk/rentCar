@@ -2,10 +2,8 @@ package com.github.Shevstrukk.dao.address;
 
 import com.github.Shevstrukk.dao.config.DaoConfig;
 import com.github.Shevstrukk.dao.converter.AddressConverter;
-import com.github.Shevstrukk.dao.converter.CarConverter;
 import com.github.Shevstrukk.dao.entity.AddressEntity;
 import com.github.Shevstrukk.model.Address;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

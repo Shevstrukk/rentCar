@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class DefaultAddressService implements AddressService {
     private static final Logger log = LoggerFactory.getLogger(DefaultAddressService.class);
-    @Autowired
-    AddressDao defaultAddressDao;
+
+    private   AddressDao defaultAddressDao;
 
     public DefaultAddressService(AddressDao address) { this.defaultAddressDao=address;}
 
