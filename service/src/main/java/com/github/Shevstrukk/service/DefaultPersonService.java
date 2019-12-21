@@ -25,10 +25,19 @@ public class DefaultPersonService implements PersonService {
 //    public List<AuthUserEntity> listAllAuthUser() {
 //        return dao.listAllAuthUsers();
 //    }
+    @Transactional
+    public Long getCountAllPerson( ) {
+        return dao.getCountAllPerson();
+    }
+
+//    @Transactional
+//    public List<Person> listAllPerson() {
+//        return dao.listAllPerson();
+//    }
 
     @Transactional
-    public List<Person> listAllPerson() {
-        return dao.listAllPerson();
+    public List<Person> listAllPerson(int currentPage, int recordsPerPage) {
+        return dao.listAllPerson(currentPage, recordsPerPage);
     }
 
     @Transactional

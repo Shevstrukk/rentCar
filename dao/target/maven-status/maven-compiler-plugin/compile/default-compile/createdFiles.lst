@@ -22,7 +22,6 @@ com\github\Shevstrukk\dao\entity\CarEntity.class
 com\github\Shevstrukk\dao\entity\PhoneEntity.class
 com\github\Shevstrukk\dao\converter\CarConverter.class
 com\github\Shevstrukk\dao\converter\AuthUserConverter.class
-com\github\Shevstrukk\dao\repository\PersonEntityRepository.class
 com\github\Shevstrukk\dao\address\DefaultAddressDao.class
 com\github\Shevstrukk\dao\base\Dao.class
 com\github\Shevstrukk\dao\carDao\CarsDAO.class

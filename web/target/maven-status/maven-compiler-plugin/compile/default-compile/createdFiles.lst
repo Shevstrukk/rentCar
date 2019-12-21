@@ -2,12 +2,9 @@ com\github\Shevstrukk\web\servlets\NewPersonServlet.class
 com\github\Shevstrukk\web\filter\AddPersonFilter.class
 com\github\Shevstrukk\web\servlets\order\OrderController.class
 com\github\Shevstrukk\web\servlets\LogoutController.class
-com\github\Shevstrukk\web\filter\user\filter\UserFilter.class
-com\github\Shevstrukk\web\servlets\phone\PhoneController.class
-com\github\Shevstrukk\web\servlets\RegistrationController.class
 com\github\Shevstrukk\web\spring\RootConfig.class
-com\github\Shevstrukk\web\servlets\PersonController.class
 com\github\Shevstrukk\web\spring\WebConfig.class
+com\github\Shevstrukk\web\filter\user\filter\UserFilter.class
 com\github\Shevstrukk\web\spring\WebAppInitialiser.class
 com\github\Shevstrukk\web\servlets\user\AddUserServlet.class
 com\github\Shevstrukk\web\servlets\car\GetCarController.class

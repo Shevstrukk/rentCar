@@ -6,7 +6,7 @@ import com.github.Shevstrukk.dao.entity.AddressEntity;
 import com.github.Shevstrukk.dao.entity.AuthUserEntity;
 import com.github.Shevstrukk.dao.entity.OrderEntity;
 import com.github.Shevstrukk.dao.entity.PersonEntity;
-import com.github.Shevstrukk.dao.repository.PersonEntityRepository;
+//import com.github.Shevstrukk.dao.repository.PersonEntityRepository;
 import com.github.Shevstrukk.dao.util.EMUtil;
 
 import com.github.Shevstrukk.model.Order;
@@ -32,14 +32,15 @@ public class DefaultPersonDAO implements PersonDAO {
     private static final Logger log = LoggerFactory.getLogger(DefaultPersonDAO.class);
 
 
-    public PersonEntityRepository repository;
+   // public PersonEntityRepository repository;
 
     private final SessionFactory sessionFactory;
 
     @Autowired
-    public DefaultPersonDAO(SessionFactory sessionFactory, PersonEntityRepository repository) {
+    public DefaultPersonDAO(SessionFactory sessionFactory//, PersonEntityRepository repository
+    ) {
         this.sessionFactory = sessionFactory;
-        this.repository = repository;
+      //  this.repository = repository;
     }
 
 
@@ -72,48 +73,55 @@ public class DefaultPersonDAO implements PersonDAO {
 //        return list;
 //    }
 
-    public List<Person> listAllPerson() {
-        Pageable pageable = PageRequest.of(0, 10, Sort.by("id"));
-        Page<PersonEntity> page = repository.findAll(pageable);
-        List<PersonEntity> list = page.getContent();
-        return PersonConverter.fromListPersonEntity(list);
-
+//   public List<Person> listAllPersonPage(int currentPage, int recordsPerPage) {
+//        int start = currentPage * recordsPerPage - recordsPerPage;
+//      //  Pageable pageable = PageRequest.of(0, 10, Sort.by("id"));
+//       Pageable pageable = PageRequest.of(start, recordsPerPage);
+//        Page<PersonEntity> page = repository.findAll(pageable);
+//        List<PersonEntity> list = page.getContent();
+//        return PersonConverter.fromListPersonEntity(list);
+//
+//    }
+//    public List<Person> listAllPerson() {
+//      //  Pageable pageable = PageRequest.of(0, 10, Sort.by("id"));
+//      //  Page<PersonEntity> page = repository.findAll(pageable);
+//        List<PersonEntity> list = repository.findAll(Sort.by("id"));
+//        return PersonConverter.fromListPersonEntity(list);
+//
+//    }
+    public Long getCountAllPerson(){
+        Session session = sessionFactory.getCurrentSession();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
+        countQuery.select(cb.count(
+                countQuery.from(PersonEntity.class)));
+        Long count = session.createQuery(countQuery).getSingleResult();
+        return count;
     }
 
-    public List<Person> listAllPerson2() {
+    public List<Person> listAllPerson(int page, int pageSize) {
         Session session = sessionFactory.getCurrentSession();
-        int page = 1;
-        int pageSize = 4;
+//        int page = 1;
+//        int pageSize = 4;
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
         countQuery.select(cb.count(countQuery.from(PersonEntity.class)));
         Long count = session.createQuery(countQuery).getSingleResult();
-        // CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<PersonEntity> criteria = cb.createQuery(PersonEntity.class);
         criteria.select(criteria.from(PersonEntity.class));
         TypedQuery<PersonEntity> typedQuery = session.createQuery(criteria);
-        typedQuery.setFirstResult(1);          //(pageSize*(page - 1));
+        typedQuery.setFirstResult(pageSize*(page - 1));          //(pageSize*(page - 1));
         typedQuery.setMaxResults(pageSize);
         List<PersonEntity> personList = typedQuery.getResultList();
         return PersonConverter.fromListPersonEntity(personList);
     }
 
-    public List<Person> listAllPerson1() {
+    public List<Person> listAllPerson() {
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<PersonEntity> criteria = cb.createQuery(PersonEntity.class);
         criteria.select(criteria.from(PersonEntity.class));
         List<PersonEntity> list = session.createQuery(criteria).getResultList();
-
-//   рабочий код
-     /*   List<PersonEntity> list;
-        Session session = EMUtil.getSession();
-        session.beginTransaction();
-       // String str = "FROM PersonEntity  ORDER BY id ASC";
-        String str = "FROM  PersonEntity e JOIN FETCH e.phoneEntities phon";
-        list = session.createQuery(str).getResultList();
-        session.getTransaction().commit();
-        session.close();*/
         return PersonConverter.fromListPersonEntity(list);
     }
 

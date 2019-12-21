@@ -60,8 +60,8 @@ public class PersonController {
 
     @GetMapping("/delete")
     public String deletePers(HttpServletRequest req, Model model)  {
-        List<Person> personList = defaultPersonService.listAllPerson();
-        model.addAttribute("personList", personList);
+//        List<Person> personList = defaultPersonService.listAllPerson();
+//        model.addAttribute("personList", personList);
         return "personList";
     }
 
@@ -74,8 +74,19 @@ public class PersonController {
 
     @GetMapping("/getPerson")
     public String getPersonList(HttpServletRequest req, Model model)  {
-        List<Person> personList= defaultPersonService.listAllPerson();
-        model.addAttribute("personList", personList);
+       int currentPage = Integer.valueOf(req.getParameter("currentPage"));
+        int recordsPerPage = Integer.valueOf(req.getParameter("recordsPerPage"));
+        Long rows = defaultPersonService.getCountAllPerson();
+        List<Person> personList1= defaultPersonService.listAllPerson(currentPage, recordsPerPage);
+        model.addAttribute("personList", personList1);
+        Long nOfPages = rows / recordsPerPage;
+        if (nOfPages % recordsPerPage > 0) {
+            nOfPages++;}
+        model.addAttribute("noOfPages", nOfPages);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("recordsPerPage", recordsPerPage);
+      /*  List<Person> personList= defaultPersonService.listAllPerson();
+        model.addAttribute("personList", personList);*/
         return "personList";
     }
 
@@ -106,8 +117,8 @@ public class PersonController {
         AuthUser user = new AuthUser(idAuth,login,password,role,null);
         Person person = new Person(id,firstName,lastName, user, addressEntity,null,null);
         Person updatePerson = defaultPersonService.updatePerson(person);
-        List<Person> personList = defaultPersonService.listAllPerson();
-        model.addAttribute("personList", personList);
+//        List<Person> personList = defaultPersonService.listAllPerson();
+//        model.addAttribute("personList", personList);
         return "personList";
     }
     @GetMapping("/newPerson")

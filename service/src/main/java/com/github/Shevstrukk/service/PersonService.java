@@ -13,8 +13,10 @@ import java.util.List;
 public interface PersonService {
     public Person insertPerson(Person person);
 //    public List<AuthUserEntity> listAllAuthUser();
-    public List<Person> listAllPerson();
+//    public List<Person> listAllPerson();
+    public List<Person> listAllPerson(int currentPage, int recordsPerPage);
     // public void deletePerson(int person) ;
+    public Long getCountAllPerson();
     public Person updatePerson(Person person) ;
     public Person updatePerson(Person person, Order orderEntity) ;
     public Person getPerson(int id) ;

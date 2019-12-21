@@ -9,7 +9,7 @@ import com.github.Shevstrukk.dao.orderDao.DefaultOrderDAO;
 import com.github.Shevstrukk.dao.orderDao.OrderDAO;
 import com.github.Shevstrukk.dao.phonedao.DefaultPhoneDAO;
 import com.github.Shevstrukk.dao.phonedao.PhoneDAO;
-import com.github.Shevstrukk.dao.repository.PersonEntityRepository;
+//import com.github.Shevstrukk.dao.repository.PersonEntityRepository;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,14 +21,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @Import(HibernateConfig.class)
 @EnableTransactionManagement
-@EnableJpaRepositories("com.github.Shevstrukk.dao.repository")
+//@EnableJpaRepositories("com.github.Shevstrukk.dao.repository")
 public class DaoConfig {
-    private PersonEntityRepository repository;
+  //  private PersonEntityRepository repository;
 
     private SessionFactory sessionFactory;
 
-    public DaoConfig(PersonEntityRepository repository, SessionFactory sessionFactory) {
-        this.repository = repository;
+    public DaoConfig(//PersonEntityRepository repository,
+                     SessionFactory sessionFactory) {
+      //  this.repository = repository;
         this.sessionFactory = sessionFactory;
     }
 
@@ -53,5 +54,7 @@ public class DaoConfig {
         return new DefaultAuthUsersDAO(sessionFactory);
     }
     @Bean
-    public PersonDAO personDao() {    return new DefaultPersonDAO(sessionFactory, repository);    }
+    public PersonDAO personDao() {    return new DefaultPersonDAO(sessionFactory
+        //    , repository
+    );    }
 }
