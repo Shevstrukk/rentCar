@@ -28,5 +28,9 @@ public class DefaultOrderService implements OrderService {
 
 //    public Person getOrderList(int id) { return defaultOrderDAO.getOrderList(id);}
     public  void deleteOrder(int id) {  defaultOrderDAO.deleteOrder(id);}
+
+    public Order getOrder(int id) {
+        return defaultOrderDAO.getOrder(id);
+    }
 }
 

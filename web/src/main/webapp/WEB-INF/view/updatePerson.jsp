@@ -65,9 +65,9 @@
     </table>
 </form>
 
-<a href="/getPerson">Получить список</a>
+<a href="/addPerson">Получить список</a>
 <br>
-<a href="/logout">Выйти</a>
+
 <a href="${pageContext.request.contextPath}/logout">logout</a>
 </body>
 </html>

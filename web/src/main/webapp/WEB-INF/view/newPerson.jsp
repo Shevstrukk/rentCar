@@ -45,8 +45,8 @@
     </table>
 </form>
 
-<a href="<c:url value='/getPerson' />">Получить список</a>
+<a href="/getPerson">Получить список</a>
 <br>
-<a href="<c:url value='/logout' />">Выйти</a>
+<a href="/logout">Выйти</a>
 </body>
 </html>

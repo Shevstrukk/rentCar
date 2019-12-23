@@ -11,9 +11,7 @@
 
 <h2>Hello Vitalij!</h2>
 
-<form method="post" action="/addPersonAuth" >
-
-
+<form method="post" action="/addUser" >
 
     <table border="1" cellpadding="5">
 
@@ -47,14 +45,14 @@
 
         <tr>
             <td colspan="2" align="center">
-                <input type="submit" value="Зарегистрироваться" />
+                <input type="submit" value="Зарегистрировать" />
             </td>
         </tr>
 
     </table>
 
 </form>
-<h1>Show countries</h1>
+
 
 <form action="/getPerson">
 
@@ -62,17 +60,17 @@
 
     <div class="form-group col-md-4">
 
-        <label for="records">Select records per page:</label>
+        <label for="records">Кол-во записей на странице:</label>
 
         <select class="form-control" id="records" name="recordsPerPage">
-            <option value="5">5</option>
-            <option value="10" selected>10</option>
+            <option value="3">3</option>
+            <option value="6" selected>6</option>
             <option value="15">15</option>
         </select>
 
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary"> Получить список personof</button>
 
 </form>
 
@@ -80,11 +78,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" ></script>
 
-<a href="${pageContext.request.contextPath}/getPerson">Получить список</a>
 <a href="${pageContext.request.contextPath}/addCar">Получить список машин</a>
-<%--<a href="<c:url value="/getPerson' />">Получить список</a>--%>
-
-
+<h6>
 <a href="${pageContext.request.contextPath}/logout">logout</a>
+</h6>
 </body>
 </html>

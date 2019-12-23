@@ -36,7 +36,7 @@ public class AddUserServlet  {
     PersonService defaultPersonService;
     @Autowired
     UserService defaultUserService;
-    @PostMapping("/addUser")
+    @PostMapping("/addUserPerson")
     protected String doPost(HttpServletRequest req)  {
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");
@@ -45,7 +45,6 @@ public class AddUserServlet  {
         final String street = req.getParameter("street");
         final int home = Integer.valueOf(req.getParameter("home"));
         final int number = Integer.valueOf(req.getParameter("number"));
-
         Address address = defaultAddressService.saveAddress(new Address(null,state, city, street, home,number,null));
         AuthUser authUser = (AuthUser)req.getSession().getAttribute("authUser");
         Person person = new Person(null,firstName,lastName, authUser, address,null,null);
@@ -53,8 +52,6 @@ public class AddUserServlet  {
         req.getSession().setAttribute("person1", person1);
         AuthUser authUserUpdate = defaultUserService.update(authUser.getId(), person1.getId());
         return "/phone/addPhone";
-//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhone.jsp");
-//        requestDispatcher.forward(req, resp);
     }
 
 }

@@ -86,7 +86,7 @@
     </table>
 </div>
 <br>
-<a href="/newPerson">Сделать заявку</a>
+<a href="/addPersonAuth">Сделать заявку</a>
 <br>
 
 <a href="/logout">logout</a>

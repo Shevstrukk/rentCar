@@ -53,4 +53,10 @@ public class DefaultOrderDAO implements OrderDAO {
         OrderEntity orderEntity = session.get(OrderEntity.class, id);
         session.remove(orderEntity);
     }
+    public Order getOrder(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        OrderEntity orderEntity = session.get(OrderEntity.class, id);
+        Order order = OrderConverter.fromEntity(orderEntity);
+        return order;
+    }
 }

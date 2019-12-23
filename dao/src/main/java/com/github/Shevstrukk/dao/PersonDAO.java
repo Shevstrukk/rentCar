@@ -14,12 +14,12 @@ import java.util.List;
 public interface PersonDAO {
     public Person insertPerson(Person person);
 //    public List<AuthUserEntity> listAllAuthUsers();
-    public List<Person> listAllPerson();
+//    public List<Person> listAllPerson();
     public List<Person> listAllPerson(int currentPage, int recordsPerPage);
     /*  public boolean deletePerson(long person) ;*/
-    public Person updatePerson(Person person) ;
-    public Person updatePerson(Person person, Order orderEntity) ;
-    public Person getPerson(int id) ;
-    public Person getPersonOrderList(int id) ;
-    public Long getCountAllPerson();
+     Person updatePerson(Person person) ;
+     Person updatePerson(Person person, Order orderEntity) ;
+     Person getPerson(int id) ;
+     Person getPersonOrderList(int id) ;
+     Long getCountAllPerson();
 }

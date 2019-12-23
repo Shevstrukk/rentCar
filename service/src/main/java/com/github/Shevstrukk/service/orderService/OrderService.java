@@ -8,8 +8,9 @@ import com.github.Shevstrukk.model.Order;
 import com.github.Shevstrukk.model.Person;
 
 public interface OrderService {
-    public Order saveOrder(Order orderEntity);
-    public Order saveUpdate(Order orderEntity, int id);
+     Order saveOrder(Order orderEntity);
+     Order saveUpdate(Order orderEntity, int id);
 //    public Person getOrderList(int id);
-    public void deleteOrder(int id);
+     void deleteOrder(int id);
+     Order getOrder(int id);
 }

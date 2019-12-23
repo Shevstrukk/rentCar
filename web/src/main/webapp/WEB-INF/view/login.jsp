@@ -19,7 +19,7 @@
 
     </form>
 
-<a href="regisration">Зарегистрироваться</a>
+<a href="/registration">Зарегистрироваться</a>
 <p style="color: red">${error}</p>
 </body>
 </html>

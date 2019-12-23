@@ -71,7 +71,6 @@ public class GetCarController {
     @PostMapping("/deleteCar")
     public String delete(HttpServletRequest request){
         final int id = Integer.parseInt(request.getParameter("id"));
-
         defaultCarsService.delete(id);
         return "redirect:/addCar";
     }

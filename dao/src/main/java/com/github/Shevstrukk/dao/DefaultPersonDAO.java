@@ -31,16 +31,12 @@ import java.util.List;
 public class DefaultPersonDAO implements PersonDAO {
     private static final Logger log = LoggerFactory.getLogger(DefaultPersonDAO.class);
 
-
-   // public PersonEntityRepository repository;
-
     private final SessionFactory sessionFactory;
 
     @Autowired
-    public DefaultPersonDAO(SessionFactory sessionFactory//, PersonEntityRepository repository
+    public DefaultPersonDAO(SessionFactory sessionFactory
     ) {
         this.sessionFactory = sessionFactory;
-      //  this.repository = repository;
     }
 
 
@@ -64,31 +60,6 @@ public class DefaultPersonDAO implements PersonDAO {
         return PersonConverter.fromEntityOrder(person);
     }
 
-//    @Override
-//    public List<AuthUserEntity> listAllAuthUsers() {
-//        List<AuthUserEntity> list;
-//        Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-//        String str = "FROM AuthUserEntity  ORDER BY id ASC";
-//        list = session.createQuery(str).getResultList();
-//        return list;
-//    }
-
-//   public List<Person> listAllPersonPage(int currentPage, int recordsPerPage) {
-//        int start = currentPage * recordsPerPage - recordsPerPage;
-//      //  Pageable pageable = PageRequest.of(0, 10, Sort.by("id"));
-//       Pageable pageable = PageRequest.of(start, recordsPerPage);
-//        Page<PersonEntity> page = repository.findAll(pageable);
-//        List<PersonEntity> list = page.getContent();
-//        return PersonConverter.fromListPersonEntity(list);
-//
-//    }
-//    public List<Person> listAllPerson() {
-//      //  Pageable pageable = PageRequest.of(0, 10, Sort.by("id"));
-//      //  Page<PersonEntity> page = repository.findAll(pageable);
-//        List<PersonEntity> list = repository.findAll(Sort.by("id"));
-//        return PersonConverter.fromListPersonEntity(list);
-//
-//    }
     public Long getCountAllPerson(){
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -101,8 +72,6 @@ public class DefaultPersonDAO implements PersonDAO {
 
     public List<Person> listAllPerson(int page, int pageSize) {
         Session session = sessionFactory.getCurrentSession();
-//        int page = 1;
-//        int pageSize = 4;
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
         countQuery.select(cb.count(countQuery.from(PersonEntity.class)));
@@ -126,10 +95,19 @@ public class DefaultPersonDAO implements PersonDAO {
     }
 
     public Person updatePerson(Person person) {
-        PersonEntity personEntity = PersonConverter.toEntity(person);
+      //  PersonEntity personEntity = PersonConverter.toEntity(person);
         Session session = sessionFactory.getCurrentSession();//EMUtil.getSession();
-        session.saveOrUpdate(personEntity);
-        return PersonConverter.fromEntity(personEntity);
+        PersonEntity personEntity1 = session.get(PersonEntity.class, person.getId());
+        personEntity1.setFirstName(person.getFirstName());
+        personEntity1.setLastName(person.getLastName());
+        AddressEntity addressEntity = session.get(AddressEntity.class, person.getAddress().getId());
+        addressEntity.setCity(person.getAddress().getCity());
+        addressEntity.setHome(person.getAddress().getHome());
+        addressEntity.setNumber(person.getAddress().getNumber());
+        addressEntity.setState(person.getAddress().getState());
+        personEntity1.setAddressEntity(addressEntity);
+        session.saveOrUpdate(personEntity1);
+        return PersonConverter.fromEntity(personEntity1);
     }
 
     public Person updatePerson(Person person, Order orderEntity) {

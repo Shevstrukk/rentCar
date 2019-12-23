@@ -34,7 +34,7 @@
 
     </tr>
 </c:forEach>
-<a href="<c:url value='/getCars' />">Получить список машин</a>
-<a href="<c:url value='/logout' />">Выйти</a>
+<a href="/getCarsAuth">Получить список машин</a>
+<a href="/logout">Выйти</a>
 </body>
 </html>

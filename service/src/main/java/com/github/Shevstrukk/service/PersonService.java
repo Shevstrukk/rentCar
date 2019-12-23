@@ -11,14 +11,14 @@ import com.github.Shevstrukk.model.Person;
 import java.util.List;
 
 public interface PersonService {
-    public Person insertPerson(Person person);
+     Person insertPerson(Person person);
 //    public List<AuthUserEntity> listAllAuthUser();
 //    public List<Person> listAllPerson();
-    public List<Person> listAllPerson(int currentPage, int recordsPerPage);
+     List<Person> listAllPerson(int currentPage, int recordsPerPage);
     // public void deletePerson(int person) ;
-    public Long getCountAllPerson();
-    public Person updatePerson(Person person) ;
-    public Person updatePerson(Person person, Order orderEntity) ;
-    public Person getPerson(int id) ;
-    public Person getPersonOrderlist(int id) ;
+     Long getCountAllPerson();
+     Person updatePerson(Person person) ;
+     Person updatePerson(Person person, Order orderEntity) ;
+     Person getPerson(int id) ;
+     Person getPersonOrderlist(int id) ;
 }

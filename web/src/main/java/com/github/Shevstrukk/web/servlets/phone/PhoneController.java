@@ -67,8 +67,6 @@ public class PhoneController {
         req.getSession().setAttribute("phoneList", listPhoneEntity);
         req.getSession().setAttribute("person", person);
         return "/phone/addPhone";
-//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/phone/addPhone.jsp");
-//        requestDispatcher.forward(req, resp);
     }
 
     @PostMapping("/addPhone")

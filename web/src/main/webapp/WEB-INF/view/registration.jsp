@@ -9,7 +9,7 @@
 <div class="form">
 
     <h1>Вход в систему</h1><br>
-    <form method="post" action="/regisration">
+    <form method="post" action="/registration">
 
         <input type="text" required placeholder="login" name="login"><br>
         <input type="password" required placeholder="password" name="password"><br><br>

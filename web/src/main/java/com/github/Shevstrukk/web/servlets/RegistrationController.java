@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-// @WebServlet("/regisration")
+
 @Controller
 @RequestMapping()
 public class RegistrationController {
@@ -32,8 +32,6 @@ public class RegistrationController {
         Object authUser = req.getSession().getAttribute("authUser");
         if (authUser == null) {
             return "registration";
-//            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/registration.jsp");
-//            requestDispatcher.forward(req, resp);
         }return "user_menu";
     }
 
@@ -42,11 +40,8 @@ public class RegistrationController {
         final String login = req.getParameter("login");
         final String password = req.getParameter("password");
         AuthUser user = userService.addAuthUser(login, password);
-        if(user.getPerson() == null){
             req.getSession().setAttribute("authUser", user);
             return "user_menu";
-        }else{
-            req.getSession().setAttribute("authUser", user);
-            return "/order/orderUser";}
-    }
+        }
+
 }

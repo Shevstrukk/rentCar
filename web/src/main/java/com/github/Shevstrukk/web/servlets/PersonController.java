@@ -34,10 +34,10 @@ import java.util.List;
 @RequestMapping
 public class PersonController {
     private static final Logger log = LoggerFactory.getLogger(PersonController.class);
-    @Autowired
+@Autowired
    UserService userService;
-    @Autowired
-    PersonService defaultPersonService;
+@Autowired
+     PersonService defaultPersonService;
 
     @PostMapping("/addPersonAuth")
     public  String addPerson(HttpServletRequest req)  {
@@ -57,12 +57,32 @@ public class PersonController {
         req.getSession().setAttribute("person1", person1);
         return "/phone/addPhoneAuth";
     }
+    @PostMapping("/addUser")
+    public  String addUser(HttpServletRequest req)  {
+        final String firstName = req.getParameter("firstName");
+        final String lastName = req.getParameter("lastName");
+        final String state = req.getParameter("state");
+        final String city = req.getParameter("city");
+        final String street = req.getParameter("street");
+        final int home = Integer.valueOf(req.getParameter("home"));
+        final int number = Integer.valueOf(req.getParameter("number"));
+        Address addressEntity = new Address(null, state, city, street, home, number, null);
+        AuthUser authUser= (AuthUser)req.getSession().getAttribute("authUser");
+      //  AuthUser authUser = userService.addAuthUser(firstName, lastName);
+        Person person = new Person(null, firstName, lastName, authUser, addressEntity, null, null);
+        Person person1= defaultPersonService.insertPerson(person);
+        AuthUser authUserUpdate = userService.update(authUser.getId(), person1.getId());
+        req.getSession().setAttribute("authUserUpdate", authUserUpdate);
+        req.getSession().setAttribute("person1", person1);
+        return "/phone/addPhone";
+    }
 
-    @GetMapping("/delete")
+    @GetMapping("/addPerson")
     public String deletePers(HttpServletRequest req, Model model)  {
 //        List<Person> personList = defaultPersonService.listAllPerson();
 //        model.addAttribute("personList", personList);
-        return "personList";
+ //       return "personList";
+        return "admin_menu";
     }
 
     @PostMapping("/delete")
@@ -74,7 +94,7 @@ public class PersonController {
 
     @GetMapping("/getPerson")
     public String getPersonList(HttpServletRequest req, Model model)  {
-       int currentPage = Integer.valueOf(req.getParameter("currentPage"));
+        int currentPage = Integer.valueOf(req.getParameter("currentPage"));
         int recordsPerPage = Integer.valueOf(req.getParameter("recordsPerPage"));
         Long rows = defaultPersonService.getCountAllPerson();
         List<Person> personList1= defaultPersonService.listAllPerson(currentPage, recordsPerPage);
@@ -85,22 +105,22 @@ public class PersonController {
         model.addAttribute("noOfPages", nOfPages);
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("recordsPerPage", recordsPerPage);
-      /*  List<Person> personList= defaultPersonService.listAllPerson();
-        model.addAttribute("personList", personList);*/
+//        List<Person> personList= defaultPersonService.listAllPerson();
+//        model.addAttribute("personList", personList);
         return "personList";
     }
 
     @GetMapping("/update")
-    public String doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doGet(HttpServletRequest req, Model model)  {
         String id = req.getParameter("id");
         Person person = (Person) defaultPersonService.getPerson(Integer.parseInt(id));
-        req.setAttribute("person", person);
+        model.addAttribute("person", person);
         return "updatePerson";
     }
 
     @PostMapping("/update")
     public String updatePerson(HttpServletRequest req, Model model)  {
-        final  int idAuth = Integer.valueOf(req.getParameter("idAuth"));
+        final  int idAuth = Integer. valueOf(req.getParameter("idAuth"));
         final  int addressId = Integer.valueOf(req.getParameter("addressId"));
         final String firstName = req.getParameter("firstName");
         final String lastName = req.getParameter("lastName");
@@ -114,16 +134,18 @@ public class PersonController {
         final String password = req.getParameter("password");
         final String role = req.getParameter("role");
         Address addressEntity = new Address(addressId,state, city, street, home,number,null);
-        AuthUser user = new AuthUser(idAuth,login,password,role,null);
-        Person person = new Person(id,firstName,lastName, user, addressEntity,null,null);
+        AuthUser authUser = new AuthUser(idAuth,login,password,role,null);
+        Person person = new Person(id,firstName,lastName, authUser, addressEntity,null,null);
         Person updatePerson = defaultPersonService.updatePerson(person);
-//        List<Person> personList = defaultPersonService.listAllPerson();
-//        model.addAttribute("personList", personList);
-        return "personList";
+        return "admin_menu";
     }
     @GetMapping("/newPerson")
     public String newPerson(HttpServletRequest req)  {
-        return "newPerson";
+                return "newPerson";
+    }
+    @GetMapping("/addPersonAuth")
+    public String addPersonAuth(){
+        return "admin_menu";
     }
     @PostMapping("/newPerson")
     public String doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

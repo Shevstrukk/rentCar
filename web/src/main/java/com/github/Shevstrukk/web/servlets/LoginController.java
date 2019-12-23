@@ -27,21 +27,18 @@ public class LoginController {
     @GetMapping("/login")
     public String doGet(HttpServletRequest rq) {
         Object authUser = rq.getSession().getAttribute("authUser");
-        if (authUser == null)
-            return "login";
+        if (authUser == null){
+            return "login";}
 
         return "registration";
     }
 
         @PostMapping("/login")
         public String doPost(HttpServletRequest rq, Model model)  {
-
             final String login = rq.getParameter("login");
             final String password = rq.getParameter("password");
             AuthUser user = userService.login(login, password);
-
             if (user == null) {
-               // rq.setAttribute("error", "login or password invalid");
                 model.addAttribute("error", "login or password invalid");
                 return "login";
             }
