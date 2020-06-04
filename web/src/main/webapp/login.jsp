@@ -17,7 +17,7 @@
 <div class="form">
 
     <h1>Вход в систему</h1><br>
-    <form method="post" action="">
+    <form action="${pageContext.request.contextPath}/login" method="post">
 
         <input type="text" required placeholder="login" name="login"><br>
         <input type="password" required placeholder="password" name="password"><br><br>
@@ -25,5 +25,6 @@
 
     </form>
 </div>
+<p style="color: red">${error}</p>
 </body>
 </html>
