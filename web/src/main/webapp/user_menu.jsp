@@ -15,8 +15,9 @@
 <body>
 
 <a href="${pageContext.request.contextPath}/logout">logout</a>
-<h3>Пользователи</h3>
+
 <c:if test="${authUser.role== 'USER'}">
+    <h3>Пользователь</h3>
     <table>
         <tr>
             <th>Имя</th>
