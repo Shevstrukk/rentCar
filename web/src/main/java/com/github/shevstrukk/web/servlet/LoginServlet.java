@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
        Object auth = req.getSession().getAttribute("authUser");
        if(auth == null){
-           WebUtils.forword("login", req,resp);
+           WebUtils.forward("login", req,resp);
            return;
        }
         try {
@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
         AuthUser authUser = security.getByLogin(login, password);
         if (authUser == null) {
             req.setAttribute("error", "login or password invalid");
-            WebUtils.forword("login", req, resp);
+            WebUtils.forward("login", req, resp);
             return;
         }else {
             req.getSession().setAttribute("authUser", authUser);

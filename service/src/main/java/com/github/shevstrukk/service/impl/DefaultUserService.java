@@ -29,7 +29,12 @@ private UserDAO userDAO = DefaultUserDao.getInstance();
     }
 
     @Override
-    public String save(User user) {
+    public Long save(User user) {
         return userDAO.save( user);
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        return userDAO.getUserById(id);
     }
 }

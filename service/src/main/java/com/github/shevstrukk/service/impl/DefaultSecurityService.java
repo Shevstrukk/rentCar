@@ -6,36 +6,36 @@ import com.github.shevstrukk.model.AuthUser;
 import com.github.shevstrukk.service.SecurityService;
 
 public class DefaultSecurityService implements SecurityService {
-    private AuthUserDao authUserDao = DefaultAuthUserDao.getInstance();
-    private static volatile SecurityService instance;
 
+    private static class SingletonHolder {
+        static final SecurityService HOLDER_INSTANCE = new DefaultSecurityService();
+    }
     public static SecurityService getInstance() {
-        SecurityService local = instance;
-        if (local == null) {
-            synchronized (SecurityService.class) {
-                local = instance;
-                if (local == null) {
-                    instance = local = new DefaultSecurityService();
-                }
-            }
-        }
-        return local;
+        return DefaultSecurityService.SingletonHolder.HOLDER_INSTANCE;
     }
 
-    @Override
+    private AuthUserDao authUserDao = DefaultAuthUserDao.getInstance();
+
     public AuthUser getByLogin(String login, String password) {
-        AuthUser authUser = authUserDao.getByLogin(login);
-        if(authUser==null){
+        AuthUser user = authUserDao.getByLogin(login);
+        if (user == null) {
             return null;
         }
-        if (authUser.getPassword().equals(password)){
-            return authUser;
+        if (user.getPassword().equals(password)) {
+            return user;
         }
         return null;
     }
+     public AuthUser isExist(String login){
+        AuthUser user = authUserDao.getByLogin(login);
+        if(user == null){
+            return null;
+        }
+        return user;
+     }
 
-
-//    public void saveAuthUser(AuthUser user) {
-//authUserDao.saveAuthUser(user);
-//    }
+    @Override
+    public Long saveAuthUser(AuthUser user) {
+        return authUserDao.saveAuthUser(user);
+    }
 }

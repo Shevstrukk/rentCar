@@ -9,12 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class WebUtils {
-    private static final Logger log = LoggerFactory.getLogger(WebUtils.class);
-    public static void forword(String page, HttpServletRequest request, HttpServletResponse response)  {
+    public static void forward(String page, HttpServletRequest rq, HttpServletResponse rs) {
         try {
-            request.getRequestDispatcher("/" + page + ".jsp").forward(request, response);
-        }catch (ServletException | IOException e){
-throw new RuntimeException(e);
+            rq.getRequestDispatcher("/" + page + ".jsp").forward(rq, rs);
+        } catch (ServletException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void redirect(String page, HttpServletRequest rq, HttpServletResponse rs) {
+        try {
+            rs.sendRedirect(rq.getContextPath() + page);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

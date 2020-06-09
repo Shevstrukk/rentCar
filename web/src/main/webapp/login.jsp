@@ -26,5 +26,8 @@
     </form>
 </div>
 <p style="color: red">${error}</p>
+<a href="<c:url value='/registration' />">Зарегистрироваться</a>
+<br>
+
 </body>
 </html>

@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface UserService {
     List<User> getUsers();
-    String save(User user);
+    Long save(User user);
+    User getUserById(Long id);
 }

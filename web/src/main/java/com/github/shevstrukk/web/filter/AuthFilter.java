@@ -20,7 +20,7 @@ public class AuthFilter implements Filter {
         HttpServletRequest request1 = (HttpServletRequest)request;
         Object auth = request1.getSession().getAttribute("authUser");
         if (auth==null){
-            WebUtils.forword("login",request1, (HttpServletResponse)response);
+            WebUtils.forward("login",request1, (HttpServletResponse)response);
         }
         chain.doFilter(request1, response);
     }

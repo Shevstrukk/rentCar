@@ -4,5 +4,6 @@ import com.github.shevstrukk.model.AuthUser;
 
 public interface SecurityService {
     AuthUser getByLogin(String login, String password);
-   // void saveAuthUser (AuthUser user);
+    Long saveAuthUser (AuthUser user);
+    AuthUser isExist(String login);
 }

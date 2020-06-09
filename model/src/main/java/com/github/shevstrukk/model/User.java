@@ -1,23 +1,23 @@
 package com.github.shevstrukk.model;
 
 public class User {
-    private String id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String phone;
 
-    public User(String id, String firstName, String lastName, String phone) {
+    public User(Long id, String firstName, String lastName, String phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -34,7 +34,7 @@ public class User {
     }
 
     public void setLastName(String lastName) {
-        lastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getPhone() {

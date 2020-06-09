@@ -16,7 +16,7 @@
 
 <a href="${pageContext.request.contextPath}/logout">logout</a>
 <h3>Пользователи</h3>
-<c:if test="${users != null}">
+<c:if test="${authUser.role== 'USER'}">
     <table>
         <tr>
             <th>Имя</th>
@@ -24,14 +24,14 @@
             <th>phone</th>
 
         </tr>
-        <c:forEach items="${users}" var="user">
+
             <tr>
                 <td>${user.firstName}</td>
                 <td>${user.lastName}</td>
                 <td>${user.phone}</td>
 
             </tr>
-        </c:forEach>
+
     </table>
 </c:if>
 
@@ -45,14 +45,33 @@
         <label for="lastName">фамилия</label>
         <input id="lastName" type="text" name="lastName"><br/>
 
-
-
         <label for="phone">phone</label>
         <input id="phone" type="text" name="phone"><br/>
 
         <input type="submit">
     </form>
+    <c:if test="${users != null}">
+        <table>
+            <tr>
+                <th>Имя</th>
+                <th>фамилия</th>
+                <th>phone</th>
+
+            </tr>
+            <c:forEach items="${users}" var="user">
+                <tr>
+                    <td>${user.firstName}</td>
+                    <td>${user.lastName}</td>
+                    <td>${user.phone}</td>
+
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
 </c:if>
+
+<br>
+<a href="<c:url value="/logout"/>">Выйти</a>
 
 </body>
 </html>
