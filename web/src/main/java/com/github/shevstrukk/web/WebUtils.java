@@ -11,7 +11,7 @@ import java.io.IOException;
 public class WebUtils {
     public static void forward(String page, HttpServletRequest rq, HttpServletResponse rs) {
         try {
-            rq.getRequestDispatcher("/" + page + ".jsp").forward(rq, rs);
+            rq.getRequestDispatcher("/WEB-INF/" + page + ".jsp").forward(rq, rs);
         } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }

@@ -29,8 +29,11 @@ private UserDAO userDAO = DefaultUserDao.getInstance();
     }
 
     @Override
-    public Long save(User user) {
+    public User save(User user) {
         return userDAO.save( user);
+    }
+    public User saveOrUpdate(Long userId, Long orderId) {
+        return userDAO.saveOrUpdate( userId, orderId);
     }
 
     @Override

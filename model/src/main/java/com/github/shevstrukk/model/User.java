@@ -1,16 +1,28 @@
 package com.github.shevstrukk.model;
 
+import java.util.List;
+
 public class User {
     private Long id;
     private String firstName;
     private String lastName;
     private String phone;
+    private AuthUser authUser;
+    private Address address;
+    private List<Order> orders;
 
-    public User(Long id, String firstName, String lastName, String phone) {
+    public User() { }
+
+    public User(Long id, String firstName,
+                String lastName, String phone,
+                AuthUser authUser, Address address, List<Order> orders) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
+        this.authUser = authUser;
+        this.address = address;
+        this.orders = orders;
     }
 
     public Long getId() {
@@ -43,5 +55,29 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public AuthUser getAuthUser() {
+        return authUser;
+    }
+
+    public void setAuthUser(AuthUser authUser) {
+        this.authUser = authUser;
     }
 }

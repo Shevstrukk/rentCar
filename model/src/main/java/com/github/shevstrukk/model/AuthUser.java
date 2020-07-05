@@ -5,14 +5,16 @@ public class AuthUser {
     private String login;
     private String password;
     private Role role;
-    private Long userId;
+    private User user;
 
-    public AuthUser(Long id, String login, String password, Role role, Long userId) {
+    public AuthUser() {}
+
+    public AuthUser(Long id, String login, String password, Role role, User user) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
-        this.userId = userId;
+        this.user = user;
     }
 
     public Long getId() {
@@ -47,11 +49,11 @@ public class AuthUser {
         this.role = role;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

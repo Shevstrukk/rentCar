@@ -3,6 +3,7 @@ package com.github.shevstrukk.service.impl;
 import com.github.shevstrukk.dao.AuthUserDao;
 import com.github.shevstrukk.model.AuthUser;
 import com.github.shevstrukk.model.Role;
+import com.github.shevstrukk.model.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,7 +25,7 @@ public class DefaultSecurityServiceTest {
 
     @Test
     public void getByLogin() {
-        when(dao.getByLogin("admin")).thenReturn(new AuthUser(10000000l, "admin", "admin", Role.ADMIN, 10000000l));
+        when(dao.getByLogin("admin")).thenReturn(new AuthUser(10000000l, "admin", "admin", Role.ADMIN, new User()));
         AuthUser userFromDb = service.getByLogin("admin", "admin");
         assertNotNull(userFromDb);
         assertEquals(userFromDb.getLogin(), "admin");

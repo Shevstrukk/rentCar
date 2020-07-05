@@ -1,10 +1,13 @@
 package com.github.shevstrukk.web.servlet;
 
+import com.github.shevstrukk.model.Address;
 import com.github.shevstrukk.model.AuthUser;
 import com.github.shevstrukk.model.Role;
 import com.github.shevstrukk.model.User;
+import com.github.shevstrukk.service.AddressService;
 import com.github.shevstrukk.service.SecurityService;
 import com.github.shevstrukk.service.UserService;
+import com.github.shevstrukk.service.impl.DefaultAddressService;
 import com.github.shevstrukk.service.impl.DefaultSecurityService;
 import com.github.shevstrukk.service.impl.DefaultUserService;
 import com.github.shevstrukk.web.WebUtils;
@@ -24,9 +27,11 @@ public class RegistrationServlet extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(RegistrationServlet.class);
     private SecurityService security = DefaultSecurityService.getInstance();
     private UserService userService = DefaultUserService.getInstance();
+    private AddressService addressService = DefaultAddressService.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        WebUtils.forward("registration", req,resp);
+        return;
     }
 
     @Override
@@ -36,16 +41,22 @@ public class RegistrationServlet extends HttpServlet {
         String phone = req.getParameter("phone");
         String login = req.getParameter("login");
         String password = req.getParameter("password");
+        String country = req.getParameter("country");
+        String city = req.getParameter("city");
+        String street = req.getParameter("street");
+        int home = Integer.valueOf(req.getParameter("home"));
+        int number = Integer.valueOf(req.getParameter("number"));
+        Address address = addressService.saveAddress(new Address(null, country, city, street,home, number, null));
         AuthUser authUser = security.isExist( login);
         if (authUser!=null){
             req.setAttribute("error", "login is Exist");
                         WebUtils.forward("registration", req, resp);
                         return;
         }else {
-            Long id = userService.save(new User(null, firstName, lastName, phone));
-            log.info("user created:{} at {}", id, LocalDateTime.now());
-            Long authId = security.saveAuthUser(new AuthUser(null, login, password, Role.USER, id));
-            log.info("authUser created:{} at {}", id, LocalDateTime.now());
+            User user = userService.save(new User(null, firstName, lastName, phone,null, address,null));
+            log.info("user created:{} at {}", user, LocalDateTime.now());
+            Long authId = security.saveAuthUser(new AuthUser(null, login, password, Role.USER, user));
+            log.info("authUser created:{} at {}", user, LocalDateTime.now());
             req.getSession().setAttribute("authUser", authUser);
         }
 
@@ -57,16 +68,5 @@ public class RegistrationServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-    // if (authUser == null) {
-    //            req.setAttribute("error", "login or password invalid");
-    //            WebUtils.forward("login", req, resp);
-    //            return;
-    //        }else {
-    //            req.getSession().setAttribute("authUser", authUser);
-    //            try {
-    //                resp.sendRedirect(req.getContextPath() + "/user");
-    //            } catch (IOException e) {
-    //                throw new RuntimeException(e);
-    //            }
-    //        }
+
 }
