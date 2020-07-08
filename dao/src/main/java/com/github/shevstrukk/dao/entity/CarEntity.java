@@ -1,9 +1,13 @@
 package com.github.shevstrukk.dao.entity;
 
+
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.util.List;
 @Entity
 @Table(name="cars")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class CarEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

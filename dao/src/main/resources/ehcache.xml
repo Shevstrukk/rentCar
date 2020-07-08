@@ -16,6 +16,34 @@
            timeToLiveSeconds="600">
         <persistence strategy="localTempSwap"/>
     </cache>
+    <cache name="com.github.shevstrukk.dao.entity.RentalPeriodEntity"
+           maxEntriesLocalHeap="20"
+           eternal="false"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="600">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+    <cache name="com.github.shevstrukk.dao.entity.OrderEntity"
+           maxEntriesLocalHeap="20"
+           eternal="false"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="600">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+    <cache name="com.github.shevstrukk.dao.entity.CarEntity"
+           maxEntriesLocalHeap="20"
+           eternal="false"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="600">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+    <cache name="com.github.shevstrukk.dao.entity.AddressEntity"
+           maxEntriesLocalHeap="20"
+           eternal="false"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="600">
+        <persistence strategy="localTempSwap"/>
+    </cache>
     <cache name="org.hibernate.cache.StandardQueryCache"
            maxEntriesLocalHeap="100"
            eternal="false"

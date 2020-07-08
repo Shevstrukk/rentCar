@@ -11,7 +11,7 @@ import com.github.shevstrukk.service.impl.DefaultRentalPeriodService;
 import com.github.shevstrukk.service.impl.DefaultUserService;
 import com.github.shevstrukk.web.WebUtils;
 
-import javax.servlet.RequestDispatcher;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

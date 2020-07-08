@@ -1,11 +1,13 @@
 package com.github.shevstrukk.dao.entity;
 
 import com.github.shevstrukk.model.Role;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "auth_user")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class AuthUserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

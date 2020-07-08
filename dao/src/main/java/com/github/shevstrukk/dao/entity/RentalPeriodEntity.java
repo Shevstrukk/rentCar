@@ -1,9 +1,12 @@
 package com.github.shevstrukk.dao.entity;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 @Entity
 @Table(name = "rental_period")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class RentalPeriodEntity {
     @Column(name="id")
     @Id

@@ -1,8 +1,14 @@
 package com.github.shevstrukk.dao.entity;
 
+
+
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
+
 @Entity
 @Table(name = "address")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class AddressEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

@@ -34,6 +34,9 @@ public class OrderConverter {
                CarConverter.fromListEntityCarGetOrder(orderEntity.getCarEntityList() ));
     }
     public static List<OrderEntity> toListOrderEntity(List<Order> orders){
+        if(orders==null){
+            return null;
+        }
         List<OrderEntity> orderList = new ArrayList<>();
         for(Order elem: orders){
             orderList.add(OrderConverter.toEntity(elem));
