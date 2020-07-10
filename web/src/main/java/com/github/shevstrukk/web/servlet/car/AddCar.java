@@ -4,6 +4,11 @@ import com.github.shevstrukk.model.Car;
 import com.github.shevstrukk.service.CarsService;
 import com.github.shevstrukk.service.impl.DefaultCarsService;
 import com.github.shevstrukk.web.WebUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,15 +18,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/addCar")
-public class AddCar extends HttpServlet {
-    CarsService service = DefaultCarsService.getInstance();
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+@Controller
+@RequestMapping
+public class AddCar {
+    @Autowired
+    CarsService service;
+    @GetMapping("/addCar")
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         WebUtils.forward("view/car/addCar",req,resp);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @PostMapping("/addCar")
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)  {
         final  String carModel = req.getParameter("carModel");
         final  String carName = req.getParameter("carName");
         final  int carYear = Integer.valueOf(req.getParameter("carYear"));

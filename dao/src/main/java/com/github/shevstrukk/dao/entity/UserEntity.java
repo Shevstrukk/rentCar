@@ -24,7 +24,7 @@ public class UserEntity {
     @Column(name ="phone")
     private String phone;
 
-    @OneToOne(mappedBy = "userEntity", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "userEntity", cascade = CascadeType.ALL) //add orphan
     private AuthUserEntity authUserEntity;
 
     @OneToOne(cascade = CascadeType.ALL)

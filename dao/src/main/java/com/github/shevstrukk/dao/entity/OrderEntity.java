@@ -21,8 +21,8 @@ public class OrderEntity {
     @Column(name="date_order")
     private java.time.LocalDateTime date;
 
-    //@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    //@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 

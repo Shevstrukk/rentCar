@@ -1,20 +1,16 @@
 package com.github.shevstrukk.service.impl;
 
 import com.github.shevstrukk.dao.AuthUserDao;
-import com.github.shevstrukk.dao.impl.DefaultAuthUserDao;
 import com.github.shevstrukk.model.AuthUser;
 import com.github.shevstrukk.service.SecurityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultSecurityService implements SecurityService {
 
-    private static class SingletonHolder {
-        static final SecurityService HOLDER_INSTANCE = new DefaultSecurityService();
-    }
-    public static SecurityService getInstance() {
-        return DefaultSecurityService.SingletonHolder.HOLDER_INSTANCE;
-    }
-
-    private AuthUserDao authUserDao = DefaultAuthUserDao.getInstance();
+    @Autowired
+    private AuthUserDao authUserDao;
 
     public AuthUser getByLogin(String login, String password) {
         AuthUser user = authUserDao.getByLogin(login);

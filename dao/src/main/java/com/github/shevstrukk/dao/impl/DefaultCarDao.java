@@ -8,20 +8,12 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.github.shevstrukk.dao.CarDao;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+@Repository
 public class DefaultCarDao implements CarDao {
     private static final Logger log = LoggerFactory.getLogger(DefaultCarDao.class);
-
-    public DefaultCarDao() {
-    }
-    private static class SingletonHolder {
-        static final CarDao HOLDER_INSTANCE = new DefaultCarDao();
-    }
-
-    public static CarDao getInstance() {
-        return DefaultCarDao.SingletonHolder.HOLDER_INSTANCE;
-    }
 
     @Override
     public List<Car> getListCar() {

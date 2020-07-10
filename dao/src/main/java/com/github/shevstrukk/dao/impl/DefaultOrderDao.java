@@ -9,19 +9,11 @@ import com.github.shevstrukk.model.Order;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class DefaultOrderDao implements OrderDao {
     private static final Logger log = LoggerFactory.getLogger(DefaultOrderDao.class);
-    public DefaultOrderDao() {
-    }
-
-    private static class SingletonHolder {
-        static final OrderDao HOLDER_INSTANCE = new DefaultOrderDao();
-    }
-
-    public static OrderDao getInstance() {
-        return SingletonHolder.HOLDER_INSTANCE;
-    }
 
     @Override
     public Order saveOrUpdate(Order order, Long carId) {

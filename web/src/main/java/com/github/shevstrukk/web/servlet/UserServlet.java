@@ -7,30 +7,32 @@ import com.github.shevstrukk.model.User;
 import com.github.shevstrukk.service.AddressService;
 import com.github.shevstrukk.service.SecurityService;
 import com.github.shevstrukk.service.UserService;
-import com.github.shevstrukk.service.impl.DefaultAddressService;
-import com.github.shevstrukk.service.impl.DefaultSecurityService;
-import com.github.shevstrukk.service.impl.DefaultUserService;
 import com.github.shevstrukk.web.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-
-@WebServlet("/user")
-public class UserServlet extends HttpServlet {
+@Controller
+@RequestMapping
+public class UserServlet {
     private static final Logger log = LoggerFactory.getLogger(UserServlet.class);
-    private UserService userService = DefaultUserService.getInstance();
-    private SecurityService securityService = DefaultSecurityService.getInstance();
-    private AddressService addressService  = DefaultAddressService.getInstance();
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private SecurityService securityService;
+    @Autowired
+    private AddressService addressService;
+
+    @GetMapping("/user")
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
         AuthUser authUser = (AuthUser)req.getSession().getAttribute("authUser");
         if(authUser.getRole()== Role.ADMIN){
             List<User> users = userService.getUsers();
@@ -38,7 +40,6 @@ public class UserServlet extends HttpServlet {
             WebUtils.forward("user_menu", req, resp);
             return;
         }else {
-           // User user = userService.getUserById(authUser.getUser().getId());
             User user = authUser.getUser();
             req.setAttribute("user", user);
             WebUtils.forward("user_menu", req, resp);
@@ -46,8 +47,8 @@ public class UserServlet extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @PostMapping("/user")
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
         String login = req.getParameter("login");

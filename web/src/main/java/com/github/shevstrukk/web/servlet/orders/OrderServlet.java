@@ -10,6 +10,11 @@ import com.github.shevstrukk.service.impl.DefaultOrderService;
 import com.github.shevstrukk.service.impl.DefaultRentalPeriodService;
 import com.github.shevstrukk.service.impl.DefaultUserService;
 import com.github.shevstrukk.web.WebUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import javax.servlet.ServletException;
@@ -22,14 +27,20 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/getOrder")
-public class OrderServlet extends HttpServlet {
-    CarsService service = DefaultCarsService.getInstance();
-    RentalPeriodService periodService= DefaultRentalPeriodService.getInstance();
-    UserService userService = DefaultUserService.getInstance();
-    OrderService orderService = DefaultOrderService.getInstance();
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+@RequestMapping
+@Controller
+public class OrderServlet  {
+    @Autowired
+    CarsService service;
+    @Autowired
+    RentalPeriodService periodService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    OrderService orderService;
+    @GetMapping("/getOrder")
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
         AuthUser authUser = (AuthUser)req.getSession().getAttribute("authUser");
         Long idUser = authUser.getUser().getId();
         User user = userService.getUserById(idUser);
@@ -38,7 +49,7 @@ public class OrderServlet extends HttpServlet {
         return;
     }
 
-    @Override
+    @PostMapping("/getOrder")
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AuthUser authUser = (AuthUser)req.getSession().getAttribute("authUser");
         Long userId = authUser.getUser().getId();

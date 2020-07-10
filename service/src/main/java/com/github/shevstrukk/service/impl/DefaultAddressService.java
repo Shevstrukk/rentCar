@@ -1,19 +1,16 @@
 package com.github.shevstrukk.service.impl;
 
 import com.github.shevstrukk.dao.AddressDao;
-import com.github.shevstrukk.dao.impl.DefaultAddressDao;
 import com.github.shevstrukk.model.Address;
 import com.github.shevstrukk.service.AddressService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DefaultAddressService implements AddressService {
-    private static class SingletonHolder {
-        static final AddressService HOLDER_INSTANCE = new DefaultAddressService();
-    }
-    public static AddressService getInstance() {
-        return DefaultAddressService.SingletonHolder.HOLDER_INSTANCE;
-    }
 
-    private AddressDao addressDao = DefaultAddressDao.getInstance();
+    @Autowired
+    private AddressDao addressDao;
 
     public  Address saveAddress(Address address){
      return    addressDao.saveAddress(address);
