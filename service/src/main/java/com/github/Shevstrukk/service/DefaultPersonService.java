@@ -1,38 +1,66 @@
 package com.github.Shevstrukk.service;
 
 import com.github.Shevstrukk.dao.DefaultPersonDAO;
+import com.github.Shevstrukk.dao.PersonDAO;
+import com.github.Shevstrukk.dao.entity.AuthUserEntity;
+import com.github.Shevstrukk.dao.entity.OrderEntity;
+import com.github.Shevstrukk.dao.entity.PersonEntity;
+import com.github.Shevstrukk.model.Order;
 import com.github.Shevstrukk.model.Person;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
 public class DefaultPersonService implements PersonService {
-    private DefaultPersonDAO instance;
 
-    public DefaultPersonService() {}
+    private final PersonDAO dao;
+    @Autowired
+    public DefaultPersonService(PersonDAO personDAO){this.dao = personDAO;}
 
-    private static class SingletonHolder {
-        static final PersonService HOLDER_INSTANCE = new DefaultPersonService();
+//    @Transactional
+//    public List<AuthUserEntity> listAllAuthUser() {
+//        return dao.listAllAuthUsers();
+//    }
+    @Transactional
+    public Long getCountAllPerson( ) {
+        return dao.getCountAllPerson();
     }
 
-    public static PersonService getInstance() {
-        return SingletonHolder.HOLDER_INSTANCE;
+//    @Transactional
+//    public List<Person> listAllPerson() {
+//        return dao.listAllPerson();
+//    }
+
+    @Transactional
+    public List<Person> listAllPerson(int currentPage, int recordsPerPage) {
+        return dao.listAllPerson(currentPage, recordsPerPage);
     }
 
-    public List<Person> listAllPerson () {
-        return DefaultPersonDAO.getInstance().listAllPerson();
+    @Transactional
+    public Person insertPerson(Person person)  {
+        return dao.insertPerson(person);
     }
 
-    public void insertPerson(Person person)  {
-           DefaultPersonDAO.getInstance().insertPerson(person);
+    @Transactional
+    public Person updatePerson(Person person){
+        return   dao.updatePerson(person);
     }
-    public void updatePerson(Person person){
-        DefaultPersonDAO.getInstance().updatePerson(person);
 
+    @Transactional
+    public Person updatePerson(Person person, Order orderEntity){
+        return   dao.updatePerson(person, orderEntity);
     }
-    public void deletePerson(int person){
-             DefaultPersonDAO.getInstance().deletePerson(person);
-    }
+
+    @Transactional
     public Person getPerson(int id) {
-        return DefaultPersonDAO.getInstance().getPerson(id);
+        return dao.getPerson(id);
+    }
+    @Transactional
+    public Person getPersonOrderlist(int id) {
+        return dao.getPersonOrderList(id);
     }
 }

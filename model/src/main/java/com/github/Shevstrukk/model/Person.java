@@ -1,68 +1,81 @@
 package com.github.Shevstrukk.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Person {
-    private final Long id;
-    private final String firstName;
-    private final String lastName;
-    private final int rentDay;
+    private  Integer id;
+    private  String firstName;
+    private  String lastName;
+    private AuthUser authUser;
+    private Address address;
+    private List<Phone> phones = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
-  /*  public Person() {}
-
-    public Person(int id) {
-        this.id = id;
-    }
-
-    public Person(String firstName, String lastName, int rentDay) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.rentDay = rentDay;
-    }*/
-    public Person(Long id, String firstName, String lastName, int rentDay) {
+    public Person(Integer id, String firstName, String lastName,
+                  AuthUser authUser, Address address, List<Phone> phones, List<Order> orders) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.rentDay = rentDay;
+        this.authUser = authUser;
+        this.address = address;
+        this.phones = phones;
+        this.orders = orders;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
-
-  /*  public void setId(int id) {
-        this.id = id;
-    }*/
 
     public String getFirstName() {
         return firstName;
     }
 
-   /* public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }*/
-
     public String getLastName() {
         return lastName;
     }
 
-   /* public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }*/
-
-    public int getRentDay() {
-        return rentDay;
+    public AuthUser getAuthUser() {
+        return authUser;
     }
 
-  /*  public void setRentDay(int rentDay) {
-        this.rentDay = rentDay;
-    }*/
+    public Address getAddress() {
+        return address;
+    }
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", rentDay=" + rentDay +
-                '}';
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setAuthUser(AuthUser authUser) {
+        this.authUser = authUser;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

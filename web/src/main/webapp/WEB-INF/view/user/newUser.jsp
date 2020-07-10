@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Виталий
-  Date: 09.10.2019
-  Time: 22:53
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -40,8 +34,8 @@
         </tr>
     </table>
 </form>
-<a href="<c:url value='/getUsers' />">Получить список</a>
+<a href="/getUsers">Получить список</a>
 <br>
-<a href="<c:url value='/logout' />">Выйти</a>
+<a href="/logout">Выйти</a>
 </body>
 </html>
