@@ -1,28 +1,18 @@
-package com.github.shevstrukk.web.servlet.orders;
+package com.github.shevstrukk.web.controller.orders;
 
 import com.github.shevstrukk.model.*;
 import com.github.shevstrukk.service.CarsService;
 import com.github.shevstrukk.service.OrderService;
 import com.github.shevstrukk.service.RentalPeriodService;
 import com.github.shevstrukk.service.UserService;
-import com.github.shevstrukk.service.impl.DefaultCarsService;
-import com.github.shevstrukk.service.impl.DefaultOrderService;
-import com.github.shevstrukk.service.impl.DefaultRentalPeriodService;
-import com.github.shevstrukk.service.impl.DefaultUserService;
-import com.github.shevstrukk.web.WebUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,27 +20,35 @@ import java.util.List;
 
 @RequestMapping
 @Controller
-public class OrderServlet  {
-    @Autowired
+public class OrderController {
+  //  @Autowired
     CarsService service;
-    @Autowired
+ //   @Autowired
     RentalPeriodService periodService;
-    @Autowired
+  //  @Autowired
     UserService userService;
-    @Autowired
+ //   @Autowired
     OrderService orderService;
+
+    public OrderController(CarsService service, RentalPeriodService periodService, UserService userService, OrderService orderService) {
+        this.service = service;
+        this.periodService = periodService;
+        this.userService = userService;
+        this.orderService = orderService;
+    }
+
     @GetMapping("/getOrder")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
+    public String doGet(HttpServletRequest req, Model model)  {
         AuthUser authUser = (AuthUser)req.getSession().getAttribute("authUser");
         Long idUser = authUser.getUser().getId();
         User user = userService.getUserById(idUser);
-        req.setAttribute("user", user);
-        WebUtils.forward("user_menu", req, resp);
-        return;
+        model.addAttribute("user", user);
+       // WebUtils.forward("user_menu", req, resp);
+        return "WEB-INF/view/page/user_menu";
     }
 
     @PostMapping("/getOrder")
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public String doPost(HttpServletRequest req)  {
         AuthUser authUser = (AuthUser)req.getSession().getAttribute("authUser");
         Long userId = authUser.getUser().getId();
         Long carId = Long.valueOf(req.getParameter("carId"));
@@ -64,7 +62,7 @@ public class OrderServlet  {
         int priceSum = car.getPriceDay()*5;
          List cars = new ArrayList();
          Order orderDB = orderService.save(new Order( null, 5, priceSum, LocalDateTime.now(), user, cars), carId);
+         return "redirect:/getOrder";
 
-        doGet(req, resp);
     }
 }
