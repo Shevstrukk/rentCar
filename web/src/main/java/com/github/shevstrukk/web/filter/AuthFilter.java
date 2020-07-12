@@ -11,7 +11,7 @@ import java.io.IOException;
 @WebFilter("/user")
 public class AuthFilter implements Filter {
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig)  {
 
     }
 
@@ -20,7 +20,7 @@ public class AuthFilter implements Filter {
         HttpServletRequest request1 = (HttpServletRequest)request;
         Object auth = request1.getSession().getAttribute("authUser");
         if (auth==null){
-            WebUtils.forward("login",request1, (HttpServletResponse)response);
+            WebUtils.forward("view/page/login",request1, (HttpServletResponse)response);
         }
         chain.doFilter(request1, response);
     }

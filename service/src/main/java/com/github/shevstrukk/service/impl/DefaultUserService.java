@@ -5,13 +5,18 @@ import com.github.shevstrukk.model.User;
 import com.github.shevstrukk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
-@Service
+@Transactional
 public class DefaultUserService implements UserService {
-    @Autowired
-private UserDAO userDAO;
 
+private final UserDAO userDAO;
+
+    public DefaultUserService(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     public List<User> getUsers() {

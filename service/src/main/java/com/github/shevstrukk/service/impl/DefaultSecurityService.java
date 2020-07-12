@@ -5,12 +5,17 @@ import com.github.shevstrukk.model.AuthUser;
 import com.github.shevstrukk.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Transactional
 public class DefaultSecurityService implements SecurityService {
 
-    @Autowired
+
     private AuthUserDao authUserDao;
+
+    public DefaultSecurityService(AuthUserDao authUserDao) {
+        this.authUserDao = authUserDao;
+    }
 
     public AuthUser getByLogin(String login, String password) {
         AuthUser user = authUserDao.getByLogin(login);

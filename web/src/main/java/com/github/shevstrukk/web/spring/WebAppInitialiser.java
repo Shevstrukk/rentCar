@@ -1,5 +1,7 @@
 package com.github.shevstrukk.web.spring;
 
+import com.github.shevstrukk.dao.config.DaoConfig;
+import com.github.shevstrukk.service.config.ServiceConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebAppInitialiser extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -10,7 +12,7 @@ public class WebAppInitialiser extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{WebConfig.class};
+        return new Class[]{WebConfig.class, ServiceConfig.class, DaoConfig.class};
     }
 
     @Override

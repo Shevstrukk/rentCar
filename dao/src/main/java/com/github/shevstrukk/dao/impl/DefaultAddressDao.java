@@ -1,26 +1,27 @@
 package com.github.shevstrukk.dao.impl;
 
 import com.github.shevstrukk.dao.AddressDao;
-import com.github.shevstrukk.dao.HibernateUtil;
+
 import com.github.shevstrukk.dao.converter.AddressConverter;
 import com.github.shevstrukk.dao.entity.AddressEntity;
 import com.github.shevstrukk.model.Address;
 import org.hibernate.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
+import org.hibernate.SessionFactory;
 
-@Repository
+
+
 public class DefaultAddressDao implements AddressDao {
+    private final SessionFactory factory;
+
+    public DefaultAddressDao(SessionFactory factory) {
+        this.factory = factory;
+    }
 
     @Override
     public Address saveAddress(Address address) {
         AddressEntity addressEntity = AddressConverter.toEntity(address);
-        Session session = HibernateUtil.getSession();
-        session.beginTransaction();
+       final Session session = factory.getCurrentSession();
         session.save(addressEntity);
-        session.getTransaction().commit();
-        session.close();
         return AddressConverter.fromEntity(addressEntity);
     }
 }
