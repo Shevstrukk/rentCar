@@ -5,11 +5,39 @@
                   timeToIdleSeconds="120"
                   timeToLiveSeconds="200"
                   memoryStoreEvictionPolicy="LRU"/>
-    <cache name="com.github.Shevstrukk.dao.entity.AuthUserEntity"
+    <cache name="com.github.shevstrukk.dao.entity.AuthUserEntity"
            maxEntriesLocalHeap="20"
            eternal="true">
     </cache>
-    <cache name="com.github.Shevstrukk.dao.entity.OrderEntity"
+    <cache name="com.github.shevstrukk.dao.entity.UserEntity"
+           maxEntriesLocalHeap="20"
+           eternal="false"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="600">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+    <cache name="com.github.shevstrukk.dao.entity.RentalPeriodEntity"
+           maxEntriesLocalHeap="20"
+           eternal="false"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="600">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+    <cache name="com.github.shevstrukk.dao.entity.OrderEntity"
+           maxEntriesLocalHeap="20"
+           eternal="false"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="600">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+    <cache name="com.github.shevstrukk.dao.entity.CarEntity"
+           maxEntriesLocalHeap="20"
+           eternal="false"
+           timeToIdleSeconds="300"
+           timeToLiveSeconds="600">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+    <cache name="com.github.shevstrukk.dao.entity.AddressEntity"
            maxEntriesLocalHeap="20"
            eternal="false"
            timeToIdleSeconds="300"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="INFO">
     <Appenders>
-        <RollingFile name="fileLogger" fileName="../logs/ita.log" filePattern="../logs/ita-%d{yyyy-MM-dd}.log">
+        <RollingFile name="fileLogger" fileName="../logs/shev.log" filePattern="../logs/shev-%d{yyyy-MM-dd}.log">
             <PatternLayout>
                 <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
             </PatternLayout>
@@ -15,7 +15,7 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="com.github.sergio5990" level="debug" additivity="true">
+        <Logger name="com.github.shevstrukk" level="debug" additivity="true">
             <appender-ref ref="fileLogger" level="debug" />
         </Logger>
         <Logger name="org.springframework" level="debug" additivity="true">
