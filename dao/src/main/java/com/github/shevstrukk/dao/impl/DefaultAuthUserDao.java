@@ -32,8 +32,8 @@ public class DefaultAuthUserDao implements AuthUserDao {
                 .getSingleResult();
 
         } catch ( NoResultException e) {
-        log.info("user not found by login{}", login);
-        authUserEntity = null;
+            log.info("user not found by login{}", login);
+            authUserEntity = null;
         }
         return AuthUserConverter.fromEntityAuth(authUserEntity);
     }

@@ -20,7 +20,7 @@ public class RentalPeriodEntity {
     @JoinColumn(name = "car_id")
 //    @ManyToOne(optional=false, cascade=CascadeType.ALL)
 //    @JoinColumn(name = "car_id")
-    CarEntity car;
+            CarEntity car;
 
     public RentalPeriodEntity() {}
 

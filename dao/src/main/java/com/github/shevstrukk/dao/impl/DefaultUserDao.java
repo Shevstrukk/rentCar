@@ -26,14 +26,14 @@ public class DefaultUserDao implements UserDAO {
     @Override
     public List<User> getUsers() {
         final List<UserEntity> userEntity = factory.getCurrentSession().createQuery("from UserEntity ORDER BY id ASC").list();
-             return userEntity.stream().
-                     map(UserConverter::fromEntity).collect(Collectors.toList());
+        return userEntity.stream().
+                map(UserConverter::fromEntity).collect(Collectors.toList());
     }
 
     @Override
     public User save(User user) {//не изменять админ регистрирует
         UserEntity userEntity = UserConverter.toEntity(user);
-       final Session session = factory.getCurrentSession();
+        final Session session = factory.getCurrentSession();
         session.saveOrUpdate(userEntity);
         return UserConverter.fromEntity(userEntity);
     }

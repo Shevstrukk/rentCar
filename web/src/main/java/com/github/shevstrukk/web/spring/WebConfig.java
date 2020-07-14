@@ -34,10 +34,10 @@ public class WebConfig {
             serviceConfig.userService(), serviceConfig.addressService());}
     @Bean
     public UserController userController() {return new UserController(serviceConfig.userService(),
-                    serviceConfig.securityService(), serviceConfig.addressService());}
-     @Bean
-     public OrderController orderController() {return new OrderController(serviceConfig.carsService(),
-             serviceConfig.rentalPeriodService(), serviceConfig.userService(), serviceConfig.orderService());}
+            serviceConfig.securityService(), serviceConfig.addressService());}
+    @Bean
+    public OrderController orderController() {return new OrderController(serviceConfig.carsService(),
+            serviceConfig.rentalPeriodService(), serviceConfig.userService(), serviceConfig.orderService());}
     @Bean
     public CarController carController() {return new CarController(serviceConfig.carsService());}
     @Bean

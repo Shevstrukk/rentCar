@@ -27,13 +27,13 @@ public class DefaultSecurityService implements SecurityService {
         }
         return null;
     }
-     public AuthUser isExist(String login){
+    public AuthUser isExist(String login){
         AuthUser user = authUserDao.getByLogin(login);
         if(user == null){
             return null;
         }
         return user;
-     }
+    }
 
     @Override
     public Long saveAuthUser(AuthUser user) {

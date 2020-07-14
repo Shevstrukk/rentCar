@@ -24,7 +24,7 @@ public class DefaultCarDao implements CarDao {
     @Override
     public List<Car> getListCar() {
         List<CarEntity> carEntityList;
-      final Session session = factory.getCurrentSession();
+        final Session session = factory.getCurrentSession();
         String str = "FROM CarEntity  ORDER BY id ASC";
         //String str = "FROM CarEntity e JOIN FETCH e.periods peroid";
         carEntityList = session.createQuery(str).getResultList();
@@ -32,14 +32,14 @@ public class DefaultCarDao implements CarDao {
     }
     public Car getCar(Long id){
         CarEntity carEntity=null;
-       final Session session = factory.getCurrentSession();
+        final Session session = factory.getCurrentSession();
         carEntity = session.get(CarEntity.class, id);
         return CarConverter.fromEntity(carEntity);
     }
 
     public void deleteCar(Long id){
         CarEntity carEntity;
-       final Session session = factory.getCurrentSession();
+        final Session session = factory.getCurrentSession();
         carEntity= session.get(CarEntity.class, id);
         session.delete(carEntity);
     }

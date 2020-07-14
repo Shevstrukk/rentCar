@@ -34,9 +34,9 @@ public class UserConverter {
             return null;
         }
         return new User( userEntity.getId(),
-        userEntity.getFirstName(),
-        userEntity.getLastName(),
-        userEntity.getPhone(),
+                userEntity.getFirstName(),
+                userEntity.getLastName(),
+                userEntity.getPhone(),
                 AuthUserConverter.fromEntityAuth(userEntity.getAuthUserEntity()),
                 AddressConverter.fromEntityAddress(userEntity.getAddressEntity()),
                 OrderConverter.fromListEntityOrder(userEntity.getOrderEntities()));
@@ -49,9 +49,9 @@ public class UserConverter {
                 userEntity.getFirstName(),
                 userEntity.getLastName(),
                 userEntity.getPhone(),
-           null,
-            null,
-             null        );
+                null,
+                null,
+                null        );
     }
     public static User fromAuthUserEntity(UserEntity userEntity) {
         if (userEntity == null) {

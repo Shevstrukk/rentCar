@@ -14,7 +14,7 @@ public class CarConverter {
         }
         final CarEntity carEntity = new CarEntity();
         if(car.getId()!=null){
-        carEntity.setId(car.getId());}
+            carEntity.setId(car.getId());}
         carEntity.setCarModel(car.getCarModel());
         carEntity.setCarName(car.getCarName());
         carEntity.setCarYear(car.getCarYear());
@@ -55,7 +55,7 @@ public class CarConverter {
                 carEntity.getPriceDay(),
                 carEntity.getComment(),
                 RentalPeriodConvertet.fromRentalPeriodListEntity(carEntity.getPeriods()),
-               null
+                null
         );
     }
     public static Car fromEntityGetOrder(CarEntity carEntity){
@@ -72,7 +72,7 @@ public class CarConverter {
                 carEntity.getPriceDay(),
                 carEntity.getComment(),
                 RentalPeriodConvertet.fromRentalPeriodListEntity(carEntity.getPeriods()),
-              null
+                null
         );
     }
     public static Car fromEntityRental(CarEntity carEntity){
@@ -88,7 +88,7 @@ public class CarConverter {
                 carEntity.getCarFuel(),
                 carEntity.getPriceDay(),
                 carEntity.getComment(),
-               null,
+                null,
                 null
         );
     }
@@ -123,7 +123,7 @@ public class CarConverter {
                 carEntity.getCarFuel(),
                 carEntity.getPriceDay(),
                 carEntity.getComment(),
-               null,
+                null,
                 null   );
     }
 }

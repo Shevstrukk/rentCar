@@ -12,7 +12,7 @@ import java.util.List;
 @Transactional
 public class DefaultUserService implements UserService {
 
-private final UserDAO userDAO;
+    private final UserDAO userDAO;
 
     public DefaultUserService(UserDAO userDAO) {
         this.userDAO = userDAO;

@@ -20,7 +20,7 @@ public class DefaultAddressDao implements AddressDao {
     @Override
     public Address saveAddress(Address address) {
         AddressEntity addressEntity = AddressConverter.toEntity(address);
-       final Session session = factory.getCurrentSession();
+        final Session session = factory.getCurrentSession();
         session.save(addressEntity);
         return AddressConverter.fromEntity(addressEntity);
     }

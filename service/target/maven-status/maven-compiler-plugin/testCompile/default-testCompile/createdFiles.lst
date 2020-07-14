@@ -1,2 +1,6 @@
 com\github\shevstrukk\service\impl\DefaultSecurityServiceTest.class
+com\github\shevstrukk\service\impl\DefaultCarsServiceTest.class
 com\github\shevstrukk\service\impl\DefaultUserServiceTest.class
+com\github\shevstrukk\service\impl\DefaultOrderServiceTest.class
+com\github\shevstrukk\service\impl\DefaultRentalPeriodServiceTest.class
+com\github\shevstrukk\service\impl\DefaultAddressServiceTest.class
