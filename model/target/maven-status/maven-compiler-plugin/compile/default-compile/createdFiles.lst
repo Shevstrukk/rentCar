@@ -1,0 +1,7 @@
+com\github\shevstrukk\model\Role.class
+com\github\shevstrukk\model\User.class
+com\github\shevstrukk\model\Order.class
+com\github\shevstrukk\model\Address.class
+com\github\shevstrukk\model\RentalPeriod.class
+com\github\shevstrukk\model\AuthUser.class
+com\github\shevstrukk\model\Car.class
