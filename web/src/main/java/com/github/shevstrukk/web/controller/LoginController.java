@@ -27,7 +27,8 @@ public class LoginController {
     public String doGet(HttpServletRequest req)  {
        Object auth = req.getSession().getAttribute("authUser");
        if(auth == null){
-           return "/WEB-INF/view/page/login";
+           return "login";
+          // return "/WEB-INF/view/page/login";
        }
         return "redirect:/user";
     }
@@ -39,7 +40,8 @@ public class LoginController {
         AuthUser authUser = security.getByLogin(login, password);
         if (authUser == null) {
             req.setAttribute("error", "login or password invalid");
-            return "/page/login";
+            return "login";
+           // return "/page/login";
         }else {
             log.info("user {} logged", authUser.getLogin());
             req.getSession().setAttribute("authUser", authUser);

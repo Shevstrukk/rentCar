@@ -1,11 +1,8 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>addCar</title>
-
-</head>
-<body>
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:sec="http://www.springframework.org/security/tags"
+          version="2.0">
 
 <a href="${pageContext.request.contextPath}/logout">logout</a>
 
@@ -37,13 +34,12 @@
 
         </table>
     </form>
-    <a href="<c:url value="/getCar"/>">Выбрать машину</a>
+    <a href="${pageContext.request.contextPath}/getCar">Выбрать машину</a>
 
 
 </c:if>
-<br>
-<a href="<c:url value="/logout"/>">Выйти</a>
+    <br></br>
+<a href="${pageContext.request.contextPath}/logout">logout</a>
 
-</body>
-</html>
+</jsp:root>
 

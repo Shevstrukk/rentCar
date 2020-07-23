@@ -40,13 +40,15 @@ public class UserController {
         if(authUser.getRole()== Role.ADMIN){
             List<User> users = userService.getUsers();
             model.addAttribute("users", users);
-           // WebUtils.forward("user_menu", req, resp);
-            return "WEB-INF/view/page/user_menu";
+            return "user_menu";
+            //return "WEB-INF/view/page/user_menu";
         }else {
-            User user = authUser.getUser();
+            User userSession = authUser.getUser();
+            Long id =userSession.getId();
+            User user = userService.getUserById(id);
             model.addAttribute("user", user);
-          //  WebUtils.forward("user_menu", req, resp);
-            return "WEB-INF/view/page/user_menu";
+            //return "WEB-INF/view/page/user_menu";
+            return "user_menu";
         }
     }
 
@@ -65,9 +67,45 @@ public class UserController {
         Address address = addressService.saveAddress(new Address(null, country, city, street,home, number, null));
         User user = userService.save(new User(null, firstName, lastName, phone, null, address, null));
         Long authUserId = securityService.saveAuthUser(new AuthUser(null,login, password, Role.USER, user));
-
         log.info("user created:{} at {}", user, LocalDateTime.now());
         return "redirect:/user";
+    }
+    @PostMapping("/deleteUser")
+    public String deleteUser(HttpServletRequest request){
+        Long id = Long.valueOf(request.getParameter("id"));
+        userService.deleteUser(id);
+        return "redirect:/user";
+    }
+    @PostMapping("/updateUser")
+    public String updateUser(HttpServletRequest request, Model model){
+        Long id = Long.valueOf(request.getParameter("id"));
+        User user=userService.getUserById(id);
+        model.addAttribute("user", user);
+        //return "WEB-INF/view/page/user/userUpdate";
+        return "userUpdate";
+    }
+    @PostMapping("/update")
+    public String update(HttpServletRequest request){
+        Long id = Long.valueOf(request.getParameter("id"));
+        Long addressId = Long.valueOf(request.getParameter("addressId"));
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String phone = request.getParameter("phone");
+        String country = request.getParameter("country");
+        String city = request.getParameter("city");
+        String street = request.getParameter("street");
+        int home = Integer.valueOf(request.getParameter("home"));
+        int number = Integer.valueOf(request.getParameter("number"));
+        User user=userService.getUserById(id);
+        Address address = addressService.updateAddress(new Address(addressId, country, city, street, home, number, user));
+        User userUpdate = new User(id, firstName, lastName, phone, null, address, null);
+        User update =userService.update(userUpdate);
+        return "redirect:/user";
+    }
+    @GetMapping("/addUser")
+    public String addUser(HttpServletRequest request){
+        return "addUser";
+        //return "WEB-INF/view/page/user/addUser";
     }
 
 }

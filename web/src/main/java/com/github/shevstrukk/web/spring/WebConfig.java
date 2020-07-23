@@ -41,9 +41,16 @@ public class WebConfig {
     @Bean
     public CarController carController() {return new CarController(serviceConfig.carsService());}
     @Bean
-    public ViewResolver viewResolver(){
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setSuffix(".jsp");
+    public UrlBasedViewResolver tilesViewResolver(){
+        UrlBasedViewResolver resolver = new UrlBasedViewResolver();
+        resolver.setViewClass(TilesView.class);
         return resolver;
+    }
+
+    @Bean
+    public TilesConfigurer tilesConfigurer(){
+        final TilesConfigurer tilesConfigurer = new TilesConfigurer();
+        tilesConfigurer.setDefinitions("/WEB-INF/tiles.xml");
+        return tilesConfigurer;
     }
 }

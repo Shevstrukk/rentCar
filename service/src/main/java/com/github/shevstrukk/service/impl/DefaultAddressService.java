@@ -20,4 +20,8 @@ public class DefaultAddressService implements AddressService {
     public  Address saveAddress(Address address){
      return    addressDao.saveAddress(address);
     }
+    @Transactional
+    public  Address updateAddress(Address address){
+        return    addressDao.updateAddress(address);
+    }
 }

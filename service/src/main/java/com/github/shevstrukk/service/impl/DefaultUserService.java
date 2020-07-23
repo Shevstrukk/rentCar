@@ -35,4 +35,10 @@ private final UserDAO userDAO;
     public User getUserById(Long id) {
         return userDAO.getUserById(id);
     }
+    @Override
+    public void deleteUser(Long id) {  userDAO.deleteUser(id);}
+    @Override
+    public User update(User user){
+        return userDAO.update(user);
+    }
 }

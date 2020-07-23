@@ -53,5 +53,21 @@ public class DefaultUserDao implements UserDAO {
         userEntity = session.get(UserEntity.class, id);
         return UserConverter.fromEntity(userEntity);
     }
+    @Override
+    public void deleteUser(Long id){
+        final Session session = factory.getCurrentSession();
+        UserEntity user = session.get(UserEntity.class, id);
+        session.delete(user);
+    }
+    @Override
+    public User update(User user) {
+        final Session session = factory.getCurrentSession();
+        UserEntity userEntity = session.get(UserEntity.class, user.getId());
+        userEntity.setFirstName(user.getFirstName());
+        userEntity.setLastName(user.getLastName());
+        userEntity.setPhone(user.getPhone());
+        session.saveOrUpdate(userEntity);
+        return UserConverter.fromEntity(userEntity);
+    }
 
 }

@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
-<head>
-    <title>carEntityList</title>
-</head>
-<body>
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+
+          xmlns:sec="http://www.springframework.org/security/tags"
+          version="2.0">
+
 <c:if test="${authUser.role == 'ADMIN'}">
     <a href="${pageContext.request.contextPath}/addCar">Добавить машину</a>
 </c:if>
@@ -21,8 +20,6 @@
             <th>вид топлива</th>
             <th>стоимость $ в сутки</th>
             <th>Комментарий</th>
-
-
         </tr>
         <c:forEach var="carEntities" items="${carEntityList}">
             <tr>
@@ -34,7 +31,7 @@
                 <td><c:out value="${carEntities.carFuel}" /></td>
                 <td><c:out value="${carEntities.priceDay}" /></td>
                 <td><c:out value="${carEntities.comment}" /></td>
-                <form method="post" action="/getOrder">
+                <form method="post" action="${pageContext.request.contextPath}/getOrder">
                 <td>
                     <label for="localdate">арендовать с: </label>
                     <input type="datetime-local" id="localdate" name="dateStart"/>
@@ -45,20 +42,20 @@
                 </td>
 
                     <td>
-                        <input type="number" hidden name="carId" value="${carEntities.id}" />
+                        <input type="number" hidden="hidden" name="carId" value="${carEntities.id}" />
                         <input type="submit" value="Заказать машину"/>
                     </td>
                 </form>
                 <c:if test="${authUser.role == 'ADMIN'}">
                 <td>
                     <form method="post" action="/deleteCar">
-                        <input type="number" hidden name="id" value="${carEntities.id}" />
-                        <input type="submit" name="id" value="Удалить"/>
+                        <input type="number" hidden="hidden" name="id" value="${carEntities.id}" />
+                        <input type="submit"  value="Удалить"/>
                     </form>
                 </td>
                     <td>
                         <form method="post" action="/updateCar">
-                            <input type="number" hidden name="id" value="${carEntities.id}" />
+                            <input type="number" hidden="hidden" name="id" value="${carEntities.id}" />
                             <input type="submit" name="id" value="Обновить"/>
                         </form>
                     </td>
@@ -68,7 +65,5 @@
         </c:forEach>
     </table>
 </div>
-<br>
-<a href="${pageContext.request.contextPath}/logout">logout</a>
-</body>
-</html>
+    <a href="${pageContext.request.contextPath}/logout">logout</a>
+</jsp:root>

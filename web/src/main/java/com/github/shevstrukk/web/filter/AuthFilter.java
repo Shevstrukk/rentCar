@@ -1,7 +1,5 @@
 package com.github.shevstrukk.web.filter;
 
-import com.github.shevstrukk.web.WebUtils;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +18,9 @@ public class AuthFilter implements Filter {
         HttpServletRequest request1 = (HttpServletRequest)request;
         Object auth = request1.getSession().getAttribute("authUser");
         if (auth==null){
-            WebUtils.forward("view/page/login",request1, (HttpServletResponse)response);
+           // WebUtils.forward("view/page/login",request1, (HttpServletResponse)response);
+            HttpServletResponse rs = (HttpServletResponse) response;
+            rs.sendRedirect(request1.getContextPath() + "view/page/login");
         }
         chain.doFilter(request1, response);
     }

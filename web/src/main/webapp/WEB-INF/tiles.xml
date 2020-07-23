@@ -12,9 +12,27 @@
     <definition name="login" extends="default">
         <put-attribute name="body" value="/WEB-INF/view/page/login.jspx"/>
     </definition>
+    <definition name="registration" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/registration.jspx"/>
+    </definition>
 
     <definition name="user_menu" extends="default">
         <put-attribute name="body" value="/WEB-INF/view/page/user_menu.jspx"/>
+    </definition>
+    <definition name="addCar" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/car/addCar.jspx"/>
+    </definition>
+    <definition name="carList" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/car/carList.jspx"/>
+    </definition>
+    <definition name="carUpdate" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/car/carUpdate.jspx"/>
+    </definition>
+    <definition name="addUser" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/user/addUser.jspx"/>
+    </definition>
+    <definition name="userUpdate" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/user/userUpdate.jspx"/>
     </definition>
 
 </tiles-definitions>

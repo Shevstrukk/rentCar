@@ -20,4 +20,9 @@ public class DefaultOrderService implements OrderService {
     public Order save(Order order, Long carId) {
         return orderDao.saveOrUpdate(order, carId);
     }
+
+    @Override
+    public void deleteOrder(Long id) {
+        orderDao.deleteOrder(id);
+    }
 }

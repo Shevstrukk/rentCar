@@ -33,7 +33,8 @@ public class RegistrationController {
 
     @GetMapping("/registration")
     public String doGet()  {
-        return "WEB-INF/view/page/registration";
+        return "registration";
+       // return "WEB-INF/view/page/registration";
     }
 
     @PostMapping("/registration")
@@ -51,7 +52,8 @@ public class RegistrationController {
         AuthUser authUser = security.isExist(login);
         if (authUser != null) {
             req.setAttribute("error", "login is Exist");
-            return "WEB-INF/view/page/registration";
+            //return "WEB-INF/view/page/registration";
+            return "login";
         } else {
             Address address = addressService.saveAddress(new Address(null, country, city, street, home, number, null));
             User user = userService.save(new User(null, firstName, lastName, phone, null, address, null));

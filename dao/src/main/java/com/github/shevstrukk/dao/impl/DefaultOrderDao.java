@@ -31,4 +31,11 @@ public class DefaultOrderDao implements OrderDao {
         session.saveOrUpdate(orderEntity);
         return OrderConverter.fromEntityCreateOrder(orderEntity);
     }
+
+    @Override
+    public void deleteOrder(Long id) {
+        final Session session = factory.getCurrentSession();
+        OrderEntity orderEntity = session.get(OrderEntity.class, id);
+        session.delete(orderEntity);
+    }
 }

@@ -23,6 +23,7 @@ public class LogoutController {
     public String doGet(HttpSession session) {
         session.removeAttribute("authUser");
         session.invalidate();
-        return "WEB-INF/view/page/login";
+       // return "WEB-INF/view/page/login";
+        return "login";
     }
 }

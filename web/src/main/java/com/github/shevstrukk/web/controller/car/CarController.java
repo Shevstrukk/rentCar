@@ -29,7 +29,8 @@ public class CarController {
     public String getCar(HttpServletRequest req, Model model)  {
         List<Car> carList = carsService.getCars();
         model.addAttribute("carEntityList", carList);
-        return "WEB-INF/view/page/car/carList";
+        return "carList";
+        //return "WEB-INF/view/page/car/carList";
     }
 
     @PostMapping("/getCar")
@@ -48,8 +49,8 @@ public class CarController {
     public String deleteCardoGet(HttpServletRequest req, Model model)  {
         List<Car> carList = carsService.getCars();
         model.addAttribute("carEntityList", carList);
-        return "WEB-INF/view/page/car/carList";
-        //WebUtils.forward("view/car/carList",req, resp);
+       // return "WEB-INF/view/page/car/carList";
+        return "carList";
     }
 
     @PostMapping("/deleteCar")
@@ -60,8 +61,8 @@ public class CarController {
     }
     @GetMapping("/updateCar")
     public String updateCar(HttpServletRequest req)  {
-       // WebUtils.forward("view/car/carUpdate", req,resp);
-        return "WEB-INF/view/page/car/carUpdate";
+        return "carUpdate";
+        //return "WEB-INF/view/page/car/carUpdate";
     }
     @PostMapping("/saveUpdateCar")
     public String saveUpdateCardoPost(HttpServletRequest req, Model model ) {
@@ -83,11 +84,13 @@ public class CarController {
         Long id = Long.valueOf(req.getParameter("id"));
         Car car = carsService.getCar(id);
         model.addAttribute("car", car);
-       return  "WEB-INF/view/page/car/carUpdate";
+      // return  "WEB-INF/view/page/car/carUpdate";
+       return "carUpdate";
     }
     @GetMapping("/addCar")
     public String doGet() {
-        return "WEB-INF/view/page/car/addCar";
+        return "addCar";
+       // return "WEB-INF/view/page/car/addCar";
     }
 
     @PostMapping("/addCar")

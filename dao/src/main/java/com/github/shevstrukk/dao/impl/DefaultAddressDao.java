@@ -24,4 +24,17 @@ public class DefaultAddressDao implements AddressDao {
         session.save(addressEntity);
         return AddressConverter.fromEntity(addressEntity);
     }
+    @Override
+    public Address updateAddress(Address address) {
+       // AddressEntity addressEntity = AddressConverter.toEntity(address);
+        final Session session = factory.getCurrentSession();
+        AddressEntity addressEntity = session.get(AddressEntity.class, address.getId());
+        addressEntity.setCountry(address.getCountry());
+        addressEntity.setCity(address.getCity());
+        addressEntity.setStreet(address.getStreet());
+        addressEntity.setHome(address.getHome());
+        addressEntity.setNumber(address.getNumber());
+        session.saveOrUpdate(addressEntity);
+        return AddressConverter.fromEntity(addressEntity);
+    }
 }

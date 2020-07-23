@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +23,13 @@ import java.util.List;
 @RequestMapping
 @Controller
 public class OrderController {
-  //  @Autowired
+
     CarsService service;
- //   @Autowired
+
     RentalPeriodService periodService;
-  //  @Autowired
+
     UserService userService;
- //   @Autowired
+
     OrderService orderService;
 
     public OrderController(CarsService service, RentalPeriodService periodService, UserService userService, OrderService orderService) {
@@ -43,8 +45,8 @@ public class OrderController {
         Long idUser = authUser.getUser().getId();
         User user = userService.getUserById(idUser);
         model.addAttribute("user", user);
-       // WebUtils.forward("user_menu", req, resp);
-        return "WEB-INF/view/page/user_menu";
+       return "user_menu";
+        //return "WEB-INF/view/page/user_menu";
     }
 
     @PostMapping("/getOrder")
@@ -57,12 +59,22 @@ public class OrderController {
         String dateEnd = req.getParameter("dateEnd");
         java.time.LocalDateTime start = LocalDateTime.parse(dateStart);
         java.time.LocalDateTime end = LocalDateTime.parse(dateEnd);
+        Duration duration = Duration.between(start, end);
+        int diff =(int)Math.abs(duration.toHours());
         RentalPeriod rentalPeriod = periodService.save(new RentalPeriod( null,start, end), carId);
         User user = authUser.getUser();
-        int priceSum = car.getPriceDay()*5;
+        int priceSum = car.getPriceDay()*diff;
          List cars = new ArrayList();
-         Order orderDB = orderService.save(new Order( null, 5, priceSum, LocalDateTime.now(), user, cars), carId);
+
+         Order orderDB = orderService.save(new Order( null, diff, priceSum, LocalDateTime.now(), user, cars), carId);
          return "redirect:/getOrder";
+
+    }
+    @PostMapping("/deleteOrder")
+    public String deleteOrder(HttpServletRequest req)  {
+        Long orderId = Long.valueOf(req.getParameter("orderId"));
+        orderService.deleteOrder(orderId);
+        return "redirect:/user";
 
     }
 }
